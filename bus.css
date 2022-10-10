@@ -1,0 +1,40 @@
+
+*{
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  /* base.html css below */
+  .nav_wrapper{
+    display: flex;
+    justify-content:end;
+  }
+  
+  .heading{
+    text-align: center;
+    justify-content: space-evenly;
+    width: 70%;
+  }
+  
+  .heading_contents{
+    display: flex;
+    justify-content: center;
+  }
+  .heading_content_one{
+    padding: 9px;
+    font-size: 1.3em;
+  }
+  .heading_content_two{
+    padding: 29px 0 0 2px;
+    font-size: 0.9em;
+  } 
+  
+  
+  #nav{
+    padding: 20px;
+    height: auto;
+    width: 30%;
+    
+  }
+  

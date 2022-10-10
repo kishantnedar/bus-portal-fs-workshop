@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Posts {% endblock %}
+
+{% block content %}
+  
+  <div class="container">
+    <h1>POSTS</h1>
+    <br>
+    {% for post in posts %}
+    <div class="card w-50 my-2">
+      <div class="card-body">
+        <h4 class="card-title">{{ post['title'] }}</h4>
+        <p class="card-text">{{ post['content'] }}</p>
+        {% if user == True %}
+          <a href = "/delete/{{post['id']}}" class="card-link">Delete</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+{% endblock %}
