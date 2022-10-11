@@ -4,19 +4,72 @@
 
 {% block content %}
   
-  <div class="container">
-    <h1>POSTS</h1>
-    <br>
-    {% for post in posts %}
-    <div class="card w-50 my-2">
-      <div class="card-body">
-        <h4 class="card-title">{{ post['title'] }}</h4>
-        <p class="card-text">{{ post['content'] }}</p>
-        {% if user == True %}
-          <a href = "/delete/{{post['id']}}" class="card-link">Delete</a>
-        {% endif %}
-      </div>
+<div class="main_div" >
+
+  <form class="Main-input" action="input">
+    
+    <div class = "form_elements">
+      <li class="homePageForm">
+        <p class="headings">🏠From:</p>
+        <input class="inputs" name="from" type="text" id="livebox" >
+        <p id = "datalist"></p>
+       
+    </li>
+      <li class="homePageForm">
+        <p class="headings">🚌To:<p>
+      <input class="inputs rogue" name="to" type="text">
+      </li>
+      <li class="homePageForm">
+        <p class="headings">🗓️Date:</p>
+        <input class="inputs" type="datetime-local">
+      </li>
+      <li class="homePageForm">
+        <button class="button">🔍</button>
+      </li>
+     
     </div>
-  {% endfor %}
-  </div>
+   
+  </form>
+</div>
+<footer class="container-fluid footer">
+<h3>© UseBusesInc.</h3>
+</footer>
+<script>
+  $(document).ready(function(){
+      $("#livebox").on("input",function(e){
+          $("#datalist").empty();
+          $.ajax({
+              method:"post",
+              url:"/livesearch",
+              data:{text:$("#livebox").val()},
+              success:function(res){
+                  var data = "<ul>";
+                  $.each(res,function(index,value){
+                      data += "<li>"+value.word_eng+"</li>";
+                  });
+                  data += "</ul>";
+                  $("#datalist").html(data);
+              }
+          });
+      });
+  });
+</script>
+<!-- <script>
+  function myFunction() {
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      li = ul.getElementsByTagName("li");
+      for (i = 0; i < li.length; i++) {
+          a = li[i].getElementsByTagName("a")[0];
+          txtValue = a.textContent || a.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              li[i].style.display = "";
+          } else {
+              li[i].style.display = "none";
+          }
+      }
+  }
+  </script> -->
 {% endblock %}

@@ -8,6 +8,8 @@
   width: 14rem;
 }
 
+
+
 *{
     margin: 0;
     padding: 0;
@@ -25,14 +27,14 @@
     padding: 10px;
     display: flex;
   }
-  .bg-light{
-    background-color: #0039a6;
+  .bg-blue{
+    background-color: #87CEEB;
   }
 
   .container-fluid{
     color: #0039a6;
     padding: 10px;
-    margin: 0;
+    height: 100%;
     background-color:#87CEEB;
     height: 60px;
   }
