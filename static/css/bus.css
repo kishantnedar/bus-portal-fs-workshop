@@ -3,38 +3,111 @@
     margin: 0;
     padding: 0;
   }
-  
-  
-  /* base.html css below */
-  .nav_wrapper{
+  .main-title{
+    padding: 10px;
+  }
+  .empty{
+    width:900px;
+  }
+  .links{
     display: flex;
-    justify-content:end;
+  }
+  .links2{
+    padding: 10px;
+    display: flex;
+  }
+  .bg-light{
+    background-color: #0039a6;
+  }
+
+  .container-fluid{
+    color: #0039a6;
+    padding: 10px;
+    margin: 0;
+    background-color:#87CEEB;
+    height: 60px;
   }
   
-  .heading{
+  .form_elements{
     text-align: center;
-    justify-content: space-evenly;
-    width: 70%;
-  }
-  
-  .heading_contents{
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content:center;
+    padding: 10px;
   }
-  .heading_content_one{
-    padding: 9px;
-    font-size: 1.3em;
+
+  .homePageForm{
+
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
   }
-  .heading_content_two{
-    padding: 29px 0 0 2px;
-    font-size: 0.9em;
-  } 
-  
-  
-  #nav{
-    padding: 20px;
-    height: auto;
-    width: 30%;
-    
+
+  .main_div{
+    height: 650px;
+    text-align: center;
+    align-items: center;
+    padding: 30px 0 30px 0;
+    background: url('volvo.jpg');
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-size: 100% 100%;
   }
-  
+  .headings{
+    color: #E0FFFF;
+    font-size: 25px;
+    font-family:'Poppins', sans-serif;
+    padding: 5px 3px 5px 3px;
+    margin: 7px;
+   
+  }
+
+  .rogue{
+    margin-top: 17px;
+  }
+
+ .form_elements{
+  border-radius: 50px;
+  margin: 100px 20px 0 20px;
+  background-color: #0039a6;
+
+}
+
+  .inputs{
+    outline: aqua ;
+    border:blue;
+    border-radius: 10px;
+    padding: 7px;
+  }
+
+  input[type=text], textarea {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    border: 1px solid #DDDDDD;
+  }
+   
+  input[type=text]:focus, textarea:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+  }
+
+
+  .button{
+    color:  #E0FFFF;
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 5px;
+    border-color: #99FFFF;
+    border-width: 5px;
+  }
+
+  .footer{
+    padding: 10px;
+    text-align: center;
+  }
