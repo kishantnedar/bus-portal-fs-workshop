@@ -1,6 +1,11 @@
 /* Seat Booking */
 #bus-outline {
-  margin-top: 10rem;
+  background-color: mistyrose;
+  text-align: center;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  width: 14rem;
 }
 
 /* /Seat Booking */
