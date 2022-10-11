@@ -6,12 +6,11 @@ app.secret_key = os.urandom(24)
 
 @app.route('/')
 def index():
-    return render_template('seat_booking.html')
+    return render_template('index.html')
 
-@app.route('/get/data')
-def get_data():
-    seat = [3, 6, 8]
-    return render_template('seat_booking.html', seat = seat)
+@app.route('/seat/book')
+def seat_book():
+    return render_template('seat_booking.html')
 
 if __name__ == '__main__':
   port = int(os.environ.get('PORT', 5007))
