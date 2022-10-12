@@ -1,44 +1,37 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %} Index {% endblock %} 
+{% block content %} {% include 'navbar.html' %}
 
-{% block title %} Posts {% endblock %}
-
-{% block content %}
-  
-<div class="main_div" >
-
+<div class="main_div">
   <form class="Main-input" action="input">
-    
-    <div class = "form_elements">
+    <div class="form_elements">
       <li class="homePageForm">
         <p class="headings">🏠From:</p>
-        <div class="dropdown">
-          <input class="inputs" name="from" type="text" id="livebox" >
-          <p id = "datalist"></p>
-        </div>
-        
+        <input class="inputs" name="from" type="text" id="livebox" >
+        <p id = "datalist"></p>
        
     </li>
       <li class="homePageForm">
-        <p class="headings">🚌To:<p>
-      <input class="inputs rogue" name="to" type="text">
+        <p class="headings">🚌To:</p>
+        <p>
+          <input class="inputs rogue" name="to" type="text" />
+        </p>
       </li>
+
       <li class="homePageForm">
         <p class="headings">🗓️Date:</p>
-        <input class="inputs" type="datetime-local">
+        <input class="inputs" type="datetime-local" />
       </li>
       <li class="homePageForm">
         <button class="button">🔍</button>
       </li>
-     
     </div>
-   
   </form>
 </div>
 <footer class="container-fluid footer">
-<h3>© UseBusesInc.</h3>
+  <h3>© UseBusesInc.</h3>
 </footer>
 <script>
-  $(document).ready(function(){
+   $(document).ready(function(){
       $("#livebox").on("input",function(e){
           // $("#datalist").empty();
           console.log($("#livebox").val());
