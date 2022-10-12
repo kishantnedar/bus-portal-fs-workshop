@@ -1,11 +1,11 @@
-{% extends 'base.html' %} {% block title %} Admin Portal {% endblock %}
+{% extends 'base.html' %} {% block title %} Add Bus {% endblock %}
 {% block content %}
 
-<div class="container my-5">
-  <h1 class="text-center">Welcome to Admin Portal</h1>
+<div class="container">
+  <h1 class="text-center py-2">Add a bus</h1>
 
-  <div class="container mt-5 shadow p-4 mb-4 bg-white">
-    <form action="/save/bus-deatils" method="post">
+  <div class="container shadow p-4 mb-4 bg-white">
+    <form action="/admin/add/bus" method="post">
       <div class="mb-3 mt-3">
         <label for="bus_name" class="form-label">Bus Name:</label>
         <input
