@@ -31,6 +31,11 @@
     background-color: #87CEEB;
   }
 
+  .dropdown{
+    display: flex;
+    flex-direction: column;
+  }
+
   .container-fluid{
     color: #0039a6;
     padding: 10px;

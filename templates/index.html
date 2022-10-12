@@ -11,8 +11,11 @@
     <div class = "form_elements">
       <li class="homePageForm">
         <p class="headings">🏠From:</p>
-        <input class="inputs" name="from" type="text" id="livebox" >
-        <p id = "datalist"></p>
+        <div class="dropdown">
+          <input class="inputs" name="from" type="text" id="livebox" >
+          <p id = "datalist"></p>
+        </div>
+        
        
     </li>
       <li class="homePageForm">
@@ -37,17 +40,20 @@
 <script>
   $(document).ready(function(){
       $("#livebox").on("input",function(e){
-          $("#datalist").empty();
+          // $("#datalist").empty();
+          console.log($("#livebox").val());
           $.ajax({
               method:"post",
               url:"/livesearch",
               data:{text:$("#livebox").val()},
               success:function(res){
+                  console.log(res);
                   var data = "<ul>";
-                  $.each(res,function(index,value){
-                      data += "<li>"+value.word_eng+"</li>";
-                  });
+                  // $.each(res,function(res){
+                      data += "<li>"+res+"</li>";
+                  // });
                   data += "</ul>";
+                  console.log(data)
                   $("#datalist").html(data);
               }
           });
