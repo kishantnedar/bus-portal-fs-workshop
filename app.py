@@ -1,12 +1,15 @@
 from flask import Flask, request, render_template, redirect, url_for, render_template, jsonify
 import os
 from controllers.admin import admin
+from controllers.book import booking
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 app.register_blueprint(admin, url_prefix='/admin')
+
+app.register_blueprint(booking, url_prefix='/book')
 
 
 @app.route('/')
@@ -27,9 +30,9 @@ def livesearch():
                     return "not found"
 
 
-@app.route('/book/seat', methods=['GET', 'POST'])
-def seat_book():
-    return render_template('seat_booking.html', seat=[3, 6, 8])
+# @app.route('/book/seat', methods=['GET', 'POST'])
+# def seat_book():
+#     return render_template('seat_booking.html', seat=[3, 6, 8])
 
 # Admin Section
 
