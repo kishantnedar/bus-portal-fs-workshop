@@ -1,6 +1,7 @@
-from mongoengine import Document, StringField, IntField, DateTimeField, ReferenceField, ListField, EmbeddedDocumentField
+import uuid
 
 
-class Locations(Document):
-    meta = {'collection': 'locations'}
-    location = StringField(required=True)
+class Locations():
+    def __init__(self, location, *, _id=None):
+        self._id = _id if _id else uuid.uuid4().hex
+        self.location = location

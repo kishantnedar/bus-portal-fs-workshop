@@ -1,10 +1,12 @@
-from flask import Flask, request, render_template, redirect, url_for,render_template,jsonify
+from flask import Flask, request, render_template, redirect, url_for, render_template, jsonify
 import os
+from controllers.admin import admin
 
-from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
+app.register_blueprint(admin, url_prefix='/admin')
 
 
 @app.route('/')

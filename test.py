@@ -1,16 +1,15 @@
-from actions.admin.add_bus import add_bus
-from actions.admin.
+from actions.admin.bus import add_bus
+
 
 bus = {
-    'number': '123',
-    'name': 'Test',
+    'bus_number': '123',
+    'bus_name': 'Test',
     'seat_count': 10,
-    'start': 'Test',
-    'destination': 'Test',
-    'reg_number': 'Test',
+    'start_location': 'Test',
+    'destination_location': 'Test',
+    'bus_reg_number': 'Test',
     'normal_seat_price': 100,
     'window_seat_price': 200
 }
 
 add_bus(bus)
-get

@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block title %} Admin Index {% endblock %} {% block
+content %}
+
+<div class="container my-5">
+  <h1 class="text-center">Welcome to Admin Portal</h1>
+
+  <div class="clearfix">
+    <span class="float-end"
+      ><a href="{{ url_for('admin.add_bus') }}" class="btn btn-primary"
+        >ADD</a
+      ></span
+    >
+  </div>
+  <div class="container mt-5 shadow p-4 mb-4 bg-white">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Bus Name</th>
+          <th scope="col">Bus Number</th>
+          <th scope="col">Bus Registration Number</th>
+          <th scope="col">Normal Seat Price</th>
+          <th scope="col">Window Seat Price</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for bus in buses %}
+        <tr>
+          <td>{{ bus.bus_name }}</td>
+          <td>{{ bus._id }}</td>
+          <td>{{ bus.bus_reg_number }}</td>
+          <td>{{ bus.bus_seats.right.seat_price }}</td>
+          <td>{{ bus.bus_seats.window_right.seat_price }}</td>
+          <td>
+            <a href="{{ url_for('admin.remove_bus', bus_id=bus._id) }}"
+              ><i class="fa-solid fa-trash"></i
+            ></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
