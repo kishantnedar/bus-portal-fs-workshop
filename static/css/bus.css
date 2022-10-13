@@ -158,3 +158,56 @@
     padding: 10px;
     text-align: center;
   }
+
+  /* Available buses page styling */
+  .text-center{
+    margin-bottom: 50px;
+  }
+  .buslink{
+    text-decoration: none;
+  }
+  .wrapper{
+    margin: 10px;
+    padding: 10px 0 0 10px;
+    background-color:aliceblue;
+    border-style: solid;
+    border-width:0 5px 0 5px;
+    border-radius: 50px;
+    border-color: #0039a6;
+  }
+  .wrapper:hover {
+    background-color:#AFDBF5;
+  }
+   
+  .bus_list{
+    margin-left: 480px;
+    display: flex;
+  }
+
+  .bus_info{
+    align-items: center;
+    text-align: center; 
+   
+  }
+
+  .bus_icon_image{
+    height: 100px;
+    padding: 10px;
+  }
+  .bus_info_startfin{
+    padding: 5px;
+  }
+  .bus_info_icon{
+    text-align: center;
+  }
+  
+  .bus_info{
+    display:flex;
+    flex-direction: row;
+  }
+
+  .top_row, .bottom_row{
+    width: 100%;
+    padding: 10px;
+  }
+  
