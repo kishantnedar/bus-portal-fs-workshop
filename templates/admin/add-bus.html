@@ -23,7 +23,7 @@ content %}
           class="form-control w-50"
           id="bus_no"
           name="bus_number"
-          pattern="[0-9]{7}"
+          pattern="[0-9]{5,}"
           required
         />
       </div>
@@ -44,23 +44,23 @@ content %}
         <label class="form-label">Price:</label>
         <div class="col-3">
           <input
-            type="text"
+            type="number"
+            max="100"
             class="form-control"
             id="normal_seat_price"
             name="normal_seat_price"
             placeholder="Normal seat price"
-            pattern="[0-9]{3,5}"
             required
           />
         </div>
         <div class="col-3">
           <input
-            type="text"
+            type="number"
+            max="100"
             class="form-control"
             id="window_seat_price"
             name="window_seat_price"
             placeholder="Window seat price"
-            pattern="[0-9]{3,5}"
             required
           />
         </div>
@@ -70,11 +70,11 @@ content %}
           >No of Seats per column:</label
         >
         <input
-          type="text"
+          type="number"
+          max="10"
           class="form-control w-50"
           id="no_of_seats"
           name="seat_count"
-          pattern="[0-9]{2}"
           placeholder="Per column"
           required
         />
@@ -102,22 +102,33 @@ content %}
           />
         </div>
       </div>
-      <div class="form-group">
-        <label for="days-of-week">Bus runs</label>
-        <select
-          name="running_on"
-          multiple
-          class="form-control"
-          id="days-of-week"
-        >
-          <option value="Monday">Monday</option>
-          <option value="Tuesday">Tuesday</option>
-          <option value="Wednesday">Wednesday</option>
-          <option value="Thursday">Thursday</option>
-          <option value="Friday">Friday</option>
-          <option value="Saturday">Saturday</option>
-          <option value="Sunday">Sunday</option>
-        </select>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Monday" name="runs_on">
+        <label class="form-check-label" for="inlineCheckbox1">Monday</label>
+      </div><div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Tuesday" name="runs_on">
+        <label class="form-check-label" for="inlineCheckbox1">Tuesday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Wednesday" name="runs_on">
+        <label class="form-check-label" for="inlineCheckbox1">Wednesday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Thursday" name="runs_on">
+        <label class="form-check-label" for="inlineCheckbox1">Thursday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Friday" name="runs_on">
+        <label class="form-check-label" for="inlineCheckbox1">Friday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Saturday" name="runs_on">
+        <label class="form-check-label" for="inlineCheckbox1">Saturday</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Sunday" name="runs_on">
+        <label class="form-check-label" for="inlineCheckbox1">Sunday</label>
+      </div>
       </div>
 
       <button type="submit" class="btn btn-primary">Save</button>
