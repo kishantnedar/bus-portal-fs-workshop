@@ -13,3 +13,8 @@ def search_bus():
         return render_template('UserRequestbus.html', buses = bus_list, day = day)
 
 
+@booking.route('/seat/<int:bus_no>')
+def seat_book(bus_no):
+    print(bus_no)
+    print("hello")
+    return render_template('seat_booking.html')
