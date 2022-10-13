@@ -23,5 +23,5 @@ def get_busses():
     return [Bus(**bus).__dict__ for bus in mongo_busses_object]
 
 
-def remove_bus(bus_number):
-    MongoRepository('buses').delete({'bus_number': bus_number})
+def delete_bus(bus_number):
+    MongoRepository('buses').delete({'_id': bus_number})

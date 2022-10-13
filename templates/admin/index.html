@@ -32,7 +32,9 @@ content %}
           <td>{{ bus.bus_seats.right.seat_price }}</td>
           <td>{{ bus.bus_seats.window_right.seat_price }}</td>
           <td>
-            
+            <a href="{{ url_for('admin.remove_bus', bus_id=bus._id) }}"
+              ><i class="fa-solid fa-trash"></i
+            ></a>
           </td>
         </tr>
         {% endfor %}
