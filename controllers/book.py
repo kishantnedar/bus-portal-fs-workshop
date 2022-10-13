@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from actions.booking.booking import
 
 booking = Blueprint('book', __name__)
 
