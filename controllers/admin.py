@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from jinja2 import TemplateNotFound
-from actions.admin.bus import add_bus as add_bus_action, get_busses, delete_bus
+from actions.admin.bus import BusActions
 from pymongo.errors import DuplicateKeyError
 
 admin = Blueprint('admin', __name__)
@@ -9,7 +9,7 @@ admin = Blueprint('admin', __name__)
 @admin.route('/', methods=['GET'])
 def index():
     try:
-        return render_template('admin/index.html', buses=get_busses())
+        return render_template('admin/index.html', buses=BusActions().get_busses())
     except TemplateNotFound:
         return render_template('404.html'), 404
 
@@ -18,7 +18,7 @@ def index():
 def add_bus():
     if request.method == 'POST':
         try:
-            add_bus_action(bus=request.form)
+            BusActions().add_bus_action(bus=request.form)
         except DuplicateKeyError as e:
             flash('Bus already exists')
             return redirect(url_for('admin.add_bus'))
@@ -30,7 +30,7 @@ def add_bus():
 def remove_bus():
     bus_id = int(request.args.get('bus_id'))
     if bus_id:
-        delete_bus(bus_id)
+        BusActions().delete_bus(bus_id)
         print('bus removed')
         flash('Bus removed')
         return redirect(url_for('admin.index'))
