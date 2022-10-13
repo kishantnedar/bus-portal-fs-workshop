@@ -8,8 +8,8 @@ booking = Blueprint('book', __name__)
 def search_bus():
     if request.method == 'POST':
         bus_list = get_user_request_buses(search=request.form)
-        for bus in bus_list:
-            print(bus['bus_name'])
-        return redirect(url_for('index'))
+        date = request.form['date']
+        day = pd.Timestamp(date).day_name()
+        return render_template('UserRequestbus.html', buses = bus_list, day = day)
 
 
