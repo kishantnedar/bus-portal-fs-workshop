@@ -11,17 +11,17 @@ app.secret_key = os.urandom(24)
 def index():
     return render_template("index.html")
 
-@app.route("/livesearch",methods=["POST","GET"])
-def livesearch():
-    searchbox = request.form.get("text")
-    arr = ["bangalore", "goa", "panjim", "margao"]
-    for i in arr:
-        for x in i:
-            for y in searchbox:
-                 if x == y:
-                     return jsonify(i)
-                 else:
-                     return "not found"
+# @app.route("/livesearch",methods=["POST","GET"])
+# def livesearch():
+#     searchbox = request.form.get("text")
+#     arr = ["bangalore", "goa", "panjim", "margao"]
+#     for i in arr:
+#         for x in i:
+#             for y in searchbox:
+#                  if x == y:
+#                      return jsonify(i)
+#                  else:
+#                      return "not found"
              
             
 
@@ -55,3 +55,4 @@ def add_bus():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5007))
     app.run(debug=True, host='0.0.0.0', port=port)
+

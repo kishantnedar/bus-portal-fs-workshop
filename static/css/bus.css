@@ -80,8 +80,20 @@
   }
 
   .rogue{
-    margin-top: 17px;
+    margin-top: 15px;
   }
+
+/* dropdown on index.html */
+
+   .dropdown{
+    display: flex;
+    flex-direction: column;
+   }
+   #datalist{
+    background-color: white;
+    border: black;
+   }
+
 
  .form_elements{
   border-radius: 50px;
@@ -111,6 +123,19 @@
     border: 1px solid rgba(81, 203, 238, 1);
   }
 
+  .autocomplete-items{
+   background-color: white;
+   width: 200px;
+   position: absolute;
+   top: 50px;
+  }
+  #myInput2autocomplete-list{
+    background-color: white;
+    width: 200px;
+    position: absolute;
+    top: 100px;
+  }
+ 
 
   .button{
     color:  #E0FFFF;
