@@ -8,7 +8,7 @@ def get_user_request_buses(search):
     date = search['date']
     day = pd.Timestamp(date).day_name()
 
-    result = MongoRepository('buses').find({'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
-    print(result)
+    mongo_busses_object = MongoRepository('buses').find({'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
+    return [bus for bus in mongo_busses_object]
 
 
