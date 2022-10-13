@@ -8,7 +8,11 @@ def search_bus():
     if request.method == 'POST':
         bus_list = get_user_request_buses(search=request.form)
         for bus in bus_list:
-            print(bus['bus_name'])
+            print(bus.keys())
         return redirect(url_for('index'))
 
 
+@booking.route('/seat/<int:bus_no>')
+def seat_book(bus_no):
+    print(bus_no)
+    return render_template('seat_booking.html')

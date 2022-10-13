@@ -2,13 +2,19 @@
 #bus-outline {
   background-color: azure;
   text-align: center;
-  margin-top: 5em;
-  margin-bottom: 2em;
-  padding: 1em;
+  margin: 1em 0px;
+  padding: 0.75em;
   width: 20em;
   border-radius: 7px;
 }
 
+.seat-checkbox {
+  height: 11px;
+}
+
+.book-btn {
+  margin-top: 5em;
+}
 
 *{
     margin: 0;
