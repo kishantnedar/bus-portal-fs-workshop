@@ -34,7 +34,7 @@ class Bus:
         self.bus_destination = bus_destination
         if isinstance(bus_seats, int):
             self.bus_seats = Seats(
-                seat_count=bus_seats, normal_price=bus_normal_seat_price, window_price=bus_window_seat_price).__dict__
+                seat_count=bus_seats, normal_price=int(bus_normal_seat_price), window_price=int(bus_window_seat_price)).__dict__
         else:
             self.bus_seats = bus_seats
         self.bus_runs_on = bus_runs_on
