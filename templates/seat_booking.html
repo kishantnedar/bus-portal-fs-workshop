@@ -1,35 +1,40 @@
 {% extends 'base.html' %} {% block title %} Seat Booking {% endblock %}
 {% block content %}
 {% include 'navbar.html' %}
-<div class="container">
+<div class="container d-flex">
   <form action="/book/seat" method="post">
-    <div class="shadow" id="bus-outline">
+    <div class="shadow flex-fill" id="bus-outline">
       {% for i in range(1,11) %}
       <div class="mb-1">
         <!-- Left Window Seat -->
         <label title="Available" class="mx-2">
-        <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="36"/><br/>
-        <input type="checkbox" name="window_left_seats" value="{{ i }}"/><small>A{{ i }}</small></label>
+        <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
+        <input type="checkbox" name="window_left_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">A{{ i }}</span></label>
         <!-- Left Seat -->
         <label title="Available" class="mx-2">
-        <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="36"/><br/>
-        <input type="checkbox" name="left_seats" value="{{ i }}"/><small>B{{ i }}</small></label>
+        <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
+        <input type="checkbox" name="left_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">B{{ i }}</span></label>
 
         <span style="padding-left: 2rem">&nbsp;</span>
 
         <!-- Right Seat -->
         <label title="Available" class="mx-2">
-        <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="36"/><br/>
-        <input type="checkbox" name="right_seats" value="{{ i }}"/><small>C{{ i }}</small></label>
+        <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
+        <input type="checkbox" name="right_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">C{{ i }}</span></label>
         <!-- Right Window Seat -->
         <label title="Available" class="mx-2">
-        <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="36"/><br/>
-        <input type="checkbox" name="window_right_seats" value="{{ i }}"/><small>D{{ i }}</small></label>
+        <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
+        <input type="checkbox" name="window_right_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">D{{ i }}</span></label>
       </div>
       {% endfor %}
     </div>
-    <button type="submit" class="btn btn-outline-success mb-5">Book</button>
   </form>
+  <div class="flex-fill">
+    <div class="container mt-3 d-grid px-5">
+      <h1>Kadamba</h1>
+      <button type="submit" class="btn btn-outline-danger book-btn btn-block">Book</button>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
