@@ -16,4 +16,5 @@ def search_bus():
 @booking.route('/seat/<int:bus_no>')
 def seat_book(bus_no):
     print(bus_no)
+    print("hello")
     return render_template('seat_booking.html')
