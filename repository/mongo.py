@@ -16,6 +16,12 @@ class MongoRepository(object):
     def find(self, query):
         return self._collection.find(query)
 
+    def find_with_filter(self, query, param):
+        return self._collection.find(query, param)
+
+    def find_one(self, query):
+        return self._collection.find_one(query)
+
     def find_all(self):
         return self._collection.find()
 
