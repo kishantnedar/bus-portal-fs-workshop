@@ -180,19 +180,24 @@
   }
    
   .bus_list{
-    margin-left: 480px;
+    padding: 10px;
+    display: inline-block;
+    margin: 0 380px 10px 380px ;
+    border-width:0 5px 0 5px;
+    border-radius: 50px;
+    border-color: #0039a6;
     display: flex;
   }
 
   .bus_info{
     align-items: center;
     text-align: center; 
-   
   }
 
   .bus_icon_image{
-    height: 100px;
-    padding: 10px;
+    background-color: black;
+    height: 200px;
+    padding: 20px;
   }
   .bus_info_startfin{
     padding: 5px;
@@ -202,6 +207,7 @@
   }
   
   .bus_info{
+    background-color: aliceblue;
     display:flex;
     flex-direction: row;
   }
@@ -209,5 +215,12 @@
   .top_row, .bottom_row{
     width: 100%;
     padding: 10px;
+  }
+
+  /* booking confirmation page styling */
+
+  .reciept{
+    text-align: center;
+    background-color: #D0F0C0;
   }
   

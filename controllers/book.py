@@ -19,3 +19,17 @@ def seat_book(bus_no):
     seat_count = int(bus_details[0]['bus_capacity'] / 4)
     print(bus_details[0]['bus_seats']['window_left']['seats'][1]['seat_occupied'])
     return render_template('seat_booking.html', bus = bus_details[0], seat_count = seat_count)
+
+
+@booking.route('/booked/<int:bus_no>',methods=['GET', 'POST'])
+def booked(bus_no):
+    if request.method == 'POST':
+
+        bus_details = get_selected_bus(bus_no)
+        return render_template('booking_done.html',bus = bus_details[0])
+
+@booking.route('/booked', methods=['GET', 'POST'])
+def return_to_homepage():
+    if request.method == 'POST':
+        return render_template('index.html')
+    

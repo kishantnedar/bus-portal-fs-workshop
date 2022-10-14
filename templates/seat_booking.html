@@ -2,7 +2,7 @@
 {% block content %}
 {% include 'navbar.html' %}
 <div class="container d-flex">
-  <form action="/book/seat" method="post">
+  <form action="/book/booked/{{bus._id}}" method="post" id="seats">
     <div class="shadow flex-fill" id="bus-outline">
       {% for i in range(1, seat_count + 1) %}
       <div class="mb-1">
@@ -10,7 +10,7 @@
         <!-- Left Window Seat -->
         <label title="Available" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
-        <input type="checkbox" name="window_left_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">A{{ i }}</span></label>
+        <input type="checkbox" class="window_seat" name="window_left_seats" class="seat-checkbox" value="{{ i }}" onclick="calculate_price()"/><span style="font-size: 11px;">A{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32"/><br/>
@@ -21,11 +21,11 @@
         <!-- Left Seat -->
         <label title="Available" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
-        <input type="checkbox" name="left_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">B{{ i }}</span></label>
+        <input type="checkbox" class="normal_seat"  name="left_seats" class="seat-checkbox" value="{{ i }}" onclick="calculate_price()" /><span style="font-size: 11px;">B{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32"/><br/>
-        <input type="checkbox" name="left_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">B{{ i }}</span></label>
+        <input type="checkbox" name="left_seats" class="seat-checkbox" value="{{ i }}" disabled/><span style="font-size: 11px;">B{{ i }}</span></label>
         {% endif %}
 
         <span style="padding-left: 2rem">&nbsp;</span>
@@ -34,22 +34,22 @@
         <!-- Right Seat -->
         <label title="Available" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
-        <input type="checkbox" name="right_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">C{{ i }}</span></label>
+        <input type="checkbox" class="normal_seat" name="right_seats" class="seat-checkbox" value="{{ i }}" onclick="calculate_price()"/><span style="font-size: 11px;">C{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32"/><br/>
-        <input type="checkbox" name="right_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">C{{ i }}</span></label>
+        <input type="checkbox" name="right_seats" class="seat-checkbox" value="{{ i }}" disabled/><span style="font-size: 11px;">C{{ i }}</span></label>
         {% endif %}
         
         {% if bus['bus_seats']['window_right']['seats'][i-1]['seat_occupied'] == False %}
         <!-- Right Window Seat -->
         <label title="Available" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
-        <input type="checkbox" name="window_right_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">D{{ i }}</span></label>
+        <input type="checkbox" class="window_seat" name="window_right_seats" class="seat-checkbox" value="{{ i }}" onclick="calculate_price()"/><span style="font-size: 11px;">D{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32"/><br/>
-        <input type="checkbox" name="window_right_seats" class="seat-checkbox" value="{{ i }}"/><span style="font-size: 11px;">D{{ i }}</span></label>
+        <input type="checkbox" name="window_right_seats" class="seat-checkbox" value="{{ i }}" disabled/><span style="font-size: 11px;">D{{ i }}</span></label>
         {% endif %}
       </div>
       {% endfor %}
@@ -59,9 +59,32 @@
     <div class="container mt-3 d-grid px-5">
       <h1>{{ bus.bus_name }}</h1>
       <p>{{ bus.bus_start}} ➜ {{ bus.bus_destination}}</p>
-      <button type="submit" class="btn btn-outline-danger book-btn btn-block">Book</button>
+      <input type="hidden" id="window_seat_price" value="{{ bus['bus_seats']['window_left']['seat_price'] }}">
+      <input type="hidden" id="normal_seat_price" value="{{ bus['bus_seats']['left']['seat_price'] }}">
+      <p>Total Price: <span id="total_price">0</span> </p>
+      <button type="submit" form="seats" class="btn btn-outline-danger book-btn btn-block">Book</button>
     </div>
   </div>
 </div>
 
+<script type="text/javascript">
+  function calculate_price() {
+    var window_seat_price = document.getElementById("window_seat_price").value;
+    var normal_seat_price = document.getElementById("normal_seat_price").value;
+    var window_seat_count = 0;
+    var normal_seat_count = 0;
+    var bus = document.getElementById("bus-outline");
+    var window_seat_check = bus.getElementsByClassName("window_seat")
+    var normal_seat_check = bus.getElementsByClassName("normal_seat")
+    for (var i = 0; i < window_seat_check.length; i++) {
+      if (window_seat_check[i].checked) {
+        window_seat_count++;
+      }
+      if (normal_seat_check[i].checked) {
+        normal_seat_count++;
+      }
+    }
+    document.getElementById("total_price").innerHTML = (window_seat_count * window_seat_price) + (normal_seat_count * normal_seat_price);
+  };
+</script>
 {% endblock %}
