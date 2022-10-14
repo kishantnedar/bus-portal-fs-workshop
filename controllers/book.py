@@ -18,5 +18,5 @@ def search_bus():
 @booking.route('/seat/<int:bus_no>', methods = ['GET', 'POST'])
 def seat_book(bus_no):
     bus_details = get_selected_bus(bus_no)
-    seat_count = int(bus_details[0]['bus_capacity'] / 4)        
-    return render_template('seat_booking.html', bus = bus_details[0], seat_count = seat_count)
+    seat_count = int(bus_details['bus_capacity'] / 4)        
+    return render_template('seat_booking.html', bus = bus_details, seat_count = seat_count)
