@@ -12,6 +12,7 @@ def get_user_request_buses(search):
     return [bus for bus in mongo_busses_object]
 
 def get_selected_bus(bus_num):
-    mongo_bus_object = MongoRepository('buses').find({''})
+    mongo_bus_object = MongoRepository('buses').find({'_id': bus_num})
+    return [bus for bus in mongo_bus_object]
 
 
