@@ -1,38 +1,57 @@
-{% extends 'base.html' %} {% block title %} Seat Booking {% endblock %}
-{% block content %}
-{% include 'navbar.html' %}
+{% extends 'base.html' %} {% block title %} Seat Booking {% endblock %} {% block
+content %} {% include 'navbar.html' %}
 <div class="container d-flex">
+
+  <form action="/book/confirm-booking" method="post" id="seats">
+    <input type="hidden" name="bus_id" value="{{ bus._id }}" />
+<!-- check this --!>
   <form action="/book/booked/{{bus._id}}" method="post" id="seats">
+
     <div class="shadow flex-fill" id="bus-outline">
       {% for i in range(1, seat_count + 1) %}
       <div class="mb-1">
-        {% if bus['bus_seats']['window_left']['seats'][i-1]['seat_occupied'] == False %}
+        {% if bus['bus_seats']['window_left']['seats'][i-1]['seat_occupied'] ==
+        False %}
         <!-- Left Window Seat -->
         <label title="Available" class="mx-2">
+
         <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
         <input type="checkbox" class="window_seat" name="window_left_seats" class="seat-checkbox" value="{{ i }}" onclick="calculate_price()"/><span style="font-size: 11px;">A{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
-        <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32"/><br/>
-        <input type="checkbox" name="window_left_seats" class="seat-checkbox" value="{{ i }}" disabled/><span style="font-size: 11px;">A{{ i }}</span></label>
-        {% endif %}
-
-        {% if bus['bus_seats']['left']['seats'][i-1]['seat_occupied'] == False %}
+          <img
+            src="{{ url_for('static', filename='img/seat_occupied.png') }}"
+            height="32"
+          /><br />
+          <input
+            type="checkbox"
+            name="window_left_seats"
+            class="seat-checkbox"
+            value="{{ i }}"
+            disabled
+          /><span style="font-size: 11px">A{{ i }}</span></label
+        >
+        {% endif %} {% if
+        bus['bus_seats']['left']['seats'][i-1]['seat_occupied'] == False %}
         <!-- Left Seat -->
         <label title="Available" class="mx-2">
+
         <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
         <input type="checkbox" class="normal_seat"  name="left_seats" class="seat-checkbox" value="{{ i }}" onclick="calculate_price()" /><span style="font-size: 11px;">B{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32"/><br/>
         <input type="checkbox" name="left_seats" class="seat-checkbox" value="{{ i }}" disabled/><span style="font-size: 11px;">B{{ i }}</span></label>
+
         {% endif %}
 
         <span style="padding-left: 2rem">&nbsp;</span>
 
-        {% if bus['bus_seats']['right']['seats'][i-1]['seat_occupied'] == False %}
+        {% if bus['bus_seats']['right']['seats'][i-1]['seat_occupied'] == False
+        %}
         <!-- Right Seat -->
         <label title="Available" class="mx-2">
+
         <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32"/><br/>
         <input type="checkbox" class="normal_seat" name="right_seats" class="seat-checkbox" value="{{ i }}" onclick="calculate_price()"/><span style="font-size: 11px;">C{{ i }}</span></label>
         {% else %}
@@ -50,6 +69,7 @@
         <label title="Booked" class="mx-2">
         <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32"/><br/>
         <input type="checkbox" name="window_right_seats" class="seat-checkbox" value="{{ i }}" disabled/><span style="font-size: 11px;">D{{ i }}</span></label>
+
         {% endif %}
       </div>
       {% endfor %}
@@ -59,10 +79,12 @@
     <div class="container mt-3 d-grid px-5">
       <h1>{{ bus.bus_name }}</h1>
       <p>{{ bus.bus_start}} ➜ {{ bus.bus_destination}}</p>
+
       <input type="hidden" id="window_seat_price" value="{{ bus['bus_seats']['window_left']['seat_price'] }}">
       <input type="hidden" id="normal_seat_price" value="{{ bus['bus_seats']['left']['seat_price'] }}">
       <p>Total Price: <span id="total_price">0</span> </p>
       <button type="submit" form="seats" class="btn btn-outline-danger book-btn btn-block">Book</button>
+
     </div>
   </div>
 </div>
