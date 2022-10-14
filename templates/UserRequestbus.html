@@ -25,8 +25,8 @@
                         </div>
                         <div class="bottom_row">
                             <p>{{ day }}</p>
-                            <p class="bus_info_icon">🎫Window Seat ₹{{bus['bus_window_price']}}</p>
-                            <p class="bus_info_icon">🎫Normal Seat ₹{{bus['bus_normal_price']}}</p>
+                            <p class="bus_info_icon">🎫Window Seat ₹{{ bus['bus_seats']['window_left']['seat_price']}}</p>
+                            <p class="bus_info_icon">🎫Normal Seat ₹{{ bus['bus_seats']['left']['seat_price']}}</p>
                         </div>
                        
                        

@@ -220,7 +220,23 @@
   /* booking confirmation page styling */
 
   .reciept{
+    margin: 100px;
+    padding: 20px;
+    color:  #29AB87;
+    border-radius: 50px;
     text-align: center;
     background-color: #D0F0C0;
+  }
+  .return{
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 50px;
+    border-style: solid;
+    border-color: #29AB87;
+    border-width: 2px;
+  }.return:hover {
+    background-color:red;
+    color: aliceblue;
+    border-color: white;
   }
   
