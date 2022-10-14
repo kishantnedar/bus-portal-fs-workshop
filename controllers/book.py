@@ -13,9 +13,8 @@ def search_bus():
         return render_template('UserRequestbus.html', buses = bus_list, day = day)
 
 
-@booking.route('/seat/<int:bus_no>')
+@booking.route('/seat/<int:bus_no>', methods = ['GET', 'POST'])
 def seat_book(bus_no):
     bus_details = get_selected_bus(bus_no)
-    seat_count = int(bus_details[0]['bus_capacity'] / 4)
-    print(bus_details[0]['bus_seats']['window_left']['seats'][1]['seat_occupied'])
+    seat_count = int(bus_details[0]['bus_capacity'] / 4)        
     return render_template('seat_booking.html', bus = bus_details[0], seat_count = seat_count)
