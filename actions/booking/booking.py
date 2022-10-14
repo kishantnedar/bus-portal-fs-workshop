@@ -1,4 +1,7 @@
+
 from models.booking import Booking
+# from controllers.book import seat_book
+
 from models.bus import Bus
 from repository.mongo import MongoRepository
 import pandas as pd
@@ -10,8 +13,10 @@ def get_user_request_buses(search):
     date = search['date']
     day = pd.Timestamp(date).day_name()
 
-    mongo_busses_object = MongoRepository('buses').find(
-        {'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
+    print(day)
+    
+    mongo_busses_object = MongoRepository('buses').find({'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
+
     return [bus for bus in mongo_busses_object]
 
 
