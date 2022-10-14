@@ -61,3 +61,6 @@ def book_ticket(ticket):
         {'_id': int(ticket['bus_number'])}, {'$set': {'bus_seats': seats}})
     # booking = Booking()
     MongoRepository('bookings').insert(ticket)
+
+def get_locations():
+    return MongoRepository('buses').find_with_filter({},{"_id": 0, "bus_start": 1, "bus_destination": 1})
