@@ -43,3 +43,6 @@ class MongoRepository(object):
 
     def drop(self, database, collection):
         return self._mongoclient[database][collection].drop()
+
+    def check_if_present(self, database, collection, query):
+        return self._mongoclient[database][collection].count_documents(query) > 0

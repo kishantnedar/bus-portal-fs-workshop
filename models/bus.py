@@ -2,10 +2,10 @@ from datetime import datetime
 
 
 class Seat:
-    def __init__(self, seat_number):
-        self.seat_number = seat_number
+    def __init__(self, seat_number, seat_type):
+        self.seat_number = seat_type + str(seat_number)
         self.seat_occupied = False
-        self.reserved_by = None
+        self.seat_type = seat_type
 
 
 class SeatType:
@@ -25,16 +25,27 @@ class Seats:
 
 
 class Bus:
-    def __init__(self, _id, bus_name, bus_capacity, bus_start, bus_destination, bus_seats, bus_reg_number, bus_runs_on, *, bus_normal_seat_price=None, bus_window_seat_price=None):
+    def __init__(self, _id, bus_name, bus_start, bus_destination, bus_reg_number, bus_runs_on, bus_normal_price, bus_window_price, bus_window_left, bus_window_right, bus_left, bus_right):
         self._id = int(_id)
         self.bus_name = bus_name
-        self.bus_reg_number = bus_reg_number
-        self.bus_capacity = bus_capacity
         self.bus_start = bus_start
         self.bus_destination = bus_destination
-        if isinstance(bus_seats, int):
-            self.bus_seats = Seats(
-                seat_count=bus_seats, normal_price=int(bus_normal_seat_price), window_price=int(bus_window_seat_price)).__dict__
-        else:
-            self.bus_seats = bus_seats
+        self.bus_reg_number = bus_reg_number
         self.bus_runs_on = bus_runs_on
+        self.bus_normal_price = bus_normal_price
+        self.bus_window_price = bus_window_price
+        self.bus_window_left = bus_window_left
+        self.bus_window_right = bus_window_right
+        self.bus_left = bus_left
+        self.bus_right = bus_right
+        # if isinstance(bus_seats, int):
+        #     for seat_number in range(1, bus_seats+1):
+        #         seats.append(Seat(seat_number, 'window_left').__dict__)
+        #     seats = []
+        #         seats.append(Seat(seat_number, 'window_right').__dict__)
+        #     self.bus_seats = bus_seats
+
+        #         seats.append(Seat(seat_number, 'left').__dict__)
+        #         seats.append(Seat(seat_number, 'right').__dict__)
+        #     self.bus_seats = seats
+        # else:

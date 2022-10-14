@@ -20,7 +20,8 @@ content %}
           <th scope="col">Bus Registration Number</th>
           <th scope="col">Normal Seat Price</th>
           <th scope="col">Window Seat Price</th>
-          <th scope="col">Action</th>
+          <th scope="col">Delete</th>
+          <th scope="col">Schedule</th>
         </tr>
       </thead>
       <tbody>
@@ -29,11 +30,20 @@ content %}
           <td>{{ bus.bus_name }}</td>
           <td>{{ bus._id }}</td>
           <td>{{ bus.bus_reg_number }}</td>
-          <td>{{ bus.bus_seats.right.seat_price }}</td>
-          <td>{{ bus.bus_seats.window_right.seat_price }}</td>
+          <td>{{ bus.bus_normal_price }}</td>
+          <td>{{ bus.bus_window_price }}</td>
           <td>
-            <a href="{{ url_for('admin.remove_bus', bus_id=bus._id) }}"
+            <a
+              href="{{ url_for('admin.remove_bus', bus_id=bus._id) }}"
+              name="remove"
               ><i class="fa-solid fa-trash"></i
+            ></a>
+          </td>
+          <td>
+            <a
+              href="{{ url_for('admin.schedule_bus', bus_id=bus._id) }}"
+              name="schedule"
+              ><i class="fa-solid fa-check"></i
             ></a>
           </td>
         </tr>

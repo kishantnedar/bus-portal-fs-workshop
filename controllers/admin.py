@@ -18,7 +18,7 @@ def index():
 def add_bus():
     if request.method == 'POST':
         try:
-            BusActions().add_bus_action(bus=request.form)
+            BusActions().add_bus(bus=request.form)
         except DuplicateKeyError as e:
             flash('Bus already exists')
             return redirect(url_for('admin.add_bus'))
@@ -35,3 +35,14 @@ def remove_bus():
         flash('Bus removed')
         return redirect(url_for('admin.index'))
     return redirect(url_for('admin.index'))
+
+
+@admin.route('/schedule-bus', methods=['GET', 'POST'])
+def schedule_bus():
+    if request.method == 'POST':
+        BusActions().schedule_bus(bus_number=request.form['bus_number'], bus_day=request.form['bus_day'],
+                                  bus_leaving_time=request.form['bus_leaving_time'], bus_arriving_time=request.form['bus_arriving_time'])
+        flash('Bus scheduled')
+        print('bus scheduled')
+        return redirect(url_for('admin.index'))
+    return render_template('admin/schedule-bus.html', buses=BusActions().get_busses())
