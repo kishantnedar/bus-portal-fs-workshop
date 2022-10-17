@@ -1,45 +1,44 @@
-{% extends 'base.html' %} {% block title %} Index {% endblock %} 
-{% block content %} {% include 'navbar.html' %}
-
-
+{% extends 'base.html' %} {% block title %} Index {% endblock %} {% block
+content %} {% include 'navbar.html' %}
 
 <div class="container my-5">
+  <h1 class="text-center">Choose an available bus</h1>
 
-    <h1 class="text-center">Choose an available bus</h1>
-  
-    
-    <!-- <div class="container mt-5 shadow p-4 mb-4 bg-white"> -->
-        {% for bus in buses %}
-        
-        <a class="buslink" href="/book/seat/{{bus._id}}">
-            <!-- <div class="wrapper"> -->
-                <div class = "bus_list">
-                    
-                    <div class="bus_icon">
-                        <img  class="bus_icon_image" src="{{ url_for('static', filename='img/buss.png') }}" alt="bus image here">
-                    </div>
-                    <div class="bus_info">
-                        <div class="top_row">
-                            <h3 class="bus_info_name">{{ bus.bus_name}}</h3>
-                            <p class = "bus_info_startfin">{{ bus.bus_start}} ➜ {{ bus.bus_destination}}</p>
-                        </div>
-                        <div class="bottom_row">
-                            <p>{{ day }}</p>
-                            <p class="bus_info_icon">🎫Window Seat ₹{{ bus['bus_seats']['window_left']['seat_price']}}</p>
-                            <p class="bus_info_icon">🎫Normal Seat ₹{{ bus['bus_seats']['left']['seat_price']}}</p>
-                        </div>
-                       
-                       
-                    </div>
-                    
-                </div>
-            <!-- </div> -->
-        </a>
-        
-       
-        {% endfor %}
+  <!-- <div class="container mt-5 shadow p-4 mb-4 bg-white"> -->
+  {% for bus in buses %}
 
-  </div>
+  <a class="buslink" href="/book/{{bus._id}}">
+    <!-- <div class="wrapper"> -->
+    <div class="bus_list">
+      <div class="bus_icon">
+        <img
+          class="bus_icon_image"
+          src="{{ url_for('static', filename='img/buss.png') }}"
+          alt="bus image here"
+        />
+      </div>
+      <div class="bus_info">
+        <div class="top_row">
+          <h3 class="bus_info_name">{{ bus.bus_name}}</h3>
+          <p class="bus_info_startfin">
+            {{ bus.bus_start}} ➜ {{ bus.bus_destination}}
+          </p>
+        </div>
+        <div class="bottom_row">
+          <p>{{ day }}</p>
+          <p class="bus_info_icon">
+            🎫Window Seat ₹{{ bus['bus_seats']['window_left']['seat_price']}}
+          </p>
+          <p class="bus_info_icon">
+            🎫Normal Seat ₹{{ bus['bus_seats']['left']['seat_price']}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </a>
 
+  {% endfor %}
+</div>
 
 {% endblock %}

@@ -13,9 +13,8 @@ def get_user_request_buses(search):
     date = search['date']
     day = pd.Timestamp(date).day_name()
 
-    print(day)
-    
-    mongo_busses_object = MongoRepository('buses').find({'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
+    mongo_busses_object = MongoRepository('buses').find(
+        {'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
 
     return [bus for bus in mongo_busses_object]
 
@@ -60,7 +59,24 @@ def book_ticket(ticket):
     MongoRepository('buses').update(
         {'_id': int(ticket['bus_number'])}, {'$set': {'bus_seats': seats}})
     # booking = Booking()
-    MongoRepository('bookings').insert(ticket)
+    booking = Booking(
+        booked_by=ticket['user_id'], bus_number=ticket['bus_number'], booked_tickets=[ticket['window_left'], ticket['window_right'], ticket['left'], ticket['right']])
+    MongoRepository('bookings').insert(booking.__dict__)
+    return booking
+
 
 def get_locations():
-    return MongoRepository('buses').find_with_filter({},{"_id": 0, "bus_start": 1, "bus_destination": 1})
+    return MongoRepository('buses').find_with_filter({}, {"_id": 0, "bus_start": 1, "bus_destination": 1})
+
+
+def get_bookings(user_id):
+    bookings = [Booking(**booking)
+                for booking in MongoRepository('bookings').find({'booked_by': user_id})]
+    return bookings
+
+
+def get_booking(booking_id):
+    print(booking_id)
+    booking = Booking(
+        **MongoRepository('bookings').find_one({'_id': booking_id}))
+    return booking

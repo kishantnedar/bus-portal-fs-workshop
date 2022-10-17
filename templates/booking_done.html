@@ -1,24 +1,24 @@
-{% extends 'base.html' %} {% block title %} Index {% endblock %} 
+{% extends 'base.html' %} {% block title %} Index {% endblock %}
 {% block content %} {% include 'navbar.html' %}
 
 
 
 <div class="container my-5">
-   
+
     <div >
        <div class="reciept">
         <h1>Booking Confirmed !</h1>
         <h5>{{bus.bus_name}}</h5>
 
         <h4>{{ bus.bus_start}} ➜ {{ bus.bus_destination}}</h6>
-        <form method="POST" action="/book/booked">  
-            <input class="return" name="Return to home" type="submit" value="Return to home" />  
-        </form>   
+        <form method="POST" action="/book/booked">
+            <input class="return" name="Return to home" type="submit" value="Return to home" />
+        </form>
        </div>
     </div>
-        
-       
-      
+
+
+
   </div>
 
 
