@@ -2,7 +2,7 @@
 {% block content %}
 {% include 'navbar.html' %}
 <div class="container d-flex">
-  <form action="/book/booked/{{bus._id}}" method="post" id="seats">
+  <form method="post" id="seats">
     <div class="shadow flex-fill" id="bus-outline">
       {% for i in range(1, seat_count + 1) %}
       <div class="mb-1">
@@ -62,7 +62,7 @@
       <input type="hidden" id="window_seat_price" value="{{ bus['bus_seats']['window_left']['seat_price'] }}">
       <input type="hidden" id="normal_seat_price" value="{{ bus['bus_seats']['left']['seat_price'] }}">
       <p>Total Price: <span id="total_price">0</span> </p>
-      <button type="submit" form="seats" class="btn btn-outline-danger book-btn btn-block">Book</button>
+      <button type="submit" form="seats" class="btn btn-outline-danger book-btn btn-block" onclick="validateBooking()">Book</button>
     </div>
   </div>
 </div>
@@ -85,6 +85,16 @@
       }
     }
     document.getElementById("total_price").innerHTML = (window_seat_count * window_seat_price) + (normal_seat_count * normal_seat_price);
+  };
+  function validateBooking() {
+    if(document.getElementById("total_price").innerHTML == 0) {
+      alert('You cannot book without selecting seats!');
+    }
+    else {
+      document.forms[0].action = '/book/booked/{{bus._id}}';
+      document.forms[0].submit();
+      return true;
+    }
   };
 </script>
 {% endblock %}
