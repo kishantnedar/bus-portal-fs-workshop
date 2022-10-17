@@ -11,9 +11,8 @@
         <h5>{{bus.bus_name}}</h5>
 
         <h4>{{ bus.bus_start}} ➜ {{ bus.bus_destination}}</h6>
-        <form method="POST" action="/book/booked">
-            <input class="return" name="Return to home" type="submit" value="Return to home" />
-        </form>
+       
+        <a class="return" href="{{url_for('index')}}">Return to home</a>
        </div>
     </div>
 

@@ -21,7 +21,7 @@
 
       <li class="homePageForm">
         <p class="headings">🗓️Date:</p>
-        <input class="inputs" type="date" name="date" />
+        <input class="inputs date" type="date" name="date" min= "day()" />
       </li>
       <li class="homePageForm">
         <button class="button" type="submit">🔍</button>
@@ -33,7 +33,7 @@
   <h3>© UseBusesInc.</h3>
 </footer>
 <script type="text/javascript">
- 
+  var day = Date();
   function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
