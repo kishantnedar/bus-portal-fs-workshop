@@ -2,23 +2,32 @@
 {% block content %} {% include 'navbar.html' %}
 
 
+<div class="container mt-3">
+  <div class="receipt">
+    <h2 class="text-center">Booking Confirmed !</h2>
+    <p>Bus Name: {{ bus.bus_name }}</p>
+    <p>Journey: {{ bus.bus_start }} ➜ {{ bus.bus_destination }}</p>
+    <p>Journey Date: {{ booking.booked_date }}</p>
+    <p>Seats booked:
+      {% for i in booking.booked_tickets.window_left %}
+      A{{i}}
+      {% endfor %}
+      {% for i in booking.booked_tickets.left %}
+      B{{i}}
+      {% endfor %}
+      {% for i in booking.booked_tickets.right %}
+      C{{i}}
+      {% endfor %}
+      {% for i in booking.booked_tickets.window_right %}
+      D{{i}}
+      {% endfor %}
+    </p>
 
-<div class="container my-5">
-
-    <div >
-       <div class="reciept">
-        <h1>Booking Confirmed !</h1>
-        <h5>{{bus.bus_name}}</h5>
-
-        <h4>{{ bus.bus_start}} ➜ {{ bus.bus_destination}}</h6>
-       
-        <a class="return" href="{{url_for('index')}}">Return to home</a>
-       </div>
-    </div>
-
-
-
+    <p>Total Price: {{ price }}</p>
+    <br>
+    <a href="{{url_for('index')}}" class="text-success text-decoration-none">Return to home</a>
   </div>
+</div>
 
 
 {% endblock %}

@@ -9,62 +9,26 @@ content %} {% include 'navbar.html' %}
         False %}
         <!-- Left Window Seat -->
         <label title="Available" class="mx-2">
-          <img
-            src="{{ url_for('static', filename='img/seat_unoccupied.png') }}"
-            height="32"
-          /><br />
-          <input
-            type="checkbox"
-            name="window_left_seats"
-            class="seat-checkbox window_seat"
-            value="{{ i }}"
-            onclick="calculate_price()"
-          /><span style="font-size: 11px">A{{ i }}</span></label
-        >
+          <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32" /><br />
+          <input type="checkbox" name="window_left_seats" class="seat-checkbox window_seat" value="{{ i }}"
+            onclick="calculate_price()" /><span style="font-size: 11px">A{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
-          <img
-            src="{{ url_for('static', filename='img/seat_occupied.png') }}"
-            height="32"
-          /><br />
-          <input
-            type="checkbox"
-            name="window_left_seats"
-            class="seat-checkbox"
-            value="{{ i }}"
-            disabled
-          /><span style="font-size: 11px">A{{ i }}</span></label
-        >
+          <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32" /><br />
+          <input type="checkbox" name="window_left_seats" class="seat-checkbox" value="{{ i }}" disabled /><span
+            style="font-size: 11px">A{{ i }}</span></label>
         {% endif %} {% if
         bus['bus_seats']['left']['seats'][i-1]['seat_occupied'] == False %}
         <!-- Left Seat -->
         <label title="Available" class="mx-2">
-          <img
-            src="{{ url_for('static', filename='img/seat_unoccupied.png') }}"
-            height="32"
-          /><br />
-          <input
-            type="checkbox"
-            name="left_seats"
-            class="seat-checkbox normal_seat"
-            value="{{ i }}"
-            onclick="calculate_price()"
-          /><span style="font-size: 11px">B{{ i }}</span></label
-        >
+          <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32" /><br />
+          <input type="checkbox" name="left_seats" class="seat-checkbox normal_seat" value="{{ i }}"
+            onclick="calculate_price()" /><span style="font-size: 11px">B{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
-          <img
-            src="{{ url_for('static', filename='img/seat_occupied.png') }}"
-            height="32"
-          /><br />
-          <input
-            type="checkbox"
-            name="left_seats"
-            class="seat-checkbox"
-            value="{{ i }}"
-            disabled
-          /><span style="font-size: 11px">B{{ i }}</span></label
-        >
+          <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32" /><br />
+          <input type="checkbox" name="left_seats" class="seat-checkbox" value="{{ i }}" disabled /><span
+            style="font-size: 11px">B{{ i }}</span></label>
         {% endif %}
 
         <span style="padding-left: 2rem">&nbsp;</span>
@@ -73,63 +37,27 @@ content %} {% include 'navbar.html' %}
         %}
         <!-- Right Seat -->
         <label title="Available" class="mx-2">
-          <img
-            src="{{ url_for('static', filename='img/seat_unoccupied.png') }}"
-            height="32"
-          /><br />
-          <input
-            type="checkbox"
-            name="right_seats"
-            class="seat-checkbox normal_seat"
-            value="{{ i }}"
-            onclick="calculate_price()"
-          /><span style="font-size: 11px">C{{ i }}</span></label
-        >
+          <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32" /><br />
+          <input type="checkbox" name="right_seats" class="seat-checkbox normal_seat" value="{{ i }}"
+            onclick="calculate_price()" /><span style="font-size: 11px">C{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
-          <img
-            src="{{ url_for('static', filename='img/seat_occupied.png') }}"
-            height="32"
-          /><br />
-          <input
-            type="checkbox"
-            name="right_seats"
-            class="seat-checkbox"
-            value="{{ i }}"
-            disabled
-          /><span style="font-size: 11px">C{{ i }}</span></label
-        >
+          <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32" /><br />
+          <input type="checkbox" name="right_seats" class="seat-checkbox" value="{{ i }}" disabled /><span
+            style="font-size: 11px">C{{ i }}</span></label>
         {% endif %} {% if
         bus['bus_seats']['window_right']['seats'][i-1]['seat_occupied'] == False
         %}
         <!-- Right Window Seat -->
         <label title="Available" class="mx-2">
-          <img
-            src="{{ url_for('static', filename='img/seat_unoccupied.png') }}"
-            height="32"
-          /><br />
-          <input
-            type="checkbox"
-            name="window_right_seats"
-            class="seat-checkbox window_seat"
-            value="{{ i }}"
-            onclick="calculate_price()"
-          /><span style="font-size: 11px">D{{ i }}</span></label
-        >
+          <img src="{{ url_for('static', filename='img/seat_unoccupied.png') }}" height="32" /><br />
+          <input type="checkbox" name="window_right_seats" class="seat-checkbox window_seat" value="{{ i }}"
+            onclick="calculate_price()" /><span style="font-size: 11px">D{{ i }}</span></label>
         {% else %}
         <label title="Booked" class="mx-2">
-          <img
-            src="{{ url_for('static', filename='img/seat_occupied.png') }}"
-            height="32"
-          /><br />
-          <input
-            type="checkbox"
-            name="window_right_seats"
-            class="seat-checkbox"
-            value="{{ i }}"
-            disabled
-          /><span style="font-size: 11px">D{{ i }}</span></label
-        >
+          <img src="{{ url_for('static', filename='img/seat_occupied.png') }}" height="32" /><br />
+          <input type="checkbox" name="window_right_seats" class="seat-checkbox" value="{{ i }}" disabled /><span
+            style="font-size: 11px">D{{ i }}</span></label>
         {% endif %}
       </div>
       {% endfor %}
@@ -170,25 +98,17 @@ content %} {% include 'navbar.html' %}
 
   <div class="flex-fill">
     <div class="container mt-3 d-grid px-5">
-      <h1>{{ bus.bus_name }}</h1>
-      <p>{{ bus.bus_start}} ➜ {{ bus.bus_destination}}</p>
-      <input
-        type="hidden"
-        id="window_seat_price"
-        value="{{ bus['bus_seats']['window_left']['seat_price'] }}"
-      />
-      <input
-        type="hidden"
-        id="normal_seat_price"
-        value="{{ bus['bus_seats']['left']['seat_price'] }}"
-      />
-      <p>Total Price: <span id="total_price">0</span></p>
-      <button
-        type="submit"
-        form="seats"
-        class="btn btn-outline-danger book-btn btn-block"
-        onclick="validateBooking()"
-      >
+      <div class="d-flex">
+        <h1 class="flex-grow-1">{{ bus.bus_name }}</h1>
+        <h4 class="pt-2">{{ book_date }}</h4>
+      </div>
+      <p class="lead mt-2">{{ bus.bus_start}} ➜ {{ bus.bus_destination}}</p>
+      <p class="mt-2">Window Seat Price: <b>₹ {{ bus['bus_seats']['window_left']['seat_price'] }}</b></p>
+      <p>Normal Seat Price: <b>₹ {{ bus['bus_seats']['left']['seat_price'] }}</b></p>
+      <input type="hidden" id="window_seat_price" value="{{ bus['bus_seats']['window_left']['seat_price'] }}" />
+      <input type="hidden" id="normal_seat_price" value="{{ bus['bus_seats']['left']['seat_price'] }}" />
+      <p class="mt-2">Total Price: <b>₹&nbsp;</b><b id="total_price">0</b></p>
+      <button type="submit" form="seats" class="btn btn-outline-danger btn-block mt-4" onclick="validateBooking()">
         Book
       </button>
     </div>
