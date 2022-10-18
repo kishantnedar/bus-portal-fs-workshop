@@ -1,85 +1,63 @@
-#bus-outline {
-  background-color: azure;
-  text-align: center;
-  margin: 1em 0px;
-  padding: 0.75em;
-  width: 20em;
-  border-radius: 7px;
+
+/* index page perks */
+
+
+
+#advantage{
+  margin: 20px 0 20px 0;
+  /* display: flex;
+  justify-content: space-between; */
+  /* background-image: url('../img/bus_back.jpg'); */
 }
 
-.seat-checkbox {
-  height: 11px;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-.main-title {
-  padding: 10px;
-}
-.empty {
-  width: 900px;
-}
-.links {
-  display: flex;
-}
-.links2 {
-  padding: 10px;
-  display: flex;
-}
-.bg-blue {
-  background-color: #87ceeb;
-}
-
-.dropdown {
-  display: flex;
-  flex-direction: column;
-}
-
-.container-fluid {
-  color: #0039a6;
-  padding: 10px;
-  height: 100%;
-  background-color: #87ceeb;
-  height: 60px;
-}
-
-.form_elements {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+/* how to align text to centre in css? */
+.fl{
   padding: 10px;
 }
 
-.homePageForm {
-  display: flex;
-  flex-direction: row;
-  text-align: center;
+.imgCont{
+  padding: 10px 50px 0 0;
   align-items: center;
 }
 
-.main_div {
-  height: 650px;
-  text-align: center;
-  align-items: center;
-  padding: 30px 0 30px 0;
-  background: url("../img/volvo.jpg");
-  background-repeat: no-repeat;
-  background-size: auto;
-  background-size: 100% 100%;
-}
-.headings {
-  color: #e0ffff;
-  font-size: 25px;
-  font-family: "Poppins", sans-serif;
-  padding: 5px 3px 5px 3px;
-  margin: 7px;
+.tilleBlock, .our-promise-blocks{
+    color: #4a4a4a;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    word-spacing: 8px;
+    margin: 0 auto;
+    /* width: 100%; */
+    text-align: center;
+    text-transform: uppercase;
+    padding:20px 70px 20px 20px;
 }
 
-.rogue {
-  margin-top: 15px;
+/* #customer{
+  height: auto ;
+  background-size: contain;
+  background-image: url('../img/log.jpg');
+}
+
+#customer2{
+  height: auto ;
+  background-size: contain;
+  background-image: url('../img/log2.jpg');
+} */
+
+#customer1{
+  display: flex;
+  margin: 20px;
+}
+
+.stats_img{
+  height: 350px;
+  width: 550px;
+}
+
+.stats{
+  margin: 20px;
+  padding: 20px;
 }
 
 /* dropdown on index.html */
@@ -122,29 +100,30 @@ textarea:focus {
   border: 1px solid rgba(81, 203, 238, 1);
 }
 
-.autocomplete-items {
-  background-color: white;
-  width: 200px;
-  position: absolute;
-  top: 50px;
-}
-#myInput2autocomplete-list {
-  background-color: white;
-  width: 200px;
-  position: absolute;
-  top: 100px;
-}
+  .autocomplete-items{
+   background-color: white;
+   width: 200px;
+   position: absolute;
+   top: 50px;
+  }
+  #myInput2autocomplete-list{
+    background-color: white;
+    width: 200px;
+    position: absolute;
+    top: 100px;
+  }
+ 
 
-.button {
-  color: #e0ffff;
-  margin: 5px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  padding: 5px;
-  border-color: #99ffff;
-  border-width: 5px;
-}
+  .button{
+    color:  #E0FFFF;
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 5px;
+    border-color: #99FFFF;
+    border-width: 5px;
+  }
 
 .footer {
   padding: 10px;
@@ -210,7 +189,99 @@ textarea:focus {
   padding: 10px;
 }
 
-/* booking confirmation page styling */
+  /* Seat Booking */
+#bus-outline {
+  background-color: azure;
+  text-align: center;
+  margin: 1em 0px;
+  padding: 0.75em;
+  width: 20em;
+  border-radius: 7px;
+}
+
+.seat-checkbox {
+  height: 11px;
+}
+
+.book-btn {
+  margin-top: 5em;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+  }
+  .main-title{
+    padding: 10px;
+  }
+  .empty{
+    width:900px;
+  }
+  .links{
+    display: flex;
+  }
+  .links2{
+    padding: 10px;
+    display: flex;
+  }
+  .bg-blue{
+    background-color: #87CEEB;
+  }
+
+  .dropdown{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container-fluid{
+    color: #0039a6;
+    padding: 10px;
+    height: 100%;
+    background-color:#87CEEB;
+    height: 60px;
+  }
+  
+  .form_elements{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    padding: 10px;
+  }
+
+  .homePageForm{
+
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+  }
+
+  .main_div{
+    height: 650px;
+    text-align: center;
+    align-items: center;
+    padding: 30px 0 30px 0;
+    background: url('../img/volvo2.jpg');
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-size: 100% 100%;
+  }
+  .headings{
+    color: #E0FFFF;
+    font-size: 25px;
+    font-family:'Poppins', sans-serif;
+    padding: 5px 3px 5px 3px;
+    margin: 7px;
+   
+  }
+
+  .rogue{
+    margin-top: 15px;
+  }
+
+
+  /* booking confirmation page styling */
 
 .receipt {
   margin: 4rem 3rem 0px;
