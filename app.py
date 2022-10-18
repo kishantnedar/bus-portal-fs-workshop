@@ -9,7 +9,8 @@ app.secret_key = os.urandom(24)
 
 app.register_blueprint(admin, url_prefix='/admin')
 
-app.register_blueprint(booking, url_prefix='/book')
+app.register_blueprint(booking)
+
 
 @app.route('/')
 def index():
@@ -21,10 +22,9 @@ def index():
             start_locations.append(each_location['bus_start'])
         if each_location['bus_destination'] not in destination_locations:
             destination_locations.append(each_location['bus_destination'])
-    return render_template("index.html", start_locations = start_locations, destination_locations = destination_locations)
+    return render_template("index.html", start_locations=start_locations, destination_locations=destination_locations)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5007))
     app.run(debug=True, host='0.0.0.0', port=port)
-
-

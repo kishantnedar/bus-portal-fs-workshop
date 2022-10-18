@@ -5,7 +5,7 @@ content %}
   <h1 class="text-center py-2">Add a bus</h1>
 
   <div class="container shadow p-4 mb-4 bg-white">
-    <form action="/admin/add-bus" method="post">
+    <form action="{{url_for('admin.add_bus')}}" method="post">
       <div class="mb-3 mt-3">
         <label for="bus_name" class="form-label">Bus Name:</label>
         <input
