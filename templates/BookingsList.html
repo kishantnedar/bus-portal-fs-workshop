@@ -30,10 +30,7 @@ content %} {% include 'navbar.html' %}
 </div>
 {% endfor %} {% else %}
 <h3 class="text-center">No bookings found</h3>
-
-{% for n in bookinglist %}
-<h1>{{ n['bus_number'] }}</h1>
-{% endfor %}
+{% endif %}
   
 <footer class="container-fluid footer">
     <h3>© UseBusesInc.</h3>
