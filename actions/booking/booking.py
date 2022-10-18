@@ -1,8 +1,4 @@
-
 from models.booking import Booking
-# from controllers.book import seat_book
-
-from models.bus import Bus
 from repository.mongo import MongoRepository
 import pandas as pd
 
@@ -58,9 +54,8 @@ def book_ticket(ticket):
 
     MongoRepository('buses').update(
         {'_id': int(ticket['bus_number'])}, {'$set': {'bus_seats': seats}})
-    # booking = Booking()
     booking = Booking(
-        booked_by=ticket['user_id'], bus_number=ticket['bus_number'], booked_tickets=[ticket['window_left'], ticket['window_right'], ticket['left'], ticket['right']])
+        booked_by=ticket['user_id'], bus_number=ticket['bus_number'], booked_tickets={'window_left': ticket['window_left'], 'window_right': ticket['window_right'], 'left': ticket['left'], 'right': ticket['right']}, booked_date=ticket['booked_date'])
     MongoRepository('bookings').insert(booking.__dict__)
     return booking
 
