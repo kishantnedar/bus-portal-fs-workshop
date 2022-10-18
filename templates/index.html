@@ -7,7 +7,7 @@
       <li class="homePageForm">
         <p class="headings">🏠From:</p>
         <div class = "dropdown">
-          <input class="inputs" id="myInput" type="text" name="from" placeholder="from"  />
+          <input class="inputs" id="myInput" type="text" name="from" placeholder="from" required  />
           <!-- <p id="datalist"></p> -->
         </div>
         
@@ -15,13 +15,13 @@
       <li class="homePageForm">
         <p class="headings">🚌To:</p>
         <p>
-          <input class="inputs rogue" id="myInput2" type="text" name="to" placeholder="to" autocomplete="off" />
+          <input class="inputs rogue" id="myInput2" type="text" name="to" placeholder="to" autocomplete="off" required />
         </p>
       </li>
 
       <li class="homePageForm">
         <p class="headings">🗓️Date:</p>
-        <input class="inputs date" type="date" name="date" min= "day()" />
+        <input id="input_date" class="inputs date" type="date" name="date" required />
       </li>
       <li class="homePageForm">
         <button class="button" type="submit">🔍</button>
@@ -113,6 +113,23 @@ var destination_locations =  {{ destination_locations|tojson }};
 /*initiate the autocomplete function on the "myInput" element, and pass along the locations array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"), start_locations);
 autocomplete(document.getElementById("myInput2"), destination_locations)
+
+</script>
+
+<script type="text/javascript">
+  $(function(){
+      var dtToday = new Date();
+   
+      var month = dtToday.getMonth() + 1;
+      var day = dtToday.getDate();
+      var year = dtToday.getFullYear();
+      if(month < 10)
+          month = '0' + month.toString();
+      if(day < 10)
+       day = '0' + day.toString();
+      var maxDate = year + '-' + month + '-' + day;
+      $('#input_date').attr('min', maxDate);
+  });
 </script>
 
 {% endblock %}
