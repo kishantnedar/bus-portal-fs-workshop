@@ -1,6 +1,4 @@
 from app import app
-from controllers.book import booking
-
 
 def test_index():
     response = app.test_client().get('/')
