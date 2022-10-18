@@ -55,7 +55,7 @@ def book_ticket(ticket):
     MongoRepository('buses').update(
         {'_id': int(ticket['bus_number'])}, {'$set': {'bus_seats': seats}})
     booking = Booking(
-        booked_by=ticket['user_id'], bus_number=ticket['bus_number'], booked_tickets={'window_left': ticket['window_left'], 'window_right': ticket['window_right'], 'left': ticket['left'], 'right': ticket['right']}, booked_date=ticket['booked_date'])
+        booked_by=ticket['user_id'], bus_number=ticket['bus_number'], booked_tickets={'window_left': ticket['window_left'], 'window_right': ticket['window_right'], 'left': ticket['left'], 'right': ticket['right']}, booked_date=ticket['booked_date'], booking_price=ticket['booking_price'])
     MongoRepository('bookings').insert(booking.__dict__)
     return booking
 
@@ -75,3 +75,7 @@ def get_booking(booking_id):
     booking = Booking(
         **MongoRepository('bookings').find_one({'_id': booking_id}))
     return booking
+
+
+def delete_booking(booking_id):
+    MongoRepository('bookings').delete({'_id': booking_id})
