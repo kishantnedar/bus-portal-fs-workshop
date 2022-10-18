@@ -221,9 +221,15 @@ textarea:focus {
     display: flex;
   }
   .links2{
-    padding: 10px;
+    padding: 20px;
     display: flex;
   }
+  /* .nav-link{
+    padding: 20px;
+    background-color: white;
+    height: 100%;
+  } */
+
   .bg-blue{
     background-color: #87CEEB;
   }
