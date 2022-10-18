@@ -1,6 +1,5 @@
-{% extends 'base.html' %} {% block title %} Index {% endblock %}
-{% block content %} {% include 'navbar.html' %}
-
+{% extends 'base.html' %} {% block title %} Index {% endblock %} {% block
+content %} {% include 'navbar.html' %}
 
 <div class="container mt-3">
   <div class="receipt">
@@ -8,26 +7,19 @@
     <p>Bus Name: {{ bus.bus_name }}</p>
     <p>Journey: {{ bus.bus_start }} ➜ {{ bus.bus_destination }}</p>
     <p>Journey Date: {{ booking.booked_date }}</p>
-    <p>Seats booked:
-      {% for i in booking.booked_tickets.window_left %}
-      A{{i}}
-      {% endfor %}
-      {% for i in booking.booked_tickets.left %}
-      B{{i}}
-      {% endfor %}
-      {% for i in booking.booked_tickets.right %}
-      C{{i}}
-      {% endfor %}
-      {% for i in booking.booked_tickets.window_right %}
-      D{{i}}
-      {% endfor %}
+    <p>
+      Seats booked: {% for i in booking.booked_tickets.window_left %} A{{i}} {%
+      endfor %} {% for i in booking.booked_tickets.left %} B{{i}} {% endfor %}
+      {% for i in booking.booked_tickets.right %} C{{i}} {% endfor %} {% for i
+      in booking.booked_tickets.window_right %} D{{i}} {% endfor %}
     </p>
 
-    <p>Total Price: {{ price }}</p>
-    <br>
-    <a href="{{url_for('index')}}" class="text-success text-decoration-none">Return to home</a>
+    <p>Total Price: {{ booking.booking_price }}</p>
+    <br />
+    <a href="{{url_for('index')}}" class="text-success text-decoration-none"
+      >Return to home</a
+    >
   </div>
 </div>
-
 
 {% endblock %}
