@@ -1,38 +1,44 @@
 {% extends 'base.html' %} {% block title %} Booking List {% endblock %} {% block
 content %} {% include 'navbar.html' %}
-<div></div>
-{% if bookinglist %} {% for booking in bookinglist %}
-<div class="receipt">
-  <div class="booking-id">
-    <span class="fw-bold">Booking ID:</span>
-    {{booking._id}}
+<div class="content">
+  {% if bookinglist %} {% for booking in bookinglist %}
+  <div class="booking">
+    <div class="image-cont">
+      <img src={{url_for('static', filename='img/ticket.png') }} alt="bus image
+      here" class="bus-image">
+    </div>
+    <div class="booking-content">
+      <div class="booking-id">
+        <span class="fw-bold">Booking ID:</span>
+        {{booking._id}}
+      </div>
+      <div class="booking-date">
+        <span class="fw-bold">Booking Date:</span> {{booking.booked_date}}
+      </div>
+      <div class="booking-price">
+        <span class="fw-bold">Booking Price:</span> {{booking.booking_price}}
+      </div>
+      <div class="booked-bus-id">
+        <span class="fw-bold">Booked Bus Number:</span> {{booking.bus_number}}
+      </div>
+      <div class="booked-on">
+        <span class="fw-bold">Booked On:</span>
+        {{booking.booked_on.strftime('%d-%m-%Y %H:%M:%S')}}
+      </div>
+      <div class="booking-seats">
+        <span class="fw-bold">Booked Seats:</span> {% for i in
+        booking.booked_tickets.window_left %} A{{i}} {% endfor %} {% for i in
+        booking.booked_tickets.left %} B{{i}} {% endfor %} {% for i in
+        booking.booked_tickets.right %} C{{i}} {% endfor %} {% for i in
+        booking.booked_tickets.window_right %} D{{i}} {% endfor %}
+      </div>
+    </div>
   </div>
-  <div class="booking-date">
-    <span class="fw-bold">Booking Date:</span> {{booking.booked_date}}
-  </div>
-  <div class="booking-price">
-    <span class="fw-bold">Booking Price:</span> {{booking.booking_price}}
-  </div>
-  <div class="booked-bus-id">
-    <span class="fw-bold">Booked Bus Number:</span> {{booking.bus_number}}
-  </div>
-  <div class="booked-on">
-    <span class="fw-bold">Booked On:</span>
-    {{booking.booked_on.strftime('%d-%m-%Y %H:%M:%S')}}
-  </div>
-  <div class="booking-seats">
-    <span class="fw-bold">Booked Seats:</span> {% for i in
-    booking.booked_tickets.window_left %} A{{i}} {% endfor %} {% for i in
-    booking.booked_tickets.left %} B{{i}} {% endfor %} {% for i in
-    booking.booked_tickets.right %} C{{i}} {% endfor %} {% for i in
-    booking.booked_tickets.window_right %} D{{i}} {% endfor %}
-  </div>
+  {% endfor %} {% else %}
+  <h3 class="text-center">No bookings found</h3>
+  {% endif %}
 </div>
-{% endfor %} {% else %}
-<h3 class="text-center">No bookings found</h3>
-{% endif %}
-  
 <footer class="container-fluid footer">
-    <h3>© UseBusesInc.</h3>
-  </footer>
+  <h3>© UseBusesInc.</h3>
+</footer>
 {% endblock %}
