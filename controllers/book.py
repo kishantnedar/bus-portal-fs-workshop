@@ -1,10 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, session, url_for, flash
 from actions.booking.booking import get_user_request_buses, get_selected_bus, book_ticket, get_bookings
-import pandas as pd
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, session, render_template, request
+import datetime
 
 booking = Blueprint('book', __name__)
-
 
 @booking.route('/search', methods=['GET', 'POST'])
 def search_bus():
@@ -12,7 +10,8 @@ def search_bus():
         bus_list = get_user_request_buses(search=request.form)
         date = request.form['date']
         session['date'] = date
-        day = pd.Timestamp(date).day_name()
+        day_name= ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        day = day_name[datetime.datetime.strptime(date, '%Y-%m-%d').weekday()]
         return render_template('UserRequestbus.html', buses=bus_list, day=day)
 
 
