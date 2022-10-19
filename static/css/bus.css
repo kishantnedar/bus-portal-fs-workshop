@@ -194,6 +194,11 @@ textarea:focus {
   border-radius: 7px;
 }
 
+.buss{
+  width: 900px;
+  height: 300px;
+}
+
 .seat-checkbox {
   height: 11px;
 }
