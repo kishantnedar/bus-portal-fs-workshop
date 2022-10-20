@@ -5,11 +5,7 @@ content %}
   <h1 class="text-center">Welcome to Admin Portal</h1>
 
   <div class="clearfix">
-    <span class="float-end"
-      ><a href="{{ url_for('admin.add_bus') }}" class="btn btn-primary"
-        >ADD</a
-      ></span
-    >
+    <span class="float-end"><a href="{{ url_for('admin.add_bus') }}" class="btn btn-primary">ADD</a></span>
   </div>
   <div class="container mt-5 shadow p-4 mb-4 bg-white">
     <table class="table">
@@ -32,11 +28,10 @@ content %}
           <td>{{ bus.bus_seats.right.seat_price }}</td>
           <td>{{ bus.bus_seats.window_right.seat_price }}</td>
           <td>
-            <i
-              class="fa-solid fa-trash"
-              id="bus-delete-{{bus._id}}"
-              style="cursor: pointer"
-            ></i>
+            <a href="{{ url_for('admin.view_bus', bus_id=bus._id) }}"><i class="fa-solid fa-circle-info fa-lg"
+                style="color: #000;" title="View"></i></a>
+            &nbsp;
+            <i class="fa-solid fa-trash fa-lg" id="bus-delete-{{bus._id}}" style="cursor: pointer" title="Delete"></i>
             <script>
               document.addEventListener("click", (e) => {
                 if (e.target.id === "bus-delete-{{bus._id}}") {

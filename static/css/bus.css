@@ -339,3 +339,12 @@ textarea:focus {
   flex-direction: column;
   flex-wrap: wrap;
 }
+
+/* Admin View Bus Styling */
+
+.home-icon {
+  color: #000;
+  font-size: 1.5em;
+  margin: 44px 0px 0px 60em;
+  position: absolute;
+}
