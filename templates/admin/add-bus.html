@@ -46,6 +46,7 @@ content %}
           <input
             type="number"
             max="100"
+            min="0"
             class="form-control"
             id="normal_seat_price"
             name="normal_seat_price"
@@ -56,6 +57,7 @@ content %}
         <div class="col-3">
           <input
             type="number"
+            min="0"
             max="100"
             class="form-control"
             id="window_seat_price"
@@ -71,6 +73,7 @@ content %}
         >
         <input
           type="number"
+          min="0"
           max="10"
           class="form-control w-50"
           id="no_of_seats"
@@ -102,33 +105,80 @@ content %}
           />
         </div>
       </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Monday" name="runs_on">
-        <label class="form-check-label" for="inlineCheckbox1">Monday</label>
-      </div><div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Tuesday" name="runs_on">
-        <label class="form-check-label" for="inlineCheckbox1">Tuesday</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Wednesday" name="runs_on">
-        <label class="form-check-label" for="inlineCheckbox1">Wednesday</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Thursday" name="runs_on">
-        <label class="form-check-label" for="inlineCheckbox1">Thursday</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Friday" name="runs_on">
-        <label class="form-check-label" for="inlineCheckbox1">Friday</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Saturday" name="runs_on">
-        <label class="form-check-label" for="inlineCheckbox1">Saturday</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Sunday" name="runs_on">
-        <label class="form-check-label" for="inlineCheckbox1">Sunday</label>
-      </div>
+      <div id="running">
+        <label class="form-check-label" for="running">Running on:</label>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="Monday"
+            name="runs_on"
+          />
+          <label class="form-check-label" for="inlineCheckbox1">Monday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="Tuesday"
+            name="runs_on"
+          />
+          <label class="form-check-label" for="inlineCheckbox1">Tuesday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="Wednesday"
+            name="runs_on"
+          />
+          <label class="form-check-label" for="inlineCheckbox1"
+            >Wednesday</label
+          >
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="Thursday"
+            name="runs_on"
+          />
+          <label class="form-check-label" for="inlineCheckbox1">Thursday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="Friday"
+            name="runs_on"
+          />
+          <label class="form-check-label" for="inlineCheckbox1">Friday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="Saturday"
+            name="runs_on"
+          />
+          <label class="form-check-label" for="inlineCheckbox1">Saturday</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="inlineCheckbox1"
+            value="Sunday"
+            name="runs_on"
+          />
+          <label class="form-check-label" for="inlineCheckbox1">Sunday</label>
+        </div>
       </div>
 
       <button type="submit" class="btn btn-primary">Save</button>
