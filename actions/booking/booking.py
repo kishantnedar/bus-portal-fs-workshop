@@ -1,82 +1,88 @@
 from models.booking import Booking
 from repository.mongo import MongoRepository
 import datetime
+from os import environ
+from pymongo import MongoClient
 
 
-def get_user_request_buses(search):
-    start_location = search['from']
-    destination_location = search['to']
-    date = search['date']
-    day_name= ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    day = day_name[datetime.datetime.strptime(date, '%Y-%m-%d').weekday()]
+class BookingActions:
+    def __init__(self):
+        self._mongo = MongoRepository(MongoClient(host=environ.get(
+            'DB_HOST'), username=environ.get('DB_UNAME'), password=environ.get('DB_PASSWD')))
+        self._db = environ.get('DB_NAME')
 
-    mongo_busses_object = MongoRepository('buses').find(
-        {'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
+    def get_user_request_buses(self, search):
+        start_location = search['from']
+        destination_location = search['to']
+        date = search['date']
+        day_name = ['Monday', 'Tuesday', 'Wednesday',
+                    'Thursday', 'Friday', 'Saturday', 'Sunday']
+        day = day_name[datetime.datetime.strptime(date, '%Y-%m-%d').weekday()]
 
-    return [bus for bus in mongo_busses_object]
+        mongo_busses_object = self._mongo.find(database=self._db, collection='buses',
+                                               query={'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
 
+        return [bus for bus in mongo_busses_object]
 
-def get_selected_bus(bus_num):
-    mongo_bus_object = MongoRepository('buses').find_one({'_id': bus_num})
-    return mongo_bus_object
+    def get_selected_bus(self, bus_num):
+        mongo_bus_object = self._mongo.find_one(
+            database=self._db, collection='buses', query={'_id': bus_num})
+        return mongo_bus_object
 
+    def book_ticket(self, ticket):
+        print(ticket)
+        print(f'{ticket["bus_number"]}: {type(ticket["bus_number"])}')
+        bus = self._mongo.find_one(database=self._db, collection='buses', query={
+                                   '_id': int(ticket['bus_number'])})
+        seats = bus['bus_seats']
+        print("_________________________________")
+        print(seats)
+        for seat in ticket['window_left']:
+            seats['window_left']['seats'][int(
+                seat)-1]['seat_occupied'] = True
+            seats['window_left']['seats'][int(
+                seat)-1]['reserved_by'] = ticket['user_id']
 
-def book_ticket(ticket):
-    print(ticket)
-    print(f'{ticket["bus_number"]}: {type(ticket["bus_number"])}')
-    bus = MongoRepository('buses').find_one(
-        {'_id': int(ticket['bus_number'])})
-    seats = bus['bus_seats']
-    print("_________________________________")
-    print(seats)
-    for seat in ticket['window_left']:
-        seats['window_left']['seats'][int(
-            seat)-1]['seat_occupied'] = True
-        seats['window_left']['seats'][int(
-            seat)-1]['reserved_by'] = ticket['user_id']
+        for seat in ticket['window_right']:
+            seats['window_right']['seats'][int(
+                seat)-1]['seat_occupied'] = True
+            seats['window_right']['seats'][int(
+                seat)-1]['reserved_by'] = ticket['user_id']
 
-    for seat in ticket['window_right']:
-        seats['window_right']['seats'][int(
-            seat)-1]['seat_occupied'] = True
-        seats['window_right']['seats'][int(
-            seat)-1]['reserved_by'] = ticket['user_id']
+        for seat in ticket['left']:
+            seats['left']['seats'][int(
+                seat)-1]['seat_occupied'] = True
+            seats['left']['seats'][int(
+                seat)-1]['reserved_by'] = ticket['user_id']
 
-    for seat in ticket['left']:
-        seats['left']['seats'][int(
-            seat)-1]['seat_occupied'] = True
-        seats['left']['seats'][int(
-            seat)-1]['reserved_by'] = ticket['user_id']
+        for seat in ticket['right']:
+            seats['right']['seats'][int(
+                seat)-1]['seat_occupied'] = True
+            seats['right']['seats'][int(
+                seat)-1]['reserved_by'] = ticket['user_id']
 
-    for seat in ticket['right']:
-        seats['right']['seats'][int(
-            seat)-1]['seat_occupied'] = True
-        seats['right']['seats'][int(
-            seat)-1]['reserved_by'] = ticket['user_id']
+        self._mongo.update(database=self._db, collection='buses', query={
+                           '_id': int(ticket['bus_number'])}, update={'$set': {'bus_seats': seats}})
+        booking = Booking(
+            booked_by=ticket['user_id'], bus_number=ticket['bus_number'], booked_tickets={'window_left': ticket['window_left'], 'window_right': ticket['window_right'], 'left': ticket['left'], 'right': ticket['right']}, booked_date=ticket['booked_date'], booking_price=ticket['booking_price'])
+        self._mongo.insert(database=self._db,
+                           collection='bookings', dictionary=booking.__dict__)
+        return booking
 
-    MongoRepository('buses').update(
-        {'_id': int(ticket['bus_number'])}, {'$set': {'bus_seats': seats}})
-    booking = Booking(
-        booked_by=ticket['user_id'], bus_number=ticket['bus_number'], booked_tickets={'window_left': ticket['window_left'], 'window_right': ticket['window_right'], 'left': ticket['left'], 'right': ticket['right']}, booked_date=ticket['booked_date'], booking_price=ticket['booking_price'])
-    MongoRepository('bookings').insert(booking.__dict__)
-    return booking
+    def get_locations(self):
+        return self._mongo.find_with_filter(database=self._db, collection='buses', query={}, param={"_id": 0, "bus_start": 1, "bus_destination": 1})
 
+    def get_bookings(self, user_id):
+        bookings = [Booking(**booking)
+                    for booking in self._mongo.find(database=self._db, collection='bookings', query={'booked_by': user_id})]
+        return bookings
 
-def get_locations():
-    return MongoRepository('buses').find_with_filter({}, {"_id": 0, "bus_start": 1, "bus_destination": 1})
+    def get_booking(self, booking_id):
+        print(booking_id)
+        booking = Booking(
+            **self._mongo.find_one(database=self._db, collection='bookings', query={'_id': booking_id}))
+        return booking
 
-
-def get_bookings(user_id):
-    bookings = [Booking(**booking)
-                for booking in MongoRepository('bookings').find({'booked_by': user_id})]
-    return bookings
-
-
-def get_booking(booking_id):
-    print(booking_id)
-    booking = Booking(
-        **MongoRepository('bookings').find_one({'_id': booking_id}))
-    return booking
-
-
-def delete_booking(booking_id):
-    MongoRepository('bookings').delete({'_id': booking_id})
+    def delete_booking(self, booking_id):
+        self._mongo.delete(database=self._db, collection='bookings', query={
+                           '_id': booking_id})

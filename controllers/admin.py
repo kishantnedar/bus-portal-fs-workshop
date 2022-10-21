@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from jinja2 import TemplateNotFound
 from actions.admin.bus import AdminActions
-from actions.booking.booking import get_selected_bus
+from actions.booking.booking import BookingActions
 from pymongo.errors import DuplicateKeyError
 
 admin = Blueprint('admin', __name__)
@@ -31,7 +31,7 @@ def add_bus():
 def view_bus():
     bus_id = int(request.args.get('bus_id'))
     if bus_id:
-        bus_details = get_selected_bus(bus_id)
+        bus_details = AdminActions().get_selected_bus(bus_id)
         seat_count = int(bus_details['bus_capacity'] / 4)
         return render_template('admin/view-bus.html', bus=bus_details, seat_count=seat_count)
     return redirect(url_for('admin.index'))

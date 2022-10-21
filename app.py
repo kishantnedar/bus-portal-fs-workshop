@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import os
 from controllers.admin import admin
 from controllers.book import booking
-from actions.booking.booking import get_locations
+from actions.booking.booking import BookingActions
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -16,7 +16,7 @@ app.register_blueprint(booking)
 def index():
     start_locations = []
     destination_locations = []
-    location_obj = get_locations()
+    location_obj = BookingActions().get_locations()
     for each_location in location_obj:
         if each_location['bus_start'] not in start_locations:
             start_locations.append(each_location['bus_start'])

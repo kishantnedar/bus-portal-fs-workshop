@@ -1,12 +1,12 @@
 from models.bus import Bus
-from repository.mongo import MongoRepositoryNew
+from repository.mongo import MongoRepository
 from pymongo import MongoClient
 from os import environ
 
 
 class AdminActions:
     def __init__(self):
-        self._mongo = MongoRepositoryNew(MongoClient(host=environ.get(
+        self._mongo = MongoRepository(MongoClient(host=environ.get(
             'DB_HOST'), username=environ.get('DB_UNAME'), password=environ.get('DB_PASSWD')))
         self._db = environ.get('DB_NAME')
 

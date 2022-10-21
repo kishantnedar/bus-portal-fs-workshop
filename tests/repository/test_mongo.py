@@ -1,7 +1,7 @@
 import pytest
 import mongomock
 
-from repository.mongo import MongoRepositoryNew
+from repository.mongo import MongoRepository
 
 # from repository.mongo_repository import MongoRepository
 
@@ -10,7 +10,7 @@ class TestMongoRepository():
 
     def test_find(self):
         data = [{'_id': 1, 'name': 'John', 'age': 25}]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         assert repo.find(query={'_id': 1}, database='test',
@@ -23,14 +23,14 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
         ]
         mockdb = mongomock.MongoClient()
-        repo = MongoRepositoryNew(mockdb)
+        repo = MongoRepository(mockdb)
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         assert repo.find(query={'_id': 4}, database='test',
                          collection='test') == None
 
     def test_insert(self):
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         data = [
             {'_id': 1, 'name': 'John', 'age': 25},
             {'_id': 2, 'name': 'Jane', 'age': 30},
@@ -41,7 +41,7 @@ class TestMongoRepository():
         assert repo.find(query={}, database='test', collection='test') == data
 
     def test_insert_not_dict_type(self):
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         with pytest.raises(TypeError):
             repo.insert(dictionary=[1, 2, 3],
                         database='test', collection='test')
@@ -53,7 +53,7 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         assert repo.find_one(
@@ -66,7 +66,7 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         assert repo.find_one(
@@ -79,7 +79,7 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         repo.update(query={'_id': 1}, update={'$set': {'age': 26}},
@@ -94,7 +94,7 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         repo.update(query={'_id': 5}, update={'$set': {'age': 26}},
@@ -109,7 +109,7 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         repo.delete(database='test', collection='test', query={'_id': 1})
@@ -123,7 +123,7 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         with pytest.raises(ValueError):
@@ -136,7 +136,7 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         repo.delete_all(database='test', collection='test')
@@ -149,13 +149,13 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         assert repo.count(database='test', collection='test') == 4
 
     def test_count_empty(self):
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         assert repo.count(database='test', collection='test') == 0
 
     def test_count_query_not_found(self):
@@ -165,7 +165,7 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         assert repo.count_query(database='test', collection='test', query={
@@ -178,13 +178,13 @@ class TestMongoRepository():
             {'_id': 3, 'name': 'Jack', 'age': 35},
             {'_id': 4, 'name': 'Jack', 'age': 40},
         ]
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         for dict in data:
             repo.insert(dictionary=dict, database='test', collection='test')
         assert repo.count_query(database='test', collection='test', query={
                                 'name': "Jack"}) == 2
 
     def test_count_query_empty(self):
-        repo = MongoRepositoryNew(mongomock.MongoClient())
+        repo = MongoRepository(mongomock.MongoClient())
         assert repo.count_query(database='test', collection='test', query={
                                 'name': "Jack"}) == 0
