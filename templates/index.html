@@ -9,12 +9,13 @@ content %} {% include 'navbar.html' %}
   >
     <div class="form_elements">
       <li class="homePageForm">
-        <p class="headings">🏠From:</p>
+        <p class="headings"><i class="fa-solid fa-house"></i> </p>
         <div class="dropdown">
           <input
             class="inputs"
             id="myInput"
             type="text"
+            list="start_locations"
             name="from"
             placeholder="from"
             autocomplete="off"
@@ -23,25 +24,25 @@ content %} {% include 'navbar.html' %}
         </div>
       </li>
       <li class="homePageForm">
-        <p class="headings">🚌To:</p>
+        <p class="headings"><i class="fa-solid fa-location-dot"></i> </p>
         <p>
-          <input class="inputs rogue" id="myInput2" type="text" name="to" placeholder="to" autocomplete="off" required />
+          <input class="inputs rogue" id="myInput2" list="destination_locations" type="text" name="to" placeholder="to" autocomplete="off" required />
         </p>
       </li>
 
       <li class="homePageForm">
-        <p class="headings">🗓️Date:</p>
+        <p class="headings"><i class="fa-regular fa-calendar"></i> </p>
         <input id="input_date" class="inputs date" type="date" name="date" required />
       </li>
       <li class="homePageForm">
-        <button class="button" type="submit">🔍</button>
+        <button class="button" type="submit"><i class="fa-sharp fa-solid fa-magnifying-glass search"></i></button>
       </li>
     </div>
   </form>
 </div>
 
 
-<div class="clearfix aa our-promise-blocks" id="advantage">
+<div class="clearfix aa our-promise-blocks animated slideInLeft delay-1s" id="advantage">
   <div class="fl rest1 appear-first aa-33 animate" id="customer1">
     <div class="stats">
       <div class="imgCont rest1 animate">
@@ -59,7 +60,7 @@ content %} {% include 'navbar.html' %}
     </div>
       
   </div>
-  <div class="fl rest1 appear-third aa-33 animate" id="customer1">
+  <div class="fl rest1 animated loop slideInRight delay-2s" id="customer1">
     <div>
       <img class="stats_img" src="static/img/log3.jpg" alt="">
     </div>
@@ -77,7 +78,7 @@ content %} {% include 'navbar.html' %}
     </div>
    
   </div>
-  <div class="fl rest1 appear-fourth aa-33 animate" id="customer1">
+  <div class="fl rest1 animated slideInLeft delay-3s" id="customer1">
     <div class="stats">
       <div class="imgCont rest1 animate">
         <img src="//s1.rdbuz.com/web/images/home/lowest_Fare.png" height="90">
@@ -97,117 +98,25 @@ content %} {% include 'navbar.html' %}
 </div>
 
 
-<footer class="container-fluid footer">
-  <h3>© UseBusesInc.</h3>
+
+<footer class="footer">
+  <div class="footwrap">
+    <div class="footsec1">
+      <h3>© UseBusesInc.</h3>
+      <p>Address: sunteck kanaka panjim goa</p>
+    </div>
+    <div class="footsec2">
+      <i class="fa-brands fa-3x fa-instagram icons"></i>
+      <i class="fa-brands fa-3x fa-facebook icons"></i>
+      <i class="fa-brands fa-3x fa-youtube icons"></i>
+    </div>
+  </div>
+ 
+
+
+ 
 </footer>
-<script type="text/javascript">
-    var day = Date();
-    function autocomplete(inp, arr) {
-    /*the autocomplete function takes two arguments,
-    the text field element and an array of possible autocompleted values:*/
-    var currentFocus;
-    /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function(e) {
-        var a, b, i, val = this.value;
-        /*close any already open lists of autocompleted values*/
-        closeAllLists();
-        if (!val) { return false;}
-        currentFocus = -1;
-        /*create a DIV element that will contain the items (values):*/
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
-        /*append the DIV element as a child of the autocomplete container:*/
-        this.parentNode.appendChild(a);
-        /*for each item in the array...*/
-        for (i = 0; i < arr.length; i++) {
-          /*check if the item starts with the same letters as the text field value:*/
-          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-            /*create a DIV element for each matching element:*/
-            b = document.createElement("DIV");
-            /*make the matching letters bold:*/
-            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-            b.innerHTML += arr[i].substr(val.length);
-            /*insert a input field that will hold the current array item's value:*/
-            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-            /*execute a function when someone clicks on the item value (DIV element):*/
-            b.addEventListener("click", function(e) {
-                /*insert the value for the autocomplete text field:*/
-                inp.value = this.getElementsByTagName("input")[0].value;
-                /*close the list of autocompleted values,
-                (or any other open lists of autocompleted values:*/
-                closeAllLists();
-            });
-            a.appendChild(b);
-          }
-        }
-    });
 
-    inp.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "autocomplete-list");
-      if (x) x = x.getElementsByTagName("div");
-      if (e.keyCode == 40) {
-        /*If the arrow DOWN key is pressed,
-        increase the currentFocus variable:*/
-        currentFocus++;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 38) { //up
-        /*If the arrow UP key is pressed,
-        decrease the currentFocus variable:*/
-        currentFocus--;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 13) {
-        /*If the ENTER key is pressed, prevent the form from being submitted,*/
-        e.preventDefault();
-        if (currentFocus > -1) {
-          /*and simulate a click on the "active" item:*/
-          if (x) x[currentFocus].click();
-        }
-      }
-  });
-
-    function addActive(x) {
-      /*a function to classify an item as "active":*/
-      if (!x) return false;
-      /*start by removing the "active" class on all items:*/
-      removeActive(x);
-      if (currentFocus >= x.length) currentFocus = 0;
-      if (currentFocus < 0) currentFocus = (x.length - 1);
-      /*add class "autocomplete-active":*/
-      x[currentFocus].classList.add("autocomplete-active");
-    }
-    function removeActive(x) {
-      /*a function to remove the "active" class from all autocomplete items:*/
-      for (var i = 0; i < x.length; i++) {
-        x[i].classList.remove("autocomplete-active");
-      }
-    }
-    function closeAllLists(elmnt) {
-      /*close all autocomplete lists in the document,
-      except the one passed as an argument:*/
-      var x = document.getElementsByClassName("autocomplete-items");
-      for (var i = 0; i < x.length; i++) {
-        if (elmnt != x[i] && elmnt != inp) {
-          x[i].parentNode.removeChild(x[i]);
-        }
-      }
-    }
-    /*execute a function when someone clicks in the document:*/
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
-  }
-
-/*An array containing all the country names in the world:*/
-var start_locations =  {{ start_locations|tojson }};
-var destination_locations =  {{ destination_locations|tojson }};
-/*initiate the autocomplete function on the "myInput" element, and pass along the locations array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), start_locations);
-autocomplete(document.getElementById("myInput2"), destination_locations)
-
-</script>
 
 <script type="text/javascript">
   $(function(){
@@ -224,5 +133,20 @@ autocomplete(document.getElementById("myInput2"), destination_locations)
       $('#input_date').attr('min', maxDate);
   });
 </script>
+
+<datalist id="start_locations">
+  {% for i in start_locations %}
+  <option value="{{i}}">{{i}}</option>
+
+  {% endfor %}
+
+</datalist>
+<datalist  id="destination_locations">
+  {% for i in destination_locations %}
+  <option value="{{i}}">{{i}}</option>
+
+  {% endfor %}
+
+</datalist>
 
 {% endblock %}

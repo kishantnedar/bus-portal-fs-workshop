@@ -24,6 +24,11 @@ def index():
             destination_locations.append(each_location['bus_destination'])
     return render_template("index.html", start_locations=start_locations, destination_locations=destination_locations)
 
+@app.route('/about')
+def about_us():
+    return render_template('about.html')
+
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5007))

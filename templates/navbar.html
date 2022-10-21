@@ -3,8 +3,8 @@
         <!-- Links -->
         <ul class="navbar-nav">
             <div class="main-title">
-                <a href="{{url_for('index')}}" class="text-decoration-none">
-                <li><h2>useBuses🚎</h1></li></a>
+                <a href="{{url_for('index')}}" class="text-decoration-none text-white">
+                <li><h1>useBus <i class="fa-solid fa-bus"></i></h1></li></a>
             </div>
             <div class="links">
                 <div class="empty">
@@ -12,14 +12,12 @@
                 </div>
                 <div class="links2">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link text-white" href="{{ url_for('about_us')}}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/bookings/102">Bookings</a>
+                        <a class="nav-link text-white" href="/bookings/102">Bookings</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">logistics</a>
-                    </li>
+                    
                 </div>
             </div>
         </ul>
