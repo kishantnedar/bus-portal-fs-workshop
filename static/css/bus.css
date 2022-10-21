@@ -1,6 +1,10 @@
 /* index page perks */
 
-#advantage {
+*{
+  margin: 0;
+}
+
+#advantage{
   margin: 20px 0 20px 0;
   /* display: flex;
   justify-content: space-between; */
@@ -17,18 +21,23 @@
   align-items: center;
 }
 
-.tilleBlock,
-.our-promise-blocks {
-  color: #4a4a4a;
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  word-spacing: 8px;
-  margin: 0 auto;
-  /* width: 100%; */
-  text-align: center;
-  text-transform: uppercase;
-  padding: 20px 70px 20px 20px;
+.search{
+  padding: 2px;
+  color: black;
+}
+
+
+.tilleBlock, .our-promise-blocks{
+    color: #4a4a4a;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    word-spacing: 8px;
+    margin: 0 auto;
+    /* width: 100%; */
+    text-align: center;
+    text-transform: uppercase;
+    padding:20px 70px 20px 20px;
 }
 
 /* #customer{
@@ -46,6 +55,7 @@
 #customer1 {
   display: flex;
   margin: 20px;
+  background:rgb(246, 236, 219, 0.3);
 }
 
 .stats_img {
@@ -72,7 +82,8 @@
 .form_elements {
   border-radius: 50px;
   margin: 100px 20px 0 20px;
-  background-color: #0039a6;
+  
+  background: rgb(97, 97, 97, 0.5);
 }
 
 .inputs {
@@ -98,33 +109,47 @@ textarea:focus {
   border: 1px solid rgba(81, 203, 238, 1);
 }
 
-.autocomplete-items {
-  background-color: white;
-  width: 200px;
-  position: absolute;
-  top: 50px;
-}
-#myInput2autocomplete-list {
-  background-color: white;
-  width: 200px;
-  position: absolute;
-  top: 100px;
-}
 
-.button {
-  color: #e0ffff;
-  margin: 5px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  padding: 5px;
-  border-color: #99ffff;
-  border-width: 5px;
-}
+
+  .button{
+    color:  #E0FFFF;
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 5px;
+    border-color: #99FFFF;
+    border-width: 5px;
+  }
 
 .footer {
-  padding: 10px;
+  margin: 20px 0 0 0;
+  background: rgb(0, 42, 124);
+  color: #E0FFFF;
+  height: 240px;
   text-align: center;
+  
+}
+
+.icons{
+  padding: 5px;
+}
+
+.footwrap{
+  display: flex;
+  justify-content: space-around;
+}
+.footsec1{
+
+  color: #E0FFFF;
+  padding: 50px 20px 20px 20px;
+}
+.footsec2{
+  color: #E0FFFF;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
 }
 
 /* Available buses page styling */
@@ -207,78 +232,92 @@ textarea:focus {
   margin-top: 5em;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-}
-.main-title {
-  padding: 10px;
-}
-.empty {
-  width: 900px;
-}
-.links {
-  display: flex;
-}
-.links2 {
-  padding: 20px;
-  display: flex;
-}
-/* .nav-link{
+*{
+    margin: 0;
+    padding: 0;
+  }
+  .main-title{
+    padding: 10px;
+  }
+  .empty{
+    width:900px;
+    /* background: rgb(38, 169, 255); */
+    /* background: rgb(156, 197, 233, 0.5); */
+    background: rgb(0, 42, 124);
+  }
+  .links{
+    color: white;
+    display: flex;
+  }
+  .links2{
+    font-size: 1em;
+    color: white;
     padding: 20px;
-    background-color: white;
-    height: 100%;
-  } */
+    display: flex;
+  }
+  
+  .nav-item{
+    color: white;
+  }
+  
 
-.bg-blue {
-  background-color: #87ceeb;
-}
+  .bg-blue{
+    /* background: rgb(156, 197, 233); */
+    /* background: rgb(205, 194, 183); */
+    /* background: rgb(38, 169, 255); */
+    /* background:rgb(38, 169, 255); */
+    /* background: rgb(156, 197, 233); */
+    background: rgb(0, 42, 124);
+    color: white;
+  }
 
 .dropdown {
   display: flex;
   flex-direction: column;
 }
 
-.container-fluid {
-  color: #0039a6;
-  padding: 10px;
-  height: 100%;
-  background-color: #87ceeb;
-  height: 60px;
-}
+  .container-fluid{
+    color: white;
+    padding: 10px;
+    height: 100%;
+    
+    height: 70px;
+  }
+  
+  .form_elements{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    padding: 10px;
+  }
 
-.form_elements {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 10px;
-}
+  .homePageForm{
+    padding: 0 15px 0 15px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+  }
 
-.homePageForm {
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  align-items: center;
-}
-
-.main_div {
-  height: 650px;
-  text-align: center;
-  align-items: center;
-  padding: 30px 0 30px 0;
-  background: url("../img/volvo2.jpg");
-  background-repeat: no-repeat;
-  background-size: auto;
-  background-size: 100% 100%;
-}
-.headings {
-  color: #e0ffff;
-  font-size: 25px;
-  font-family: "Poppins", sans-serif;
-  padding: 5px 3px 5px 3px;
-  margin: 7px;
-}
+  .main_div{
+    height: 650px;
+    text-align: center;
+    align-items: center;
+    padding: 30px 0 30px 0;
+    background: url('../img/volvo2.jpg');
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-size: 100% 100%;
+  }
+  .headings{
+    color: white;
+    font-size: 25px;
+    font-family:'Poppins', sans-serif;
+    padding: 5px 5px 5px 5px;
+    margin: 7px;
+   
+  }
 
 .rogue {
   margin-top: 15px;
