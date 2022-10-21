@@ -6,7 +6,7 @@ from os import environ
 
 class AdminActions:
     def __init__(self):
-        self._mongo_repository = MongoRepositoryNew(MongoClient(host=environ.get(
+        self._mongo = MongoRepositoryNew(MongoClient(host=environ.get(
             'DB_HOST'), username=environ.get('DB_UNAME'), password=environ.get('DB_PASSWD')))
         self._db = environ.get('DB_NAME')
 
@@ -23,7 +23,7 @@ class AdminActions:
             bus_window_seat_price=float(bus['window_seat_price']),
             bus_runs_on=bus.getlist('runs_on')
         )
-        return self._mongo_repository.add(database=self._db, collection='buses', dictionary=_bus)
+        return self._mongo.add(database=self._db, collection='buses', dictionary=_bus)
 
     def get_busses(self):
         mongo_busses_object = self._mongo.find_all(
