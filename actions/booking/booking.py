@@ -18,10 +18,11 @@ class BookingActions:
         day_name = ['Monday', 'Tuesday', 'Wednesday',
                     'Thursday', 'Friday', 'Saturday', 'Sunday']
         day = day_name[datetime.datetime.strptime(date, '%Y-%m-%d').weekday()]
-
-        mongo_busses_object = self._mongo.find(database=self._db, collection='buses',
-                                               query={'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
-
+        try:
+            mongo_busses_object = self._mongo.find(database=self._db, collection='buses',
+                                                   query={'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
+        except ValueError as e:
+            return None
         return [bus for bus in mongo_busses_object]
 
     def get_selected_bus(self, bus_num):

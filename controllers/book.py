@@ -43,6 +43,6 @@ def confirm_booking():
         return render_template('booking_done.html', bus=bus_details, booking=booking)
 
 
-@booking.route('/bookings/<int:user_id>')
+@ booking.route('/bookings/<int:user_id>')
 def booking_list(user_id):
     return render_template('BookingsList.html', bookinglist=BookingActions().get_bookings(user_id))

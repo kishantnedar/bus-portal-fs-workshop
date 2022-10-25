@@ -30,5 +30,10 @@ class AdminActions:
             database=self._db, collection='buses')
         return [Bus(**bus).__dict__ for bus in mongo_busses_object]
 
+    def get_selected_bus(self, bus_num):
+        mongo_bus_object = self._mongo.find_one(
+            database=self._db, collection='buses', query={'_id': bus_num})
+        return mongo_bus_object
+
     def delete_bus(self, bus_number):
         return self._mongo.delete(query={'_id': bus_number}, database=self._db, collection='buses')

@@ -2,8 +2,8 @@
 content %} {% include 'navbar.html' %}
 
 <div class="container my-5">
+  {% if buses %}
   <h1 class="text-center">Choose an available bus</h1>
-
   <!-- <div class="container mt-5 shadow p-4 mb-4 bg-white"> -->
   {% for bus in buses %}
 
@@ -38,7 +38,9 @@ content %} {% include 'navbar.html' %}
     <!-- </div> -->
   </a>
 
-  {% endfor %}
+  {% endfor %} {% else %}
+  <h1 class="text-center">No buses available</h1>
+  {% endif %}
 </div>
 <footer class="footer">
   <div class="footwrap">
@@ -52,9 +54,5 @@ content %} {% include 'navbar.html' %}
       <i class="fa-brands fa-3x fa-youtube icons"></i>
     </div>
   </div>
- 
-
-
- 
 </footer>
 {% endblock %}

@@ -58,7 +58,7 @@ class MongoRepository(object):
     def find(self, database, collection, query):
         query_result = self._mongoclient[database][collection].find(query)
         if self._mongoclient[database][collection].count_documents(query) == 0:
-            return None
+            raise ValueError('No documents found')
         return [result for result in query_result]
 
     def find_one(self, database, collection, query):
