@@ -124,12 +124,13 @@ textarea:focus {
 
 .footer {
   margin: 20px 0 0 0;
-  background: rgb(0, 42, 124);
+  background: rgb(0, 42, 124,0.9);
   color: #E0FFFF;
   height: 240px;
   text-align: center;
   
 }
+
 
 .icons{
   padding: 5px;
@@ -188,6 +189,7 @@ textarea:focus {
 }
 
 .bus_icon_image {
+  background-color: #000;
   height: 200px;
   padding: 20px;
 }
@@ -354,6 +356,7 @@ textarea:focus {
 }
 
 .bus-image {
+  border: none;
   width: 100%;
   height: 100%;
 }
@@ -368,7 +371,7 @@ textarea:focus {
   border-style: solid;
   border-width: 2px;
   border-radius: 50px;
-  border-color: #4a4a4a;
+  border-color: white;
 }
 
 .booking-content {
@@ -376,6 +379,7 @@ textarea:focus {
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 
@@ -386,4 +390,19 @@ textarea:focus {
   font-size: 1.5em;
   margin: 44px 0px 0px 60em;
   position: absolute;
+}
+
+
+/* about page */
+
+.about_body{
+  background-image: url(../img/about1.jpg);
+}
+
+
+.about_info{
+  color: white;
+  margin: 30px;
+  background: rgb(224, 255, 255, 0.2);
+  height: 500px;
 }
