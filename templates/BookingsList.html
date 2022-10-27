@@ -1,10 +1,11 @@
-{% extends 'base.html' %} {% block title %} Booking List {% endblock %} {% block
-content %} {% include 'navbar.html' %}
+{% extends 'base.html' %} {% block title %} Booking List {% endblock %}
+{% include 'navbar.html' %} {% block content %}
+
 <div class="content">
   {% if bookinglist %} {% for booking in bookinglist %}
   <div class="booking">
     <div class="image-cont">
-      <img src={{url_for('static', filename='img/ticket.png') }} alt="bus image
+      <img src={{url_for('static', filename='img/ticket.png' ) }} alt="bus image
       here" class="bus-image">
     </div>
     <div class="booking-content">
@@ -41,4 +42,5 @@ content %} {% include 'navbar.html' %}
 <footer class="container-fluid footer">
   <h3>© UseBusesInc.</h3>
 </footer>
+
 {% endblock %}

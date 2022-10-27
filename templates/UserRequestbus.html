@@ -1,5 +1,6 @@
-{% extends 'base.html' %} {% block title %} Index {% endblock %} {% block
-content %} {% include 'navbar.html' %}
+{% extends 'base.html' %} {% block title %} Available Bus List {% endblock %}
+{% include 'navbar.html' %}
+{% block content %}
 
 <div class="container my-5">
   {% if buses %}
@@ -11,11 +12,7 @@ content %} {% include 'navbar.html' %}
     <!-- <div class="wrapper"> -->
     <div class="bus_list">
       <div class="bus_icon">
-        <img
-          class="bus_icon_image"
-          src="{{ url_for('static', filename='img/buss.png') }}"
-          alt="bus image here"
-        />
+        <img class="bus_icon_image" src="{{ url_for('static', filename='img/buss.png') }}" alt="bus image here" />
       </div>
       <div class="bus_info">
         <div class="top_row">
@@ -46,7 +43,7 @@ content %} {% include 'navbar.html' %}
   <div class="footwrap">
     <div class="footsec1">
       <h3>© UseBusesInc.</h3>
-      <p>Address: sunteck kanaka panjim goa</p>
+      <p>Address: Sunteck Kanaka Panjim Goa</p>
     </div>
     <div class="footsec2">
       <i class="fa-brands fa-3x fa-instagram icons"></i>

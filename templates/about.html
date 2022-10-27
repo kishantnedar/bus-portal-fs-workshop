@@ -1,21 +1,19 @@
-{% extends 'base.html' %} {% block title %} Index {% endblock %} {% block
-    content %} {% include 'navbar.html' %}
+{% extends 'base.html' %} {% block title %} About Us {% endblock %}
+{% include 'navbar.html' %}
+{% block content %}
 
+<body class="about_body">
+  <div class="container about_info">
+    <h1 class="text-center">About us.</h1>
+    <p class="lead px-5">We have created an easy way for you to book the next bus to your preferred detinations. Our
+      premium busses will provide a touch of luxury you most need in your life.</p>
+  </div>
 
-
-<div class="container">
-
-   <h1 class="text-center">About us.</h1>
-   <p class="lead px-5">We have created an easy way for you to book the next bus to your preferred detinations. Our premium busses will provide a touch of luxury you most need in your life.</p>
-   
-
-</div>
-
-<footer class="footer">
+  <footer class="footer">
     <div class="footwrap">
       <div class="footsec1">
         <h3>© UseBusesInc.</h3>
-        <p>Address: sunteck kanaka panjim goa</p>
+        <p>Address: Sunteck Kanaka Panjim Goa</p>
       </div>
       <div class="footsec2">
         <i class="fa-brands fa-3x fa-instagram icons"></i>
@@ -23,10 +21,8 @@
         <i class="fa-brands fa-3x fa-youtube icons"></i>
       </div>
     </div>
-   
-  
-  
-   
   </footer>
-    
+
+</body>
+
 {% endblock %}
