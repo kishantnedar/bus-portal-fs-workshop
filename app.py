@@ -18,10 +18,10 @@ def index():
     destination_locations = []
     location_obj = BookingActions().get_locations()
     for each_location in location_obj:
-        if each_location['bus_start'] not in start_locations:
-            start_locations.append(each_location['bus_start'])
-        if each_location['bus_destination'] not in destination_locations:
-            destination_locations.append(each_location['bus_destination'])
+        if each_location['start'] not in start_locations:
+            start_locations.append(each_location['start'])
+        if each_location['destination'] not in destination_locations:
+            destination_locations.append(each_location['destination'])
     return render_template("index.html", start_locations=start_locations, destination_locations=destination_locations)
 
 @app.route('/about')

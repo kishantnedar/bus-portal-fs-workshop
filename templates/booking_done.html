@@ -5,8 +5,8 @@
 <div class="container mt-3">
   <div class="receipt">
     <h2 class="text-center">Booking Confirmed !</h2>
-    <p>Bus Name: {{ bus.bus_name }}</p>
-    <p>Journey: {{ bus.bus_start }} ➜ {{ bus.bus_destination }}</p>
+    <p>Bus Name: {{ bus.name }}</p>
+    <p>Journey: {{ bus.start }} ➜ {{ bus.destination }}</p>
     <p>Journey Date: {{ booking.booked_date }}</p>
     <p>
       Seats booked: {% for i in booking.booked_tickets.window_left %} A{{i}} {%

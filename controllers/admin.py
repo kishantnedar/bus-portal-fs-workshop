@@ -3,8 +3,6 @@ from jinja2 import TemplateNotFound
 from actions.admin.bus import AdminActions
 from actions.booking.booking import BookingActions
 from pymongo.errors import DuplicateKeyError
-from datetime import datetime
-import calendar
 from util.date_utils import get_day_name
 
 admin = Blueprint('admin', __name__)
@@ -24,7 +22,7 @@ def add_bus():
         try:
             AdminActions().add_bus(bus=request.form)
         except DuplicateKeyError as e:
-            flash('Bus already exists')
+            flash('Bus already exists', 'alert-danger')
             return redirect(url_for('admin.add_bus'))
         return redirect(url_for('admin.index'))
     return render_template('admin/add-bus.html')
@@ -35,8 +33,7 @@ def view_bus():
     bus_id = int(request.args.get('bus_id'))
     if bus_id:
         bus_details = AdminActions().get_selected_bus(bus_id)
-        seat_count = int(bus_details['bus_capacity'] / 4)
-        return render_template('admin/view-bus.html', bus=bus_details, seat_count=seat_count)
+        return render_template('admin/view-bus.html', bus=bus_details)
     return redirect(url_for('admin.index'))
 
 
