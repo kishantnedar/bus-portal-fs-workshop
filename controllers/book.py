@@ -1,5 +1,5 @@
 from actions.booking.booking import BookingActions
-from flask import Blueprint, session, render_template, request
+from flask import Blueprint, flash, session, render_template, request, url_for, redirect
 import datetime
 
 booking = Blueprint('book', __name__)
@@ -43,6 +43,18 @@ def confirm_booking():
         return render_template('booking_done.html', bus=bus_details, booking=booking)
 
 
-@ booking.route('/bookings/<int:user_id>')
+@booking.route('/bookings/<int:user_id>')
 def booking_list(user_id):
     return render_template('BookingsList.html', bookinglist=BookingActions().get_bookings(user_id))
+
+
+@booking.route('/cancel')
+def cancel_booking():
+    _user_id = 102
+    booking_id = request.args.get('booking_id')
+    if booking_id:
+        cancelled_booking = BookingActions().booking_cancellation(booking_id= booking_id ,booked_by=_user_id)
+        print(cancelled_booking)
+        flash('Booking cancelled successfully', 'alert-danger')
+        return redirect(url_for('book.booking_list', user_id=_user_id))
+    return redirect(url_for('book.booking_list', user_id=_user_id))

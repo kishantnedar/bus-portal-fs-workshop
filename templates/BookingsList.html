@@ -31,6 +31,17 @@ content %} {% include 'navbar.html' %}
         booking.booked_tickets.left %} B{{i}} {% endfor %} {% for i in
         booking.booked_tickets.right %} C{{i}} {% endfor %} {% for i in
         booking.booked_tickets.window_right %} D{{i}} {% endfor %}
+        <i class="fa-solid fa-trash fa-lg" id="cancel-{{booking._id}}" style="cursor: pointer" title="Delete"></i>
+        <script>
+          document.addEventListener("click", (e) => {
+            if (e.target.id === "cancel-{{booking._id}}") {
+              if (confirm("Are you sure you want to cancel this booking?")) {
+                window.location.href =
+                  '{{ url_for("book.cancel_booking", booking_id=booking._id) }}';
+              }
+            }
+          });
+        </script>
       </div>
     </div>
   </div>
