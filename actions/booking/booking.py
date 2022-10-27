@@ -1,3 +1,4 @@
+from actions import booking
 from models.booking import Booking
 from repository.mongo import MongoRepository
 import datetime
@@ -82,6 +83,11 @@ class BookingActions:
         print(booking_id)
         booking = Booking(
             **self._mongo.find_one(database=self._db, collection='bookings', query={'_id': booking_id}))
+        return booking
+
+    def get_bookings_by_bus(self, bus_id):
+        booking = [Booking(**booking) for booking in self._mongo.find(
+            database=self._db, collection='bookings', query={"bus_number": bus_id})]
         return booking
 
     def delete_booking(self, booking_id):

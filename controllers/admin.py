@@ -19,7 +19,7 @@ def index():
 def add_bus():
     if request.method == 'POST':
         try:
-            AdminActions().add_bus_action(bus=request.form)
+            AdminActions().add_bus(bus=request.form)
         except DuplicateKeyError as e:
             flash('Bus already exists')
             return redirect(url_for('admin.add_bus'))
@@ -41,8 +41,12 @@ def view_bus():
 def remove_bus():
     bus_id = int(request.args.get('bus_id'))
     if bus_id:
-        AdminActions().delete_bus(bus_id)
-        print('bus removed')
-        flash('Bus removed')
-        return redirect(url_for('admin.index'))
+        try:
+            bus_bookings = BookingActions().get_bookings_by_bus(bus_id)
+            print(f"Bus contains bookings {len(bus_bookings)}")
+            flash('Unable to delete bus since it has bookings', 'alert-danger')
+        except ValueError:
+            AdminActions().delete_bus(bus_id)
+            print('bus removed')
+            flash('Bus removed', 'alert-success')
     return redirect(url_for('admin.index'))
