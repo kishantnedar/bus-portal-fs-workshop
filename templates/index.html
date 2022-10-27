@@ -1,32 +1,23 @@
-{% extends 'base.html' %} {% block title %} Index {% endblock %} {% block
-content %} {% include 'navbar.html' %}
+{% extends 'base.html' %} {% block title %} Index {% endblock %}
+{% include 'navbar.html' %}
+{% block content %}
 
 <div class="main_div">
-  <form
-    class="Main-input"
-    action="{{url_for('book.search_bus')}}"
-    method="post"
-  >
+  <form class="Main-input" action="{{url_for('book.search_bus')}}" method="post">
     <div class="form_elements">
       <li class="homePageForm">
         <p class="headings"><i class="fa-solid fa-house"></i> </p>
         <div class="dropdown">
-          <input
-            class="inputs"
-            id="myInput"
-            type="text"
-            list="start_locations"
-            name="from"
-            placeholder="from"
-            autocomplete="off"
-          />
+          <input class="inputs" id="myInput" type="text" list="start_locations" name="from" placeholder="from"
+            autocomplete="off" />
           <!-- <p id="datalist"></p> -->
         </div>
       </li>
       <li class="homePageForm">
         <p class="headings"><i class="fa-solid fa-location-dot"></i> </p>
         <p>
-          <input class="inputs rogue" id="myInput2" list="destination_locations" type="text" name="to" placeholder="to" autocomplete="off" required />
+          <input class="inputs rogue" id="myInput2" list="destination_locations" type="text" name="to" placeholder="to"
+            autocomplete="off" required />
         </p>
       </li>
 
@@ -47,63 +38,62 @@ content %} {% include 'navbar.html' %}
     <div class="stats">
       <div class="imgCont rest1 animate">
         <img src="//s2.rdbuz.com/web/images/home/benefits.png" height="90">
-    </div>
-    <div class="tilleBlock rest1 animate">
+      </div>
+      <div class="tilleBlock rest1 animate">
         UNMATCHED BENEFITS
-    </div>
-    <div class="second-level-heading descCont rest1 animate">
+      </div>
+      <div class="second-level-heading descCont rest1 animate">
         We take care of your travel beyond ticketing by providing you with innovative and unique benefits.
-    </div>
+      </div>
     </div>
     <div>
       <img class="stats_img" src="static/img/log.jpg" alt="">
     </div>
-      
+
   </div>
   <div class="fl rest1 animated loop slideInRight delay-2s" id="customer1">
     <div>
       <img class="stats_img" src="static/img/log3.jpg" alt="">
     </div>
-     
+
     <div class="stats">
       <div class="imgCont rest1 animate">
         <img src="//s1.rdbuz.com/web/images/home/customer_care.png" height="90">
-    </div>
-    <div class="tilleBlock rest1 animate">
+      </div>
+      <div class="tilleBlock rest1 animate">
         SUPERIOR CUSTOMER SERVICE
-    </div>
-    <div class="second-level-heading descCont rest1 animate">
+      </div>
+      <div class="second-level-heading descCont rest1 animate">
         We put our experience and relationships to good use and are available to solve your travel issues.
+      </div>
     </div>
-    </div>
-   
+
   </div>
   <div class="fl rest1 animated slideInLeft delay-3s" id="customer1">
     <div class="stats">
       <div class="imgCont rest1 animate">
         <img src="//s1.rdbuz.com/web/images/home/lowest_Fare.png" height="90">
-    </div>
-    <div class="tilleBlock rest1 animate">
+      </div>
+      <div class="tilleBlock rest1 animate">
         LOWEST PRICES
-    </div>
-    <div class="second-level-heading descCont rest1 animate">
-        We always give you the lowest price with the best partner offers. 
-    </div>
+      </div>
+      <div class="second-level-heading descCont rest1 animate">
+        We always give you the lowest price with the best partner offers.
+      </div>
     </div>
     <div>
       <img class="stats_img" src="static/img/log2.jpg" alt="image">
     </div>
-     
+
   </div>
 </div>
-
 
 
 <footer class="footer">
   <div class="footwrap">
     <div class="footsec1">
       <h3>© UseBusesInc.</h3>
-      <p>Address: sunteck kanaka panjim goa</p>
+      <p>Address: Sunteck Kanaka Panjim Goa</p>
     </div>
     <div class="footsec2">
       <i class="fa-brands fa-3x fa-instagram icons"></i>
@@ -111,42 +101,35 @@ content %} {% include 'navbar.html' %}
       <i class="fa-brands fa-3x fa-youtube icons"></i>
     </div>
   </div>
- 
-
-
- 
 </footer>
 
 
 <script type="text/javascript">
-  $(function(){
-      var dtToday = new Date();
-   
-      var month = dtToday.getMonth() + 1;
-      var day = dtToday.getDate();
-      var year = dtToday.getFullYear();
-      if(month < 10)
-          month = '0' + month.toString();
-      if(day < 10)
-       day = '0' + day.toString();
-      var maxDate = year + '-' + month + '-' + day;
-      $('#input_date').attr('min', maxDate);
+  $(function () {
+    var dtToday = new Date();
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if (month < 10)
+      month = '0' + month.toString();
+    if (day < 10)
+      day = '0' + day.toString();
+    var maxDate = year + '-' + month + '-' + day;
+    $('#input_date').attr('min', maxDate);
   });
 </script>
 
 <datalist id="start_locations">
   {% for i in start_locations %}
   <option value="{{i}}">{{i}}</option>
-
   {% endfor %}
-
 </datalist>
-<datalist  id="destination_locations">
+
+<datalist id="destination_locations">
   {% for i in destination_locations %}
   <option value="{{i}}">{{i}}</option>
-
   {% endfor %}
-
 </datalist>
 
 {% endblock %}
