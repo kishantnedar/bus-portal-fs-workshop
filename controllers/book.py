@@ -45,3 +45,15 @@ def confirm_booking():
 @booking.route('/bookings/<int:user_id>')
 def booking_list(user_id):
     return render_template('BookingsList.html', bookinglist=BookingActions().get_bookings(user_id))
+
+
+@booking.route('/cancel')
+def cancel_booking():
+    _user_id = 102
+    booking_id = request.args.get('booking_id')
+    if booking_id:
+        cancelled_booking = BookingActions().booking_cancellation(booking_id= booking_id ,booked_by=_user_id)
+        print(cancelled_booking)
+        flash('Booking cancelled successfully', 'alert-danger')
+        return redirect(url_for('book.booking_list', user_id=_user_id))
+    return redirect(url_for('book.booking_list', user_id=_user_id))

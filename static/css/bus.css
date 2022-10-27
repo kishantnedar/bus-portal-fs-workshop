@@ -396,13 +396,16 @@ textarea:focus {
 /* about page */
 
 .about_body{
-  background-image: url(../img/about1.jpg);
+  background-image: url(../img/navy-back.jpg);
+  background-size: contain;
 }
 
 
 .about_info{
-  color: white;
-  margin: 30px;
-  background: rgb(224, 255, 255, 0.2);
-  height: 500px;
+  color: rgb(0, 42, 124) ;
+  margin: 30px 100px 30px 100px;
+  padding:0 300px 0 300px;
+  background: rgb(224, 255, 255, 0.4);
+  height: 600px;
+  text-align: center;
 }
