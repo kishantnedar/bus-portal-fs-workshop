@@ -5,7 +5,11 @@ content %}
   <h1 class="text-center">Welcome to Admin Portal</h1>
 
   <div class="clearfix">
-    <span class="float-end"><a href="{{ url_for('admin.add_bus') }}" class="btn btn-primary">ADD</a></span>
+    <span class="float-end"
+      ><a href="{{ url_for('admin.add_bus') }}" class="btn btn-primary"
+        >ADD</a
+      ></span
+    >
   </div>
   <div class="container mt-5 shadow p-4 mb-4 bg-white">
     <table class="table">
@@ -22,16 +26,26 @@ content %}
       <tbody>
         {% if buses %} {% for bus in buses %}
         <tr>
-          <td>{{ bus.bus_name }}</td>
-          <td>{{ bus.bus_reg_number }}</td>
-          <td>{{ bus.bus_start}} -> {{bus.bus_destination }}</td>
-          <td>{{ bus.bus_seats.right.seat_price }}</td>
-          <td>{{ bus.bus_seats.window_right.seat_price }}</td>
+          <td>{{ bus.name }}</td>
+          <td>{{ bus.reg_number }}</td>
+          <td>{{ bus.start}} -> {{bus.destination }}</td>
+          <td>{{ bus.normal_seat_price }}</td>
+          <td>{{ bus.window_seat_price }}</td>
           <td>
-            <a href="{{ url_for('admin.view_bus', bus_id=bus._id) }}"><i class="fa-solid fa-circle-info fa-lg"
-                style="color: #000;" title="View"></i></a>
+            <a href="{{ url_for('admin.view_bus', bus_id=bus._id) }}"
+              ><i
+                class="fa-solid fa-circle-info fa-lg"
+                style="color: #000"
+                title="View"
+              ></i
+            ></a>
             &nbsp;
-            <i class="fa-solid fa-trash fa-lg" id="bus-delete-{{bus._id}}" style="cursor: pointer" title="Delete"></i>
+            <i
+              class="fa-solid fa-trash fa-lg"
+              id="bus-delete-{{bus._id}}"
+              style="cursor: pointer"
+              title="Delete"
+            ></i>
             <script>
               document.addEventListener("click", (e) => {
                 if (e.target.id === "bus-delete-{{bus._id}}") {
@@ -42,6 +56,13 @@ content %}
                 }
               });
             </script>
+            &nbsp;
+            <a href="{{ url_for('admin.schedule_bus', bus_number=bus._id) }}"
+              ><i
+                class="fa-solid fa-calendar-days fa-lg"
+                style="color: #000"
+              ></i>
+            </a>
           </td>
         </tr>
         {% endfor %} {% else %}

@@ -2,6 +2,8 @@ from models.bus import Bus
 from repository.mongo import MongoRepository
 from pymongo import MongoClient
 from os import environ
+from models.schedule import Schedule
+from util.date_utils import get_day_name
 
 
 class AdminActions:
@@ -13,15 +15,14 @@ class AdminActions:
     def add_bus(self, bus):
         _bus = Bus(
             _id=bus['bus_number'],
-            bus_name=bus['bus_name'],
-            bus_capacity=int(bus['seat_count'])*4,
-            bus_start=bus['start_location'],
-            bus_destination=bus['destination_location'],
-            bus_seats=int(bus['seat_count']),
-            bus_reg_number=bus['bus_reg_number'],
-            bus_normal_seat_price=float(bus['normal_seat_price']),
-            bus_window_seat_price=float(bus['window_seat_price']),
-            bus_runs_on=bus.getlist('runs_on')
+            name=bus['bus_name'],
+            start=bus['start_location'],
+            destination=bus['destination_location'],
+            reg_number=bus['bus_reg_number'],
+            normal_seat_price=float(bus['normal_seat_price']),
+            window_seat_price=float(bus['window_seat_price']),
+            runs_on=bus.getlist('runs_on')
+            seat_columns=bus['seat_count']
         )
         return self._mongo.add(database=self._db, collection='buses', dictionary=_bus)
 
@@ -37,3 +38,8 @@ class AdminActions:
 
     def delete_bus(self, bus_number):
         return self._mongo.delete(query={'_id': bus_number}, database=self._db, collection='buses')
+
+    def schedule_bus(self, schedule):
+        _schedule = Schedule(
+            bus_number=schedule['bus_number'], scheduled_on=schedule['date'],  departure_time=schedule['start_time'], arrival_time=schedule['end_time'], seats=int(float(schedule['seat_count'])), normal_seat_price=schedule['normal_seat_price'], window_seat_price=schedule['window_seat_price']).__dict__
+        return self._mongo.insert(database=self._db, collection='schedule', dictionary=_schedule)
