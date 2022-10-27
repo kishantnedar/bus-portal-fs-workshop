@@ -13,9 +13,10 @@
   <script src="https://kit.fontawesome.com/8d1ad05b63.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+ 
 
 
-  <title>{% block title %} {% endblock %} - FlaskApp</title>
+  <title>{% block title %} {% endblock %}</title>
 </head>
 
 <body>
@@ -23,7 +24,7 @@
   {% with messages = get_flashed_messages(with_categories = True) %}
   {% if messages %}
   {% for category, message in messages %}
-  <div class="container px-5 mt-5">
+  <div class="container px-5 mt-3">
     <div class="alert {{category}} alert-dismissible">
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       <strong>{{message}}</strong>

@@ -1,6 +1,6 @@
 from actions.booking.booking import BookingActions
-from flask import Blueprint, flash, session, render_template, request, url_for, redirect
-import datetime
+from flask import Blueprint, session, render_template, request
+from util.date_utils import get_day_name
 
 booking = Blueprint('book', __name__)
 
@@ -11,17 +11,14 @@ def search_bus():
         bus_list = BookingActions().get_user_request_buses(search=request.form)
         date = request.form['date']
         session['date'] = date
-        day_name = ['Monday', 'Tuesday', 'Wednesday',
-                    'Thursday', 'Friday', 'Saturday', 'Sunday']
-        day = day_name[datetime.datetime.strptime(date, '%Y-%m-%d').weekday()]
+        day = get_day_name(session['date'])
         return render_template('UserRequestbus.html', buses=bus_list, day=day)
 
 
 @booking.route('/bus/<int:bus_no>')
 def seat_book(bus_no):
     bus_details = BookingActions().get_selected_bus(bus_no)
-    seat_count = int(bus_details['bus_capacity'] / 4)
-    return render_template('seat_booking.html', bus=bus_details, seat_count=seat_count, book_date=session['date'])
+    return render_template('seat_booking.html', bus=bus_details, book_date=session['date'])
 
 
 @booking.route('/confirm-booking', methods=['POST'])

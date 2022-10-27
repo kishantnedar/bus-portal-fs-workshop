@@ -1,9 +1,8 @@
-from actions import booking
 from models.booking import Booking
 from repository.mongo import MongoRepository
-import datetime
 from os import environ
 from pymongo import MongoClient
+from util.date_utils import get_day_name
 
 
 class BookingActions:
@@ -16,9 +15,7 @@ class BookingActions:
         start_location = search['from']
         destination_location = search['to']
         date = search['date']
-        day_name = ['Monday', 'Tuesday', 'Wednesday',
-                    'Thursday', 'Friday', 'Saturday', 'Sunday']
-        day = day_name[datetime.datetime.strptime(date, '%Y-%m-%d').weekday()]
+        day = get_day_name(date)
         try:
             mongo_busses_object = self._mongo.find(database=self._db, collection='buses',
                                                    query={'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
@@ -72,7 +69,7 @@ class BookingActions:
         return booking
 
     def get_locations(self):
-        return self._mongo.find_with_filter(database=self._db, collection='buses', query={}, param={"_id": 0, "bus_start": 1, "bus_destination": 1})
+        return self._mongo.find_with_filter(database=self._db, collection='buses', query={}, param={"_id": 0, "start": 1, "destination": 1})
 
     def get_bookings(self, user_id):
         bookings = [Booking(**booking)

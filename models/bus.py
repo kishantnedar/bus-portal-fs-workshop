@@ -25,16 +25,13 @@ class Seats:
 
 
 class Bus:
-    def __init__(self, _id, bus_name, bus_capacity, bus_start, bus_destination, bus_seats, bus_reg_number, bus_runs_on, *, bus_normal_seat_price=None, bus_window_seat_price=None):
+    def __init__(self, _id, name, start, destination, seat_columns, reg_number, runs_on, window_seat_price, normal_seat_price):
         self._id = int(_id)
-        self.bus_name = bus_name
-        self.bus_reg_number = bus_reg_number
-        self.bus_capacity = bus_capacity
-        self.bus_start = bus_start
-        self.bus_destination = bus_destination
-        if isinstance(bus_seats, int):
-            self.bus_seats = Seats(
-                seat_count=bus_seats, normal_price=int(bus_normal_seat_price), window_price=int(bus_window_seat_price)).__dict__
-        else:
-            self.bus_seats = bus_seats
-        self.bus_runs_on = bus_runs_on
+        self.name = name
+        self.reg_number = reg_number
+        self.start = start
+        self.destination = destination
+        self.runs_on = runs_on
+        self.seat_columns = seat_columns
+        self.window_seat_price = window_seat_price
+        self.normal_seat_price = normal_seat_price
