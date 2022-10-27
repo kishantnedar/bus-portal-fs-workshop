@@ -5,20 +5,18 @@
 <div class="container my-5">
   {% if buses %}
   <h1 class="text-center">Choose an available bus</h1>
-  <!-- <div class="container mt-5 shadow p-4 mb-4 bg-white"> -->
   {% for bus in buses %}
 
   <a class="buslink" href="/bus/{{bus._id}}">
-    <!-- <div class="wrapper"> -->
     <div class="bus_list">
       <div class="bus_icon">
         <img class="bus_icon_image" src="{{ url_for('static', filename='img/buss.png') }}" alt="bus image here" />
       </div>
       <div class="bus_info">
         <div class="top_row">
-          <h3 class="bus_info_name">{{ bus.bus_name}}</h3>
+          <h3 class="bus_info_name">{{ bus.name}}</h3>
           <p class="bus_info_startfin">
-            {{ bus.bus_start}} ➜ {{ bus.bus_destination}}
+            {{ bus.start}} ➜ {{ bus.destination}}
           </p>
         </div>
         <div class="bottom_row">
@@ -32,7 +30,6 @@
         </div>
       </div>
     </div>
-    <!-- </div> -->
   </a>
 
   {% endfor %} {% else %}
