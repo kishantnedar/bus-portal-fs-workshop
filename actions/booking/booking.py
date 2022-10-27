@@ -18,22 +18,29 @@ class BookingActions:
         day = get_day_name(date)
         try:
             mongo_busses_object = self._mongo.find(database=self._db, collection='buses',
-                                                   query={'bus_start': start_location, 'bus_destination': destination_location, 'bus_runs_on': day})
+                                                   query={'start': start_location, 'destination': destination_location, 'runs_on': day})
+            mongo_scheduled_object = self._mongo.find(
+                database=self._db, collection='schedule', query={'bus_number': {'$in': [bus['_id'] for bus in mongo_busses_object]}})
         except ValueError as e:
             return None
-        return [bus for bus in mongo_busses_object]
+        return [bus for bus in mongo_scheduled_object]
 
     def get_selected_bus(self, bus_num):
         mongo_bus_object = self._mongo.find_one(
             database=self._db, collection='buses', query={'_id': bus_num})
         return mongo_bus_object
 
+    def get_selected_schedule(self, schedule):
+        mongo_schedule_object = self._mongo.find_one(
+            database=self._db, collection='schedule', query={'_id': schedule})
+        return mongo_schedule_object
+
     def book_ticket(self, ticket):
         print(ticket)
         print(f'{ticket["bus_number"]}: {type(ticket["bus_number"])}')
-        bus = self._mongo.find_one(database=self._db, collection='buses', query={
-                                   '_id': int(ticket['bus_number'])})
-        seats = bus['bus_seats']
+        bus = self._mongo.find_one(database=self._db, collection='schedule', query={
+            '_id': ticket['bus_number']})
+        seats = bus['seats']
         print("_________________________________")
         print(seats)
         for seat in ticket['window_left']:
@@ -60,8 +67,8 @@ class BookingActions:
             seats['right']['seats'][int(
                 seat)-1]['reserved_by'] = ticket['user_id']
 
-        self._mongo.update(database=self._db, collection='buses', query={
-                           '_id': int(ticket['bus_number'])}, update={'$set': {'bus_seats': seats}})
+        self._mongo.update(database=self._db, collection='schedule', query={
+                           '_id': ticket['bus_number']}, update={'$set': {'seats': seats}})
         booking = Booking(
             booked_by=ticket['user_id'], bus_number=ticket['bus_number'], booked_tickets={'window_left': ticket['window_left'], 'window_right': ticket['window_right'], 'left': ticket['left'], 'right': ticket['right']}, booked_date=ticket['booked_date'], booking_price=ticket['booking_price'])
         self._mongo.insert(database=self._db,

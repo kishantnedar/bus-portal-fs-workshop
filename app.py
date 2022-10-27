@@ -3,13 +3,14 @@ import os
 from controllers.admin import admin
 from controllers.book import booking
 from actions.booking.booking import BookingActions
+from controllers.bus import bus
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 app.register_blueprint(admin, url_prefix='/admin')
-
 app.register_blueprint(booking)
+app.register_blueprint(bus)
 
 
 @app.route('/')
@@ -24,10 +25,10 @@ def index():
             destination_locations.append(each_location['destination'])
     return render_template("index.html", start_locations=start_locations, destination_locations=destination_locations)
 
+
 @app.route('/about')
 def about_us():
     return render_template('about.html')
-
 
 
 if __name__ == '__main__':

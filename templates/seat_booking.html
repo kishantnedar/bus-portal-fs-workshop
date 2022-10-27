@@ -6,7 +6,7 @@ include 'navbar.html' %} {% block content %}
     <div class="shadow flex-fill" id="bus-outline">
       {% for i in range(1, bus['seat_columns'] + 1) %}
       <div class="mb-1">
-        {% if bus['bus_seats']['window_left']['seats'][i-1]['seat_occupied'] ==
+        {% if bus['seats']['window_left']['seats'][i-1]['seat_occupied'] ==
         False %}
         <!-- Left Window Seat -->
         <label title="Available" class="mx-2">
@@ -36,8 +36,8 @@ include 'navbar.html' %} {% block content %}
             disabled
           /><span style="font-size: 11px">A{{ i }}</span></label
         >
-        {% endif %} {% if
-        bus['bus_seats']['left']['seats'][i-1]['seat_occupied'] == False %}
+        {% endif %} {% if bus['seats']['left']['seats'][i-1]['seat_occupied'] ==
+        False %}
         <!-- Left Seat -->
         <label title="Available" class="mx-2">
           <img
@@ -70,8 +70,7 @@ include 'navbar.html' %} {% block content %}
 
         <span style="padding-left: 2rem">&nbsp;</span>
 
-        {% if bus['bus_seats']['right']['seats'][i-1]['seat_occupied'] == False
-        %}
+        {% if bus['seats']['right']['seats'][i-1]['seat_occupied'] == False %}
         <!-- Right Seat -->
         <label title="Available" class="mx-2">
           <img
@@ -101,8 +100,7 @@ include 'navbar.html' %} {% block content %}
           /><span style="font-size: 11px">C{{ i }}</span></label
         >
         {% endif %} {% if
-        bus['bus_seats']['window_right']['seats'][i-1]['seat_occupied'] == False
-        %}
+        bus['seats']['window_right']['seats'][i-1]['seat_occupied'] == False %}
         <!-- Right Window Seat -->
         <label title="Available" class="mx-2">
           <img
@@ -172,17 +170,16 @@ include 'navbar.html' %} {% block content %}
   <div class="flex-fill">
     <div class="container mt-3 d-grid px-5">
       <div class="d-flex">
-        <h1 class="flex-grow-1">{{ bus.name }}</h1>
-        <h4 class="pt-2">{{ book_date }}</h4>
+        <h1 class="flex-grow-1" id="bus-name"></h1>
+        <h4 class="pt-2" id="bus-date">{{ book_date }}</h4>
       </div>
-      <p class="lead mt-2">{{ bus.start}} ➜ {{ bus.destination}}</p>
+      <p class="lead mt-2" id="bus-startfin"></p>
+      <p class="lead mt-2">{{bus.departure_time}} -> {{bus.arrival_time}}</p>
       <p class="mt-2">
         Window Seat Price:
         <b>₹ {{ bus.window_seat_price }}</b>
       </p>
-      <p>
-        Normal Seat Price: <b>₹ {{ bus.normal_seat_price }}</b>
-      </p>
+      <p>Normal Seat Price: <b>₹ {{ bus.normal_seat_price }}</b></p>
       <input
         type="hidden"
         id="window_seat_price"
@@ -204,6 +201,15 @@ include 'navbar.html' %} {% block content %}
       </button>
       <img class="buss" src="../static/img/buss.jpg" alt="bus" />
     </div>
+    <script>
+      fetch("{{url_for('bus.get_bus', bus_no=bus['bus_number'])}}")
+        .then((response) => response.json())
+        .then((data) => {
+          document.querySelector("#bus-name").innerText = data.name;
+          document.querySelector("#bus-startfin").innerText =
+            data.start + " -> " + data.destination;
+        });
+    </script>
   </div>
 </div>
 

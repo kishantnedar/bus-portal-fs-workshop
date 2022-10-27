@@ -11,21 +11,23 @@ def search_bus():
         bus_list = BookingActions().get_user_request_buses(search=request.form)
         date = request.form['date']
         session['date'] = date
+        print(session['date'])
         day = get_day_name(session['date'])
-        return render_template('UserRequestbus.html', buses=bus_list, day=day)
+        print(day)
+        return render_template('user-request-buses.html', buses=bus_list, day=day)
 
 
-@booking.route('/bus/<int:bus_no>')
-def seat_book(bus_no):
-    bus_details = BookingActions().get_selected_bus(bus_no)
-    return render_template('seat_booking.html', bus=bus_details, book_date=session['date'])
+@booking.route('/book/<schedule_id>')
+def seat_book(schedule_id):
+    schedule = BookingActions().get_selected_schedule(schedule_id)
+    return render_template('seat_booking.html', bus=schedule, book_date=session['date'])
 
 
 @booking.route('/confirm-booking', methods=['POST'])
 def confirm_booking():
     if request.method == 'POST':
         user_id = 102
-        bus_number = int(request.form['bus_id'])
+        bus_number = request.form['bus_id']
         window_left = request.form.getlist('window_left_seats')
         window_right = request.form.getlist('window_right_seats')
         left = request.form.getlist('left_seats')

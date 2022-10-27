@@ -26,7 +26,7 @@ class Seats:
 
 
 class Schedule:
-    def __init__(self, bus_number, scheduled_on, departure_time, arrival_time, seats, normal_seat_price, window_seat_price, _id=None):
+    def __init__(self, bus_number, scheduled_on, departure_time, arrival_time, seats, normal_seat_price, window_seat_price, seat_columns, _id=None):
         self._id = _id if _id else uuid4().hex
         self.bus_number = bus_number
         self.scheduled_on = scheduled_on
@@ -39,3 +39,4 @@ class Schedule:
             self.bus_seats = seats
         self.normal_seat_price = normal_seat_price
         self.window_seat_price = window_seat_price
+        self.seat_columns = seat_columns
