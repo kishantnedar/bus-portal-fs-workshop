@@ -22,8 +22,8 @@ class AdminActions:
             bus_normal_seat_price=float(bus['normal_seat_price']),
             bus_window_seat_price=float(bus['window_seat_price']),
             bus_runs_on=bus.getlist('runs_on')
-        )
-        return self._mongo.add(database=self._db, collection='buses', dictionary=_bus)
+        ).__dict__
+        return self._mongo.insert(database=self._db, collection='buses', dictionary=_bus)
 
     def get_busses(self):
         mongo_busses_object = self._mongo.find_all(
