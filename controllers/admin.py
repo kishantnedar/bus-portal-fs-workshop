@@ -25,6 +25,7 @@ def add_bus():
         except DuplicateKeyError as e:
             flash('Bus already exists', 'alert-danger')
             return redirect(url_for('admin.add_bus'))
+        flash('Bus added successfully', 'alert-success')
         return redirect(url_for('admin.index'))
     return render_template('admin/add-bus.html')
 
@@ -43,12 +44,12 @@ def remove_bus():
     bus_id = int(request.args.get('bus_id'))
     if bus_id:
         try:
-            bus_bookings = BookingActions().get_bookings_by_bus(bus_id)
-            print(f"Bus contains bookings {len(bus_bookings)}")
+            bus_schedules = BusActions().get_bus_schedules(bus_id)
+            print(f"Bus contains bookings {len(bus_schedules)}")
             flash('Unable to delete bus since it has bookings', 'alert-danger')
         except ValueError:
             AdminActions().delete_bus(bus_id)
-            print('bus removed')
+            print('Bus removed')
             flash('Bus removed', 'alert-success')
     return redirect(url_for('admin.index'))
 
