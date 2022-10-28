@@ -40,8 +40,7 @@ def confirm_booking():
                   'window_right': window_right, 'left': left, 'right': right, 'booked_date': book_date, 'booking_price': price}
         booking = BookingActions().book_ticket(record)
         session.pop('book_date', None)
-        bus_details = BusActions().get_bus(bus_number)
-        return render_template('booking_done.html', bus=bus_details, booking=booking)
+        return render_template('booking_done.html', bus=BusActions().get_bus(int(bus_number)), booking=booking)
 
 
 @booking.route('/bookings/<int:user_id>')
