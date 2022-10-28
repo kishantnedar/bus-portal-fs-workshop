@@ -1,5 +1,6 @@
 from actions.booking.booking import BookingActions
-from flask import Blueprint, session, render_template, request, flash, redirect, url_for, jsonify
+from flask import Blueprint, session, render_template, request, flash, redirect, url_for
+from actions.bus.bus import BusActions
 from util.date_utils import get_day_name
 
 booking = Blueprint('book', __name__)
@@ -39,7 +40,7 @@ def confirm_booking():
                   'window_right': window_right, 'left': left, 'right': right, 'booked_date': book_date, 'booking_price': price}
         booking = BookingActions().book_ticket(record)
         session.pop('book_date', None)
-        bus_details = BookingActions().get_selected_bus(bus_number)
+        bus_details = BusActions().get_bus(bus_number)
         return render_template('booking_done.html', bus=bus_details, booking=booking)
 
 

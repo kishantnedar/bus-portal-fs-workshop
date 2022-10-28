@@ -29,11 +29,6 @@ class BookingActions:
             return None
         return [bus for bus in mongo_scheduled_object]
 
-    def get_selected_bus(self, bus_num):
-        mongo_bus_object = self._mongo.find_one(
-            database=self._db, collection='buses', query={'_id': bus_num})
-        return mongo_bus_object
-
     def get_selected_schedule(self, schedule):
         mongo_schedule_object = self._mongo.find_one(
             database=self._db, collection='schedule', query={'_id': schedule})
