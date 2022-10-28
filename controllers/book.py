@@ -21,14 +21,14 @@ def search_bus():
 @booking.route('/book/<schedule_id>')
 def seat_book(schedule_id):
     schedule = BookingActions().get_selected_schedule(schedule_id)
-    return render_template('seat_booking.html', bus=schedule, book_date=session['date'])
+    return render_template('seat-booking.html', bus=schedule, book_date=session['date'])
 
 
 @booking.route('/confirm-booking', methods=['POST'])
 def confirm_booking():
     if request.method == 'POST':
         user_id = 102
-        bus_number = request.form['bus_id']
+        bus_number = int(request.form['bus_id'])
         schedule_id = request.form['schedule_id']
         window_left = request.form.getlist('window_left_seats')
         window_right = request.form.getlist('window_right_seats')
@@ -40,7 +40,7 @@ def confirm_booking():
                   'window_right': window_right, 'left': left, 'right': right, 'booked_date': book_date, 'booking_price': price}
         booking = BookingActions().book_ticket(record)
         session.pop('book_date', None)
-        return render_template('booking_done.html', bus=BusActions().get_bus(int(bus_number)), booking=booking)
+        return render_template('booking-done.html', bus=BusActions().get_bus(bus_number), booking=booking)
 
 
 @booking.route('/bookings/<int:user_id>')
@@ -51,11 +51,11 @@ def booking_list(user_id):
 @booking.route('/cancel')
 def cancel_booking():
     _user_id = 102
-    booking_id = request.args.get('booking_id')
-    if booking_id:
+    _booking_id = request.args.get('booking_id')
+    if _booking_id:
         cancelled_booking = BookingActions().booking_cancellation(
-            booking_id=booking_id, booked_by=_user_id)
-        print(cancelled_booking)
+            booking_id=_booking_id, booked_by=_user_id)
+        print(cancelled_booking + ' booking cancelled successfully')
         flash('Booking cancelled successfully', 'alert-danger')
         return redirect(url_for('book.booking_list', user_id=_user_id))
     return redirect(url_for('book.booking_list', user_id=_user_id))
