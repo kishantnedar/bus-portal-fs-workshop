@@ -16,4 +16,7 @@ class BusActions:
         return self._mongo.find(database=self._db, collection='buses', query={})
     
     def get_bus_schedules(self, bus_number):
-        return self._mongo.find(database=self._db, collection='schedule', query={'bus_number': bus_number})
+        try:
+            return self._mongo.find(database=self._db, collection='schedule', query={'bus_number': bus_number})
+        except ValueError as e:
+            return None
