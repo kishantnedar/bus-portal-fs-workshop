@@ -46,7 +46,7 @@ def confirm_booking():
 
 @booking.route('/bookings/<int:user_id>')
 def booking_list(user_id):
-    return render_template('BookingsList.html', bookinglist=BookingActions().get_bookings(user_id))
+    return render_template('bookings-list.html', bookinglist=BookingActions().get_bookings(user_id))
 
 
 @booking.route('/cancel')
