@@ -35,7 +35,8 @@ def view_bus():
     bus_id = int(request.args.get('bus_id'))
     if bus_id:
         bus_details = BusActions().get_bus(bus_id)
-        return render_template('admin/view-bus.html', bus=bus_details)
+        _bus_schedules = BusActions().get_bus_schedules(bus_id)
+        return render_template('admin/view-bus.html', bus=bus_details, bus_schedules=_bus_schedules)
     return redirect(url_for('admin.index'))
 
 
