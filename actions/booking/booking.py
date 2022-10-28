@@ -102,9 +102,9 @@ class BookingActions:
             '_id': booking_id, 'booked_by': booked_by})
         booked_tickets = id_data['booked_tickets']
 
-        bus = self._mongo.find_one(database=self._db, collection='buses', query={
-                                   '_id': id_data['bus_number']})
-        seats = bus['bus_seats']
+        bus_schedule = self._mongo.find_one(database=self._db, collection='schedule', query={
+                                   '_id': id_data['schedule_id']})
+        seats = bus_schedule['seats']
         # left window seats cancellation code
 
         if len(booked_tickets['window_left']) > 0:
@@ -115,8 +115,8 @@ class BookingActions:
                 seats["window_left"]["seats"][n-1]["seat_occupied"] = False
                 seats["window_left"]["seats"][n-1]["reserved_by"] = None
 
-            self._mongo.update(database=self._db, collection='buses', query={
-                '_id': id_data['bus_number']}, update={'$set': {'bus_seats': seats}})
+            self._mongo.update(database=self._db, collection='schedule', query={
+                '_id': id_data['schedule_id']}, update={'$set': {'seats': seats}})
 
          # right window seats cancellation code
         if len(booked_tickets['window_right']) > 0:
@@ -127,8 +127,8 @@ class BookingActions:
                 seats["window_right"]["seats"][n-1]["seat_occupied"] = False
                 seats["window_right"]["seats"][n-1]["reserved_by"] = None
 
-            self._mongo.update(database=self._db, collection='buses', query={
-                '_id': id_data['bus_number']}, update={'$set': {'bus_seats': seats}})
+            self._mongo.update(database=self._db, collection='schedule', query={
+                '_id': id_data['schedule_id']}, update={'$set': {'seats': seats}})
 
         # left seats cancellation code
         if len(booked_tickets['left']) > 0:
@@ -139,8 +139,8 @@ class BookingActions:
                 seats["left"]["seats"][n-1]["seat_occupied"] = False
                 seats["left"]["seats"][n-1]["reserved_by"] = None
 
-            self._mongo.update(database=self._db, collection='buses', query={
-                '_id': id_data['bus_number']}, update={'$set': {'bus_seats': seats}})
+            self._mongo.update(database=self._db, collection='schedule', query={
+                '_id': id_data['schedule_id']}, update={'$set': {'seats': seats}})
 
         # right seats cancellation code
 
@@ -152,8 +152,8 @@ class BookingActions:
                 seats["right"]["seats"][n-1]["seat_occupied"] = False
                 seats["right"]["seats"][n-1]["reserved_by"] = None
 
-            self._mongo.update(database=self._db, collection='buses', query={
-                '_id': id_data['bus_number']}, update={'$set': {'bus_seats': seats}})
+            self._mongo.update(database=self._db, collection='schedule', query={
+                '_id': id_data['schedule_id']}, update={'$set': {'seats': seats}})
 
         self._mongo.delete(database=self._db, collection='bookings', query={
             '_id': booking_id})
