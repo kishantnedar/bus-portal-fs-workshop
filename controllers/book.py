@@ -6,15 +6,16 @@ from util.date_utils import get_day_name
 booking = Blueprint('book', __name__)
 
 
-@booking.route('/search', methods=['GET', 'POST'])
+@booking.route('/search', methods=['GET'])
 def search_bus():
-    if request.method == 'POST':
-        date = request.form['date']
+    if request.method == 'GET':
+        start = request.args.get('from')
+        destination = request.args.get('to')
+        date = request.args.get('date')
         session['date'] = date
-        print(session['date'])
         day = get_day_name(session['date'])
         print(day)
-        bus_list = BookingActions().get_user_request_buses(search=request.form)
+        bus_list = BookingActions().get_user_request_buses(search={'from': start, 'to': destination, 'date': date})
         return render_template('user-request-buses.html', buses=bus_list, day=day)
 
 
