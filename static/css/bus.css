@@ -4,6 +4,17 @@
   margin: 0;
 }
 
+/* login page css */
+
+.login_form_wrapper{
+   height: 600px;
+} 
+
+.login_form{
+  margin: 100px;
+  align-items:center ;
+}
+
 #advantage{
   margin: 20px 0 20px 0;
   /* display: flex;
@@ -257,7 +268,7 @@ textarea:focus {
     padding: 10px;
   }
   .empty{
-    width:1000px;
+    width:900px;
     background: rgb(0, 42, 124);
   }
   .links{
@@ -348,10 +359,36 @@ textarea:focus {
   align-items: center;
   justify-content: center;
 }
+.cancel{
+  background-color: red;
+  color: white;
+  font-weight: 300;
+  padding: 5px 10px;
+  border-radius: 13px;
+  border-color: red;
+  border-style: none;
+  margin: 75px 0 0 0;
+  }
+  .cancel:hover {
+    background-color: rgb(255, 40, 0, 0.5) ;
+  }
 
+
+
+.cancel_book{
+    
+    align-items: center;
+  }
+  
+.booking_list_data_wrapper{
+    display: flex;
+  }
+
+
+  
 .booking {
   height: auto;
-  width: 800px;
+  width: 600px;
   display: flex;
   flex-direction: row;
   margin: 1rem 0px;
@@ -372,8 +409,8 @@ textarea:focus {
 .image-cont {
   padding: 1rem;
   background-color: rgb(255, 255, 255);
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   margin-right: 1rem;
   border: rgb(236, 236, 236);
   border-style: solid;
@@ -422,6 +459,6 @@ textarea:focus {
   text-align: center;
 }
 
-.carouselWrapper{
-  
-}
+/* booking list css */
+
+

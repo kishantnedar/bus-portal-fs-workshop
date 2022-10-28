@@ -8,76 +8,84 @@
       <img src={{url_for('static', filename='img/ticket.png' ) }} alt="bus image
       here" class="bus-image">
     </div>
-    <div class="booking-content">
-      <div class="booking-id">
-        <span class="fw-bold">Booking ID:</span>
-        {{booking._id}}
-      </div>
-      <div class="booking-date" id="bookingdatediv">
-        <span class="fw-bold">Booking Date:</span> <span id="bookingdate-{{booking._id}}">{{booking.booked_date}}</span>
-      </div>
-      <div class="booking-price">
-        <span class="fw-bold">Booking Price:</span> {{booking.booking_price}}
-      </div>
-      <div class="booked-bus-id" >
-        <span class="fw-bold">Booked Bus Number:</span> {{booking.bus_number}}
-      </div>
-      <div class="booked-on">
-        <span class="fw-bold">Booked On:</span>
-        {{booking.booked_on.strftime('%d-%m-%Y %H:%M:%S')}}
-      </div>
-      <div class="booking-seats">
-        <span class="fw-bold">Booked Seats:</span> {% for i in
-        booking.booked_tickets.window_left %} A{{i}} {% endfor %} {% for i in
-        booking.booked_tickets.left %} B{{i}} {% endfor %} {% for i in
-        booking.booked_tickets.right %} C{{i}} {% endfor %} {% for i in
-        booking.booked_tickets.window_right %} D{{i}} {% endfor %}
-        <span id="dustbin-{{booking._id}}">
-        
-         
-        </span>
-         
-        <!-- <i class="fa-solid fa-trash fa-lg" id="cancel-{{booking._id}}" style="cursor: pointer" title="Delete"></i> -->
-        <script>
+    <div class="booking_list_data_wrapper">
+      <div class="booking-content">
+        <div class="booking-id">
+          <span class="fw-bold">Booking ID:</span><span>{{booking._id}}</span>
+        </div>
+        <div class="booking-date" id="bookingdatediv">
+          <span class="fw-bold">Booking Date:</span> <span id="bookingdate-{{booking._id}}">{{booking.booked_date}}</span>
+        </div>
+        <div class="booking-price">
+          <span class="fw-bold">Booking Price:</span> {{booking.booking_price}}
+        </div>
+        <div class="booked-bus-id" >
+          <span class="fw-bold">Booked Bus Number:</span> {{booking.bus_number}}
+        </div>
+        <div class="booked-on">
+          <span class="fw-bold">Booked On:</span>
+          {{booking.booked_on.strftime('%d-%m-%Y %H:%M:%S')}}
+        </div>
+        <div class="booking-seats">
+          <span class="fw-bold">Booked Seats:</span> {% for i in
+          booking.booked_tickets.window_left %} A{{i}} {% endfor %} {% for i in
+          booking.booked_tickets.left %} B{{i}} {% endfor %} {% for i in
+          booking.booked_tickets.right %} C{{i}} {% endfor %} {% for i in
+          booking.booked_tickets.window_right %} D{{i}} {% endfor %}
+          
+           
+          <!-- <i class="fa-solid fa-trash fa-lg" id="cancel-{{booking._id}}" style="cursor: pointer" title="Delete"></i> -->
+          
+          
+  
+  
+        </div>
+       
+       
+    </div>
+    <div class="cancel_book">
+      <span id="dustbin-{{booking._id}}">
+      
+       
+      </span>
+    </div>
+    
+    </div>
+  </div>
+  
+  <script>
+    function SelectiveCancellation(){
           var date = document.getElementById("bookingdate-{{booking._id}}").innerHTML;
           var array = date.split('-');
-          
           var a = parseInt(array[0]);
           var b = parseInt(array[1]);
-
-          prepended_out = String(b).padStart(2, '0');
-
-          // alert(b);
           var c = parseInt(array[2]);
           var dateOne = new Date(a, b-1 , c);
           console.log(dateOne);
-          // alert(dateOne);
           var today = new Date();
           console.log(today);
           if(dateOne > today){
-            document.getElementById("dustbin-{{booking._id}}").innerHTML += '<i class="fa-solid fa-trash fa-lg" id="cancel-{{booking._id}}" style="cursor: pointer" title="Delete"></i>';
+            document.getElementById("dustbin-{{booking._id}}").innerHTML += '<button class="cancel" id="cancel-{{booking._id}}" style="cursor: pointer" title="Cancel">Cancel</button>';
+        }
+    };
+    
+    
+    SelectiveCancellation();
+    
+    function CancellationClick(){
+        document.addEventListener("click", (e) => {
+        if (e.target.id === "cancel-{{booking._id}}") {
+          if (confirm("Are you sure you want to cancel this booking?")) {
+            window.location.href =
+              '{{ url_for("book.cancel_booking", booking_id=booking._id) }}';
           }
-          
+        }
+      });
+    };
 
-
-
-         </script>
-        <script>
-          document.addEventListener("click", (e) => {
-            if (e.target.id === "cancel-{{booking._id}}") {
-              if (confirm("Are you sure you want to cancel this booking?")) {
-                window.location.href =
-                  '{{ url_for("book.cancel_booking", booking_id=booking._id) }}';
-              }
-            }
-          });
-        </script>
-        
-
-
-      </div>
-    </div>
-  </div>
+    CancellationClick();
+    
+  </script>
   {% endfor %} {% else %}
   <h3 class="text-center">No bookings found</h3>
   {% endif %}

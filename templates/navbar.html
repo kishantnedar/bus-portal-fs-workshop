@@ -18,6 +18,18 @@
                         <a class="nav-link text-white" href="/bookings/102">Bookings</a>
                     </li>
                     
+                    {% if user %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('logout')}}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('login')}}">Login</a>
+                    </li>
+                    {% endif %}
+                    
+                   
+                    
                 </div>
             </div>
         </ul>

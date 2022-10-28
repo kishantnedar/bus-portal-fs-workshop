@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block title %} Index {% endblock %}
+{% include 'navbar.html' %}
+{% block content %}
+
+
+
+<div class="login_form_wrapper">
+    <form method="post" action="{{url_for('login')}}">
+        <div class="mb-3 login_form">
+          <label for="user-pno" class="form-label">Phone Number</label>
+          <input type="text" class="form-control w-25" id="user-pno" name="user-pno" placeholder="Enter valid phone number" pattern="[7-9][0-9]{9}" required>
+          <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+{% include 'footer.html' %} 
+{% endblock %}

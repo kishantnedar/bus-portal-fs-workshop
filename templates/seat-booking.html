@@ -136,36 +136,7 @@ include 'navbar.html' %} {% block content %}
     <input type="hidden" name="price" id="price" />
     <input type="hidden" name="schedule_id" value="{{ bus['_id'] }}" />
     <input type="hidden" name="bus_id" value="{{ bus['bus_number'] }}" />
-    <script type="text/javascript">
-      function calculate_price() {
-        var window_seat_price =
-          document.getElementById("window_seat_price").value;
-        var normal_seat_price =
-          document.getElementById("normal_seat_price").value;
-        var window_seat_count = document.querySelectorAll(
-          ".window_seat:checked"
-        ).length;
-        var normal_seat_count = document.querySelectorAll(
-          ".normal_seat:checked"
-        ).length;
-        document.getElementById("total_price").innerHTML =
-          window_seat_count * window_seat_price +
-          normal_seat_count * normal_seat_price;
-        document.getElementById("price").value =
-          window_seat_count * window_seat_price +
-          normal_seat_count * normal_seat_price;
-      }
-      function validateBooking() {
-        if (document.getElementById("total_price").innerHTML == 0) {
-          alert("You cannot book without selecting seats!");
-          event.preventDefault();
-        } else {
-          document.forms[0].action = "{{ url_for('book.confirm_booking') }}";
-          document.forms[0].submit();
-          return true;
-        }
-      }
-    </script>
+   
   </form>
 
   <div class="flex-fill">
@@ -195,6 +166,7 @@ include 'navbar.html' %} {% block content %}
       <button
         type="submit"
         form="seats"
+        id="book-btn"
         class="btn btn-outline-danger btn-block mt-4"
         onclick="validateBooking()"
       >
@@ -210,6 +182,41 @@ include 'navbar.html' %} {% block content %}
           document.querySelector("#bus-startfin").innerText =
             data.start + " -> " + data.destination;
         });
+    </script>
+     <script type="text/javascript">
+      function calculate_price() {
+        var window_seat_price =
+          document.getElementById("window_seat_price").value;
+        var normal_seat_price =
+          document.getElementById("normal_seat_price").value;
+        var window_seat_count = document.querySelectorAll(
+          ".window_seat:checked"
+        ).length;
+        var normal_seat_count = document.querySelectorAll(
+          ".normal_seat:checked"
+        ).length;
+        document.getElementById("total_price").innerHTML =
+          window_seat_count * window_seat_price +
+          normal_seat_count * normal_seat_price;
+        document.getElementById("price").value =
+          window_seat_count * window_seat_price +
+          normal_seat_count * normal_seat_price;
+      }
+      function validateBooking() {
+        if (document.getElementById("total_price").innerHTML == 0) {
+          alert("You cannot book without selecting seats!");
+          event.preventDefault();
+        } else {
+          
+          document.forms[0].action = "{{ url_for('book.confirm_booking') }}";
+          document.forms[0].submit();
+          return true;
+        }
+      }
+
+      document.getElementById("seats").addEventListener("submit",function(){
+        document.getElementById("book-btn").setAttribute("disabled", "true");
+      });
     </script>
   </div>
 </div>
