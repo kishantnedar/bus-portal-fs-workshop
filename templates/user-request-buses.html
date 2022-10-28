@@ -6,62 +6,66 @@ include 'navbar.html' %} {% block content %}
   <h1 class="text-center">Choose an available bus</h1>
   {% for bus in buses %}
 
-  <a class="buslink" href="{{url_for('book.seat_book', schedule_id=bus._id)}}">
-    <div class="bus_list">
-      <div class="bus_icon">
-        <img
-          class="bus_icon_image"
-          src="{{ url_for('static', filename='img/buss.png') }}"
-          alt="bus image here"
-        />
-      </div>
-      <div class="bus_info">
-        <div class="top_row">
-          <h3 class="bus_info_name" id="bus_info_name_{{bus._id}}">
-            {{ bus.name }}
-          </h3>
-          <p class="bus_info_startfin" id="bus_info_startfin_{{bus._id}}">
-            {{ bus.start }} ➜ {{ bus.destination}}
-          </p>
+ 
+   
+      <div class="bus_list">
+        <div class="bus_icon">
+          <img
+            class="bus_icon_image"
+            src="{{ url_for('static', filename='img/buss.png') }}"
+            alt="bus image here"
+          />
         </div>
-        <div class="bottom_row">
-          <p>{{ day }}</p>
-          <p>{{ bus.departure_time}} -> {{bus.arrival_time}}</p>
-
-          <p class="bus_info_icon">🎫Window Seat ₹{{ bus.window_seat_price}}</p>
-          <p class="bus_info_icon">🎫Normal Seat ₹{{ bus.normal_seat_price}}</p>
+        <!-- <div class="bus_info_wrapper"> -->
+          
+          <a class="buslink" href="{{url_for('book.seat_book', schedule_id=bus._id)}}">
+            <div class="bus_info">
+              <div class="top_row">
+                <h3 class="bus_info_name" id="bus_info_name_{{bus._id}}">
+                  {{ bus.name }}
+                </h3>
+                <p class="bus_info_startfin" id="bus_info_startfin_{{bus._id}}">
+                  {{ bus.start }} ➜ {{ bus.destination}}
+                </p>
+              </div>
+              <div class="bottom_row">
+                <p>{{ day }}</p>
+                <p>{{ bus.departure_time}} -> {{bus.arrival_time}}</p>
+      
+                <p class="bus_info_icon">🎫Window Seat ₹{{ bus.window_seat_price}}</p>
+                <p class="bus_info_icon">🎫Normal Seat ₹{{ bus.normal_seat_price}}</p>
+              </div>
+              <script>
+                //fetch bus details from api
+                fetch("{{url_for('bus.get_bus', bus_no=bus.bus_number)}}")
+                  .then((res) => res.json())
+                  .then((data) => {
+                    document.querySelector("#bus_info_name_{{bus._id}}").textContent =
+                      data.name;
+                    document.querySelector(
+                      "#bus_info_startfin_{{bus._id}}"
+                    ).textContent = `${data.start} ➜ ${data.destination}`;
+                  });
+              </script>
+  <!--              
+            </div>
+            <div>
+              <a class="buslink" href="{{url_for('book.seat_book', schedule_id=bus._id)}}"><button class="book_button" >Book this bus</button> </a>
+            </div> -->
+          </div>
+          </a>
+          
+       
         </div>
-        <script>
-          //fetch bus details from api
-          fetch("{{url_for('bus.get_bus', bus_no=bus.bus_number)}}")
-            .then((res) => res.json())
-            .then((data) => {
-              document.querySelector("#bus_info_name_{{bus._id}}").textContent =
-                data.name;
-              document.querySelector(
-                "#bus_info_startfin_{{bus._id}}"
-              ).textContent = `${data.start} ➜ ${data.destination}`;
-            });
-        </script>
-      </div>
-    </div>
-  </a>
+      
+ 
 
   {% endfor %} {% else %}
   <h1 class="text-center">No buses available</h1>
   {% endif %}
 </div>
-<footer class="footer">
-  <div class="footwrap">
-    <div class="footsec1">
-      <h3>© UseBusesInc.</h3>
-      <p>Address: Sunteck Kanaka Panjim Goa</p>
-    </div>
-    <div class="footsec2">
-      <i class="fa-brands fa-3x fa-instagram icons"></i>
-      <i class="fa-brands fa-3x fa-facebook icons"></i>
-      <i class="fa-brands fa-3x fa-youtube icons"></i>
-    </div>
-  </div>
-</footer>
+
+
+{% include 'footer.html' %} 
+
 {% endblock %}
