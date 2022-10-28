@@ -34,7 +34,7 @@ class Schedule:
         self.arrival_time = arrival_time
         if isinstance(seats, int):
             self.seats = Seats(
-                seat_count=seats, normal_price=int(normal_seat_price), window_price=int(window_seat_price)).__dict__
+                seat_count=seats, normal_price=float(normal_seat_price), window_price=float(window_seat_price)).__dict__
         else:
             self.bus_seats = seats
         self.normal_seat_price = normal_seat_price

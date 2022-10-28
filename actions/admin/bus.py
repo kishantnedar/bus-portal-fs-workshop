@@ -40,5 +40,5 @@ class AdminActions:
 
     def schedule_bus(self, schedule):
         _schedule = Schedule(
-            bus_number=schedule['bus_number'], scheduled_on=schedule['date'],  departure_time=schedule['start_time'], arrival_time=schedule['end_time'], seats=int(float(schedule['seat_count'])), normal_seat_price=schedule['normal_seat_price'], window_seat_price=schedule['window_seat_price'], seat_columns=int(float(schedule['seat_count']))).__dict__
+            bus_number=int(schedule['bus_number']), scheduled_on=schedule['date'],  departure_time=schedule['start_time'], arrival_time=schedule['end_time'], seats=int(float(schedule['seat_count'])), normal_seat_price=schedule['normal_seat_price'], window_seat_price=schedule['window_seat_price'], seat_columns=int(float(schedule['seat_count']))).__dict__
         return self._mongo.insert(database=self._db, collection='schedule', dictionary=_schedule)

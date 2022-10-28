@@ -58,7 +58,7 @@ def schedule_bus():
         schedule = request.form
         print(schedule)
         bus = AdminActions().get_selected_bus(int(schedule['bus_number']))
-        if get_day_name(schedule['date']) not in bus['bus_runs_on']:
+        if get_day_name(schedule['date']) not in bus['runs_on']:
             flash('Bus does not run on this day', 'alert-danger')
             return redirect(url_for('admin.schedule_bus'), bus=AdminActions().get_selected_bus(schedule['bus_id']))
         AdminActions().schedule_bus(schedule=request.form)
