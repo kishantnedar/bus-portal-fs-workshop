@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from jinja2 import TemplateNotFound
 from actions.admin.bus import AdminActions
-from actions.booking.booking import BookingActions
 from actions.bus.bus import BusActions
 from pymongo.errors import DuplicateKeyError
 from util.date_utils import get_day_name
@@ -61,7 +60,7 @@ def schedule_bus():
         schedule = request.form
         print(schedule)
         bus = BusActions().get_bus(int(schedule['bus_number']))
-        if get_day_name(schedule['date']) not in bus['bus_runs_on']:
+        if get_day_name(schedule['date']) not in bus['runs_on']:
             flash('Bus does not run on this day', 'alert-danger')
             return redirect(url_for('admin.schedule_bus'), bus=BusActions().get_bus(schedule['bus_id']))
         AdminActions().schedule_bus(schedule=request.form)
@@ -73,6 +72,18 @@ def schedule_bus():
     else:
         flash('Bus not found', 'alert-danger')
         return redirect(url_for('admin.index'))
+
+@admin.route('/cancel-schedule', methods=['GET'])
+def cancel_schedule():
+    schedule_id = request.args.get('schedule_id')
+    bus_schedule = BusActions().get_bus_schedule(schedule_id)
+    if bus_schedule == None:
+        BusActions.cancel_schedule(schedule_id)
+        flash('Schedule cancelled', 'alert-success')
+        return redirect(url_for('admin.view_bus', bus_id=bus_schedule['bus_number']))
+    else:
+        flash('Schedule contains bookings', 'alert-danger')
+        return redirect(url_for('admin.view_bus', bus_id=bus_schedule['bus_number']))
 
 
 @admin.route('/get-bus-details', methods=['GET'])

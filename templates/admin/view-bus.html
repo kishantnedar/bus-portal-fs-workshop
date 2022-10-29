@@ -21,19 +21,32 @@ content %}
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Schedule ID</th>
                     <th scope="col">Scheduled On</th>
                     <th scope="col">Departure</th>
                     <th scope="col">Arrival</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% if bus_schedules %} {% for schedule in bus_schedules %}
                 <tr>
-                    <td>{{ schedule._id }}</td>
                     <td>{{ schedule.scheduled_on }}</td>
                     <td>{{ schedule.departure_time }}</td>
                     <td>{{ schedule.arrival_time }}</td>
+                    <td>
+                        <i class="fa-solid fa-trash fa-lg" id="delete-schedule-{{schedule._id}}" style="cursor: pointer"
+                            title="Delete"></i>
+                        <script>
+                            document.addEventListener("click", (e) => {
+                                if (e.target.id === "delete-schedule-{{schedule._id}}") {
+                                    if (confirm("Are you sure you want to delete this schedule?")) {
+                                        window.location.href =
+                                            '{{ url_for("admin.cancel_schedule", schedule_id=schedule._id) }}';
+                                    }
+                                }
+                            });
+                        </script>
+                    </td>
                 </tr>
                 {% endfor %} {% else %}
                 <tr>

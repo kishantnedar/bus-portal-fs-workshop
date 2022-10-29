@@ -5,11 +5,7 @@ content %}
   <h1 class="text-center">Welcome to Admin Portal</h1>
 
   <div class="clearfix">
-    <span class="float-end"
-      ><a href="{{ url_for('admin.add_bus') }}" class="btn btn-primary"
-        >ADD</a
-      ></span
-    >
+    <span class="float-end"><a href="{{ url_for('admin.add_bus') }}" class="btn btn-primary">ADD</a></span>
   </div>
   <div class="container mt-5 shadow p-4 mb-4 bg-white">
     <table class="table">
@@ -32,20 +28,14 @@ content %}
           <td>{{ bus.normal_seat_price }}</td>
           <td>{{ bus.window_seat_price }}</td>
           <td>
-            <a href="{{ url_for('admin.view_bus', bus_id=bus._id) }}"
-              ><i
-                class="fa-solid fa-circle-info fa-lg"
-                style="color: #000"
-                title="View"
-              ></i
-            ></a>
+            <a href="{{ url_for('admin.view_bus', bus_id=bus._id) }}"><i class="fa-solid fa-circle-info fa-lg"
+                style="color: #000" title="View"></i></a>
             &nbsp;
-            <i
-              class="fa-solid fa-trash fa-lg"
-              id="bus-delete-{{bus._id}}"
-              style="cursor: pointer"
-              title="Delete"
-            ></i>
+            <a href="{{ url_for('admin.schedule_bus', bus_number=bus._id) }}" class="text-decoration-none"><i
+                class="fa-solid fa-calendar-days fa-lg" style="color: #000" title="Schedule"></i>
+            </a>
+            &nbsp;
+            <i class="fa-solid fa-trash fa-lg" id="bus-delete-{{bus._id}}" style="cursor: pointer" title="Delete"></i>
             <script>
               document.addEventListener("click", (e) => {
                 if (e.target.id === "bus-delete-{{bus._id}}") {
@@ -56,18 +46,13 @@ content %}
                 }
               });
             </script>
-            &nbsp;
-            <a href="{{ url_for('admin.schedule_bus', bus_number=bus._id) }}"
-              ><i
-                class="fa-solid fa-calendar-days fa-lg"
-                style="color: #000"
-              ></i>
-            </a>
           </td>
         </tr>
         {% endfor %} {% else %}
         <tr>
-          <td colspan="6" class="text-center"><h2>No buses found!</h2></td>
+          <td colspan="6" class="text-center">
+            <h2>No buses found!</h2>
+          </td>
         </tr>
         {% endif %}
       </tbody>

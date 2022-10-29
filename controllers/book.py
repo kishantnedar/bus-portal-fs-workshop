@@ -8,14 +8,17 @@ booking = Blueprint('book', __name__)
 
 @booking.route('/search', methods=['GET'])
 def search_bus():
-    if request.method == 'POST':
-        date = request.form['date']
-        session['date'] = date
-        print(session['date'])
-        day = get_day_name(session['date'])
-        print(day)
-        bus_list = BookingActions().get_user_request_buses(search=request.form)
-        return render_template('user-request-buses.html', buses=bus_list, day=day)
+    if not session.get("user"):
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            date = request.form['date']
+            session['date'] = date
+            print(session['date'])
+            day = get_day_name(session['date'])
+            print(day)
+            bus_list = BookingActions().get_user_request_buses(search=request.form)
+            return render_template('user-request-buses.html', buses=bus_list, day=day)
 
 
 @booking.route('/book/<schedule_id>')
