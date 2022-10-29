@@ -40,6 +40,13 @@ def view_bus():
     return redirect(url_for('admin.index'))
 
 
+@admin.route('/view-scheduled-bus', methods=['GET', 'POST'])
+def view_scheduled_bus():
+    schedule_id = request.args.get('schedule_id')
+    schedule = BusActions().get_bus_schedule(schedule_id)
+    return render_template('admin/view-scheduled-bus.html', bus=schedule)
+
+
 @admin.route('/remove-bus', methods=['GET'])
 def remove_bus():
     bus_id = int(request.args.get('bus_id'))
