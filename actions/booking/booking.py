@@ -84,6 +84,13 @@ class BookingActions:
             database=self._db, collection='bookings', query={"bus_number": bus_id})]
         return booking
 
+    def get_bookings_by_schedule(self, schedule_id):
+        try:
+            return [Booking(**booking) for booking in self._mongo.find(
+            database=self._db, collection='bookings', query={"schedule_id": schedule_id})]
+        except ValueError as e:
+            return None
+
     def delete_booking(self, booking_id):
         self._mongo.delete(database=self._db, collection='bookings', query={
                            '_id': booking_id})
