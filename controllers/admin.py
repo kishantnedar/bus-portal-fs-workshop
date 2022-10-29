@@ -45,11 +45,9 @@ def remove_bus():
     if bus_id:
         try:
             bus_schedules = BusActions().get_bus_schedules(bus_id)
-            print(f"Bus contains bookings {len(bus_schedules)}")
             flash('Unable to delete bus since it has bookings', 'alert-danger')
         except ValueError:
             AdminActions().delete_bus(bus_id)
-            print('Bus removed')
             flash('Bus removed', 'alert-success')
     return redirect(url_for('admin.index'))
 
@@ -58,7 +56,6 @@ def remove_bus():
 def schedule_bus():
     if request.method == 'POST':
         schedule = request.form
-        print(schedule)
         bus = BusActions().get_bus(int(schedule['bus_number']))
         if get_day_name(schedule['date']) not in bus['runs_on']:
             flash('Bus does not run on this day', 'alert-danger')

@@ -15,16 +15,12 @@ class BookingActions:
         start_location = search['from']
         destination_location = search['to']
         date = search['date']
-        print(date)
         day = get_day_name(date)
-        print(day)
         try:
             mongo_busses_object = self._mongo.find(database=self._db, collection='buses',
                                                    query={'start': start_location, 'destination': destination_location, 'runs_on': day})
-            print(mongo_busses_object)
             mongo_scheduled_object = self._mongo.find(
                 database=self._db, collection='schedule', query={'bus_number': {'$in': [bus['_id'] for bus in mongo_busses_object]}, 'scheduled_on': search['date']})
-            print(mongo_scheduled_object)
         except ValueError as e:
             return None
         return [bus for bus in mongo_scheduled_object]
@@ -35,13 +31,9 @@ class BookingActions:
         return mongo_schedule_object
 
     def book_ticket(self, ticket):
-        print(ticket)
-        print(f'{ticket["bus_number"]}: {type(ticket["bus_number"])}')
         bus = self._mongo.find_one(database=self._db, collection='schedule', query={
             '_id': ticket['schedule_id']})
         seats = bus['seats']
-        print("_________________________________")
-        print(seats)
         for seat in ticket['window_left']:
             seats['window_left']['seats'][int(
                 seat)-1]['seat_occupied'] = True
@@ -83,7 +75,6 @@ class BookingActions:
         return bookings
 
     def get_booking(self, booking_id):
-        print(booking_id)
         booking = Booking(
             **self._mongo.find_one(database=self._db, collection='bookings', query={'_id': booking_id}))
         return booking
@@ -103,7 +94,7 @@ class BookingActions:
         booked_tickets = id_data['booked_tickets']
 
         bus_schedule = self._mongo.find_one(database=self._db, collection='schedule', query={
-                                   '_id': id_data['schedule_id']})
+            '_id': id_data['schedule_id']})
         seats = bus_schedule['seats']
         # left window seats cancellation code
 

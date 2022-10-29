@@ -11,13 +11,14 @@ def search_bus():
     if not session.get("user"):
         return redirect(url_for('login'))
     else:
-        if request.method == 'POST':
-            date = request.form['date']
+        if request.method == 'GET':
+            start = request.args.get('from')
+            destination = request.args.get('to')
+            date = request.args.get('date')
             session['date'] = date
-            print(session['date'])
             day = get_day_name(session['date'])
-            print(day)
-            bus_list = BookingActions().get_user_request_buses(search=request.form)
+            bus_list = BookingActions().get_user_request_buses(
+                search={'from': start, 'to': destination, 'date': date})
             return render_template('user-request-buses.html', buses=bus_list, day=day)
 
 
@@ -68,9 +69,6 @@ def cancel_booking():
         _user_id = 102
         _booking_id = request.args.get('booking_id')
         if _booking_id:
-            cancelled_booking = BookingActions().booking_cancellation(
-                booking_id=_booking_id, booked_by=_user_id)
-            print(cancelled_booking + ' booking cancelled successfully')
+            BookingActions().booking_cancellation(booking_id=_booking_id, booked_by=_user_id)
             flash('Booking cancelled successfully', 'alert-danger')
             return redirect(url_for('book.booking_list', user_id=_user_id))
-        return redirect(url_for('book.booking_list', user_id=_user_id))
