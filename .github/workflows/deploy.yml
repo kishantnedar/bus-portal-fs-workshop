@@ -50,6 +50,9 @@ jobs:
       - name: package aws cloudformation template
         run: |
           aws cloudformation package --template ./aws/cloudformation.yml --s3-bucket ${{ secrets.AWS_CF_BUCKET }} --output-template-file ./aws/cloudformation_output.yml
+      - name: create resource if not already created
+        run: |
+          aws cloudformation deploy --template-file ./aws/cloudformation_output.yml --s3-bucket deployments-knee --stack-name usebus --capabilities CAPABILITY_NAMED_IAM --parameter-overrides MongoDBHost=${{ secrets.DB_HOST }} MongoDBName=${{ secrets.DB_NAME }} MongoDBUsername=${{ secrets.DB_UNAME }} MongoDBPassword=${{ secrets.DB_PASSWD }} DockerImageUrl=${{ secrets.DOCKER_USERNAME }}/usebus-knee:latest --no-fail-on-empty-changeset
       - name: deploy aws cloudformation template
         run: |
-          aws cloudformation deploy --template-file ./aws/cloudformation_output.yml --s3-bucket ${{ secrets.AWS_CF_BUCKET }} --stack-name usebus --capabilities CAPABILITY_NAMED_IAM --parameter-overrides MongoUrl=${{ secrets.DB_HOST }} MongoDb=${{ secrets.DB_NAME }} MongoUser=${{ secrets.DB_UNAME }} MongoPassword=${{ secrets.DB_PASSWD }} DockerImageUrl=${{ secrets.DOCKER_USERNAME }}/usebus-knee:latest
+          aws cloudformation update-stack --stack-name usebus --use-previous-template --parameters ParameterKey=DockerImageUrl,UsePreviousParameter=True ParameterKey=MongoUser,UsePreviousValue=true ParameterKey=MongoUrl,UsePreviousValue=True ParameterKey=MongoDb,UsePreviousValue=True ParameterKey=MongoPassword,UsePreviousValue=True
