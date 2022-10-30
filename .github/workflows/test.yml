@@ -1,5 +1,5 @@
-name: learning-github-actions
-run-name: ${{ github.actor }} is learning GitHub actions
+name: test pushed changes
+run-name: ${{ github.actor }} - ${{ github.ref }} - ${{ github.sha }}
 on: [push]
 
 jobs:
