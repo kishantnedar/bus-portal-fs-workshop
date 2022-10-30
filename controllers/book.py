@@ -27,8 +27,9 @@ def seat_book(schedule_id):
     if not session.get("user"):
         return redirect(url_for('login'))
     else:
-        schedule = BookingActions().get_selected_schedule(schedule_id)
-        return render_template('seat-booking.html', bus=schedule, book_date=session['date'])
+        _schedule = BusActions().get_bus_schedule(schedule_id)
+        _bus = BusActions().get_bus(_schedule['bus_number'])
+        return render_template('seat-booking.html', schedule=_schedule, bus=_bus, book_date=session['date'])
 
 
 @booking.route('/confirm-booking', methods=['POST'])
@@ -37,7 +38,7 @@ def confirm_booking():
         return redirect(url_for('login'))
     else:
         if request.method == 'POST':
-            user_id = 102
+            user_id = session['user']
             bus_number = int(request.form['bus_id'])
             schedule_id = request.form['schedule_id']
             window_left = request.form.getlist('window_left_seats')
@@ -47,18 +48,18 @@ def confirm_booking():
             price = request.form['price']
             book_date = session['date']
             record = {'user_id': user_id, 'bus_number': bus_number, 'schedule_id': schedule_id, 'window_left': window_left,
-                    'window_right': window_right, 'left': left, 'right': right, 'booked_date': book_date, 'booking_price': price}
+                      'window_right': window_right, 'left': left, 'right': right, 'booked_date': book_date, 'booking_price': price}
             booking = BookingActions().book_ticket(record)
             session.pop('book_date', None)
             return render_template('booking-done.html', bus=BusActions().get_bus(bus_number), booking=booking)
 
 
-@booking.route('/bookings/<int:user_id>')
-def booking_list(user_id):
+@booking.route('/bookings')
+def booking_list():
     if not session.get("user"):
         return redirect(url_for('login'))
-    else:
-        return render_template('bookings-list.html', bookinglist=BookingActions().get_bookings(user_id))
+    bookings = BookingActions().get_bookings(session['user'])
+    return render_template('bookings-list.html', bookinglist=bookings)
 
 
 @booking.route('/cancel')
@@ -66,7 +67,7 @@ def cancel_booking():
     if not session.get("user"):
         return redirect(url_for('login'))
     else:
-        _user_id = 102
+        _user_id = session['user']
         _booking_id = request.args.get('booking_id')
         if _booking_id:
             BookingActions().booking_cancellation(booking_id=_booking_id, booked_by=_user_id)

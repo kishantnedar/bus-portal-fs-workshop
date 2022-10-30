@@ -4,9 +4,9 @@ include 'navbar.html' %} {% block content %}
 <div class="container d-flex">
   <form method="post" id="seats">
     <div class="shadow flex-fill" id="bus-outline">
-      {% for i in range(1, bus['seat_columns'] + 1) %}
+      {% for i in range(1, schedule['seat_columns'] + 1) %}
       <div class="mb-1">
-        {% if bus['seats']['window_left']['seats'][i-1]['seat_occupied'] ==
+        {% if schedule['seats']['window_left']['seats'][i-1]['seat_occupied'] ==
         False %}
         <!-- Left Window Seat -->
         <label title="Available" class="mx-2">
@@ -36,8 +36,8 @@ include 'navbar.html' %} {% block content %}
             disabled
           /><span style="font-size: 11px">A{{ i }}</span></label
         >
-        {% endif %} {% if bus['seats']['left']['seats'][i-1]['seat_occupied'] ==
-        False %}
+        {% endif %} {% if
+        schedule['seats']['left']['seats'][i-1]['seat_occupied'] == False %}
         <!-- Left Seat -->
         <label title="Available" class="mx-2">
           <img
@@ -70,7 +70,8 @@ include 'navbar.html' %} {% block content %}
 
         <span style="padding-left: 2rem">&nbsp;</span>
 
-        {% if bus['seats']['right']['seats'][i-1]['seat_occupied'] == False %}
+        {% if schedule['seats']['right']['seats'][i-1]['seat_occupied'] == False
+        %}
         <!-- Right Seat -->
         <label title="Available" class="mx-2">
           <img
@@ -100,7 +101,8 @@ include 'navbar.html' %} {% block content %}
           /><span style="font-size: 11px">C{{ i }}</span></label
         >
         {% endif %} {% if
-        bus['seats']['window_right']['seats'][i-1]['seat_occupied'] == False %}
+        schedule['seats']['window_right']['seats'][i-1]['seat_occupied'] ==
+        False %}
         <!-- Right Window Seat -->
         <label title="Available" class="mx-2">
           <img
@@ -134,33 +136,36 @@ include 'navbar.html' %} {% block content %}
       {% endfor %}
     </div>
     <input type="hidden" name="price" id="price" />
-    <input type="hidden" name="schedule_id" value="{{ bus['_id'] }}" />
-    <input type="hidden" name="bus_id" value="{{ bus['bus_number'] }}" />
-   
+    <input type="hidden" name="schedule_id" value="{{ schedule['_id'] }}" />
+    <input type="hidden" name="bus_id" value="{{ schedule['bus_number'] }}" />
   </form>
 
   <div class="flex-fill">
     <div class="container mt-3 d-grid px-5">
       <div class="d-flex">
-        <h1 class="flex-grow-1" id="bus-name"></h1>
+        <h1 class="flex-grow-1" id="bus-name">{{bus._id}} - {{bus.name}}</h1>
         <h4 class="pt-2" id="bus-date">{{ book_date }}</h4>
       </div>
-      <p class="lead mt-2" id="bus-startfin"></p>
-      <p class="lead mt-2">{{bus.departure_time}} -> {{bus.arrival_time}}</p>
+      <p class="lead mt-2" id="bus-startfin">
+        {{bus.start}} -> {{bus.destination}}
+      </p>
+      <p class="lead mt-2">
+        {{schedule.departure_time}} -> {{schedule.arrival_time}}
+      </p>
       <p class="mt-2">
         Window Seat Price:
-        <b>₹ {{ bus.window_seat_price }}</b>
+        <b>₹ {{ schedule.window_seat_price }}</b>
       </p>
-      <p>Normal Seat Price: <b>₹ {{ bus.normal_seat_price }}</b></p>
+      <p>Normal Seat Price: <b>₹ {{ schedule.normal_seat_price }}</b></p>
       <input
         type="hidden"
         id="window_seat_price"
-        value="{{ bus.window_seat_price }}"
+        value="{{ schedule.window_seat_price }}"
       />
       <input
         type="hidden"
         id="normal_seat_price"
-        value="{{ bus.normal_seat_price }}"
+        value="{{ schedule.normal_seat_price }}"
       />
       <p class="mt-2">Total Price: <b>₹&nbsp;</b><b id="total_price">0</b></p>
       <button
@@ -174,16 +179,8 @@ include 'navbar.html' %} {% block content %}
       </button>
       <img class="buss" src="../static/img/buss.jpg" alt="bus" />
     </div>
-    <script>
-      fetch("{{url_for('bus.get_bus', bus_no=bus['bus_number'])}}")
-        .then((response) => response.json())
-        .then((data) => {
-          document.querySelector("#bus-name").innerText = data.name;
-          document.querySelector("#bus-startfin").innerText =
-            data.start + " -> " + data.destination;
-        });
-    </script>
-     <script type="text/javascript">
+
+    <script type="text/javascript">
       function calculate_price() {
         var window_seat_price =
           document.getElementById("window_seat_price").value;
@@ -207,19 +204,17 @@ include 'navbar.html' %} {% block content %}
           alert("You cannot book without selecting seats!");
           event.preventDefault();
         } else {
-          
           document.forms[0].action = "{{ url_for('book.confirm_booking') }}";
           document.forms[0].submit();
           return true;
         }
       }
 
-      document.getElementById("seats").addEventListener("submit",function(){
+      document.getElementById("seats").addEventListener("submit", function () {
         document.getElementById("book-btn").setAttribute("disabled", "true");
       });
     </script>
   </div>
 </div>
 
-{% include 'footer.html' %} 
-{% endblock %}
+{% include 'footer.html' %} {% endblock %}

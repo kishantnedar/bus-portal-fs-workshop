@@ -21,7 +21,16 @@ def index():
 def add_bus():
     if request.method == 'POST':
         try:
-            AdminActions().add_bus(bus=request.form)
+            _bus = {'bus_number': request.form['bus_number'],
+                    'bus_name': request.form['bus_name'],
+                    'start_location': request.form['start_location'],
+                    'destination_location': request.form['destination_location'],
+                    'bus_reg_number': request.form['bus_reg_number'],
+                    'normal_seat_price': request.form['normal_seat_price'],
+                    'window_seat_price': request.form['window_seat_price'],
+                    'runs_on': request.form.getlist('runs_on'),
+                    'seat_columns': request.form['seat_columns']}
+            AdminActions().add_bus(bus=_bus)
         except DuplicateKeyError as e:
             flash('Bus already exists', 'alert-danger')
             return redirect(url_for('admin.add_bus'))
@@ -51,12 +60,11 @@ def view_scheduled_bus():
 def remove_bus():
     bus_id = int(request.args.get('bus_id'))
     if bus_id:
-        try:
-            BusActions().get_bus_schedules(bus_id)
-            flash('Unable to delete bus since it has bookings', 'alert-danger')
-        except ValueError:
-            AdminActions().delete_bus(bus_id)
+        if BusActions().get_bus_schedules(int(bus_id)) is None:
+            AdminActions().delete_bus(int(bus_id))
             flash('Bus removed', 'alert-success')
+        else:
+            flash('Unable to delete bus since it has bookings', 'alert-danger')
     return redirect(url_for('admin.index'))
 
 
@@ -77,6 +85,7 @@ def schedule_bus():
     else:
         flash('Bus not found', 'alert-danger')
         return redirect(url_for('admin.index'))
+
 
 @admin.route('/cancel-schedule', methods=['GET'])
 def cancel_schedule():

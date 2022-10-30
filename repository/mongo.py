@@ -4,7 +4,7 @@ class MongoRepository(object):
 
     def insert(self, database, collection, dictionary):
         try:
-            self._mongoclient[database][collection].insert_one(dictionary)
+            return self._mongoclient[database][collection].insert_one(dictionary)
         except TypeError:
             raise TypeError('dictionary must be of type dict')
 
@@ -15,6 +15,8 @@ class MongoRepository(object):
         return [result for result in query_result]
 
     def find_one(self, database, collection, query):
+        if self._mongoclient[database][collection].count_documents(query) == 0:
+            raise ValueError('No document found')
         return self._mongoclient[database][collection].find_one(query)
 
     def find_all(self, database, collection):
@@ -25,6 +27,8 @@ class MongoRepository(object):
         return self._mongoclient[database][collection].find(query, param)
 
     def update(self, database, collection, query, update):
+        if self._mongoclient[database][collection].count_documents(query) == 0:
+            raise ValueError('No document found')
         return self._mongoclient[database][collection].update_one(query, update)
 
     def delete(self, database, collection, query):

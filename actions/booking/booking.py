@@ -65,9 +65,11 @@ class BookingActions:
         return self._mongo.find_with_filter(database=self._db, collection='buses', query={}, param={"_id": 0, "start": 1, "destination": 1})
 
     def get_bookings(self, user_id):
-        bookings = [Booking(**booking)
+        try:
+            return [Booking(**booking)
                     for booking in self._mongo.find(database=self._db, collection='bookings', query={'booked_by': user_id})]
-        return bookings
+        except ValueError as e:
+            return None
 
     def get_booking(self, booking_id):
         booking = Booking(
@@ -82,7 +84,7 @@ class BookingActions:
     def get_bookings_by_schedule(self, schedule_id):
         try:
             return [Booking(**booking) for booking in self._mongo.find(
-            database=self._db, collection='bookings', query={"schedule_id": schedule_id})]
+                database=self._db, collection='bookings', query={"schedule_id": schedule_id})]
         except ValueError as e:
             return None
 

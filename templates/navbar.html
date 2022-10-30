@@ -1,37 +1,46 @@
 <nav class="navbar navbar-expand-sm bg-blue">
-    <div class="container-fluid">
-        <!-- Links -->
-        <ul class="navbar-nav">
-            <div class="main-title">
-                <a href="{{url_for('index')}}" class="text-decoration-none text-white">
-                <li><h1>useBus <i class="fa-solid fa-bus"></i></h1></li></a>
-            </div>
-            <div class="links">
-                <div class="empty">
-                    <!-- empty -->
-                </div>
-                <div class="links2">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ url_for('about_us')}}">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/bookings/102">Bookings</a>
-                    </li>
-                    
-                    {% if user %}
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ url_for('logout')}}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ url_for('login')}}">Login</a>
-                    </li>
-                    {% endif %}
-                    
-                   
-                    
-                </div>
-            </div>
-        </ul>
-    </div>
+  <div class="container-fluid">
+    <!-- Links -->
+    <ul class="navbar-nav">
+      <div class="main-title">
+        <a href="{{url_for('index')}}" class="text-decoration-none text-white">
+          <li>
+            <h1>useBus <i class="fa-solid fa-bus"></i></h1></li
+        ></a>
+      </div>
+      <div class="links">
+        <div class="empty">
+          <!-- empty -->
+        </div>
+        <div class="links2">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{{ url_for('about_us')}}"
+              >About</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white"
+              href="{{ url_for('book.booking_list')}}"
+              >Bookings</a
+            >
+          </li>
+
+          {% if user %}
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{{ url_for('logout')}}"
+              >Logout</a
+            >
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{{ url_for('login')}}"
+              >Login</a
+            >
+          </li>
+          {% endif %}
+        </div>
+      </div>
+    </ul>
+  </div>
 </nav>

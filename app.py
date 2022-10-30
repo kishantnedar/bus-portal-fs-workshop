@@ -41,18 +41,19 @@ def about_us():
     return render_template('about.html')
 
 
-
 @app.route('/login',  methods=["POST", "GET"])
 def login():
     if request.method == "POST":
-        session["user"] = request.form.get("user-pno")
+        session["user"] = int(request.form.get("user-pno"))
         return redirect(url_for('index'))
     return render_template("login.html")
+
 
 @app.route("/logout")
 def logout():
     session["user"] = None
     return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5007))

@@ -20,7 +20,7 @@ class AdminActions:
             reg_number=bus['bus_reg_number'],
             normal_seat_price=float(bus['normal_seat_price']),
             window_seat_price=float(bus['window_seat_price']),
-            runs_on=bus.getlist('runs_on'),
+            runs_on=bus['runs_on'],
             seat_columns=int(bus['seat_columns'])
         ).__dict__
         return self._mongo.insert(database=self._db, collection='buses', dictionary=_bus)

@@ -8,4 +8,4 @@ bus = Blueprint('bus', __name__)
 @bus.route('/bus/<int:bus_no>', methods=['GET'])
 def get_bus(bus_no):
     bus = BusActions().get_bus(bus_no)
-    return jsonify(bus)
+    return jsonify(bus) if bus else (jsonify({'message': 'No bus found'}), 404)
