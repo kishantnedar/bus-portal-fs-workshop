@@ -6,10 +6,10 @@ jobs:
   test-and-build:
     runs-on: ubuntu-latest
     env:
-      DB_HOST: ${{ secrets.MONGO_URL }}
-      DB_NAME: ${{ secrets.MONGO_DB_TEST }}
-      DB_UNAME: ${{ secrets.MONGO_USER }}
-      DB_PASSWD: ${{ secrets.MONGO_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME_TEST }}
+      DB_UNAME: ${{ secrets.DB_UNAME }}
+      DB_PASSWD: ${{ secrets.DB_PASSWD }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup Python
