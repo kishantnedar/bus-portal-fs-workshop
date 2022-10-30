@@ -35,4 +35,4 @@ jobs:
         run: |
           docker tag usebus-knee ${{ secrets.DOCKER_USERNAME }}/usebus-knee:$GITHUB_RUN_NUMBER
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push ${{ secrets.DOCKER_USERNAME }}usebus-knee:$GITHUB_RUN_NUMBER
+          docker push ${{ secrets.DOCKER_USERNAME }}/usebus-knee:$GITHUB_RUN_NUMBER
