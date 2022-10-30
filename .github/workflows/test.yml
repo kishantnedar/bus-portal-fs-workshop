@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build image
         run: |
-          docker build -t usebus-knee:$GITHUB_RUN_NUMBER .
+          docker build -t usebus-knee:latest .
       - name: Push image
         run: |
           docker tag usebus-knee ${{ secrets.DOCKER_USERNAME }}/usebus-knee:$GITHUB_RUN_NUMBER
