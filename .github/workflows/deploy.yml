@@ -1,5 +1,5 @@
-name: run unit tests and build and push image to docker hub
-run-name: ${{ github.actor }}\'s run is being tested and pushed to docker hub
+name: run unit tests and build and push image to docker hub then deploy to AWS Lightsail
+run-name: ${{ github.actor }}\'s changes are being tested, built and deployed
 on:
   push:
     branches: [main]

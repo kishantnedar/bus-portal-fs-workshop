@@ -1,5 +1,5 @@
-name: test pushed changes
-run-name: ${{ github.actor }} - ${{ github.ref }} - ${{ github.sha }}
+name: run unit tests and build and push image to docker hub
+run-name: ${{ github.actor }}\'s run is being tested and pushed to docker hub
 on: [push]
 
 jobs:
