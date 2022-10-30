@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Deploy a docker image to AWS Lightsail
+
+Parameters:
+  MongoUrl:
+    Type: String
+    Description: The URL of the MongoDB instance
+  MongoDb:
+    Type: String
+    Description: The name of the MongoDB database
+  MongoUser:
+    Type: String
+    Description: The username of the MongoDB user
+  MongoPassword:
+    Description: The password of the MongoDB user
+    Type: String
+  DockerImageUrl:
+    Type: String
+    Description: The URL of the Docker image
+
+Resources:
+  #lightsail container
+  LightsailContainer:
+    Type: AWS::Lightsail::Container
+    Properties:
+      Power: micro
+      Scale: 1
+      ServiceName: usebus-service
+      ContainerServiceDeployment:
+        Containers:
+          - Image: !Ref DockerImageUrl
+            ContainerName: usebus-service
+            Ports:
+              - Port: "5007"
+                Protocol: HTTP
+            Environment:
+              - Variable: DB_HOST
+                Value: !Ref MongoUrl
+              - Variable: DB_NAME
+                Value: !Ref MongoDb
+              - Variable: DB_UNAME
+                Value: !Ref MongoUser
+              - Variable: DB_PASSWD
+                Value: !Ref MongoPassword
+        PublicEndpoint:
+          ContainerPort: 5007
+          ContainerName: usebus-service
+
+Outputs:
+  LightsailContainerEndpoint:
+    Description: The endpoint of the Lightsail container
+    Value: !GetAtt LightsailContainer.Url

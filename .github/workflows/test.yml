@@ -1,6 +1,8 @@
 name: learning-github-actions
 run-name: ${{ github.actor }} is learning GitHub actions
-on: [push]
+on:
+  push:
+    branches: ["!main"]
 
 jobs:
   test-and-build:
