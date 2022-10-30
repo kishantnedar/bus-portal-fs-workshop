@@ -33,6 +33,6 @@ jobs:
           docker build -t usebus-knee:$GITHUB_RUN_NUMBER .
       - name: Push image
         run: |
-          docker tag usebus-knee:latest ${{ secrets.DOCKER_USERNAME }}/usebus-knee:latest
+          docker tag usebus-knee ${{ secrets.DOCKER_USERNAME }}/usebus-knee:latest
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ${{ secrets.DOCKER_USERNAME }}usebus-knee:latest
