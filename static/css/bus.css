@@ -358,7 +358,6 @@ textarea:focus {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 54%;
 }
 .cancel{
   background-color: red;
