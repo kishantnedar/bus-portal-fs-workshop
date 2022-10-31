@@ -38,7 +38,7 @@ def index():
 
 @app.route('/about')
 def about_us():
-    return render_template('about.html')
+    return render_template('about.html', user=session.get("user"))
 
 
 @app.route('/login',  methods=["POST", "GET"])

@@ -19,7 +19,7 @@ def search_bus():
             day = get_day_name(session['date'])
             bus_list = BookingActions().get_user_request_buses(
                 search={'from': start, 'to': destination, 'date': date})
-            return render_template('user-request-buses.html', buses=bus_list, day=day)
+            return render_template('user-request-buses.html', buses=bus_list, day=day, user=session.get("user"))
 
 
 @booking.route('/book/<schedule_id>')
@@ -29,7 +29,7 @@ def seat_book(schedule_id):
     else:
         _schedule = BusActions().get_bus_schedule(schedule_id)
         _bus = BusActions().get_bus(_schedule['bus_number'])
-        return render_template('seat-booking.html', schedule=_schedule, bus=_bus, book_date=session['date'])
+        return render_template('seat-booking.html', schedule=_schedule, bus=_bus, book_date=session['date'], user=session.get("user"))
 
 
 @booking.route('/confirm-booking', methods=['POST'])
@@ -51,7 +51,7 @@ def confirm_booking():
                       'window_right': window_right, 'left': left, 'right': right, 'booked_date': book_date, 'booking_price': price}
             booking = BookingActions().book_ticket(record)
             session.pop('book_date', None)
-            return render_template('booking-done.html', bus=BusActions().get_bus(bus_number), booking=booking)
+            return render_template('booking-done.html', bus=BusActions().get_bus(bus_number), booking=booking, user=session.get("user"))
 
 
 @booking.route('/bookings')
@@ -59,7 +59,7 @@ def booking_list():
     if not session.get("user"):
         return redirect(url_for('login'))
     bookings = BookingActions().get_bookings(session['user'])
-    return render_template('bookings-list.html', bookinglist=bookings)
+    return render_template('bookings-list.html', bookinglist=bookings, user=session.get("user"))
 
 
 @booking.route('/cancel')
