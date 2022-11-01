@@ -4,6 +4,9 @@
   margin: 0;
 }
 
+body{
+  padding-bottom: 240px;
+}
 /* login page css */
 
 .login_form_wrapper{
@@ -134,14 +137,14 @@ textarea:focus {
   }
 
 .footer {
-  /* position: fixed;
+  position: fixed;
   left: 0;
   bottom: 0;
-  width: 100%; */
+  width: 100%;
   margin: 20px 0 0 0;
-  background: rgb(0, 42, 124,0.9);
+  background: rgb(0, 42, 124);
   color: #E0FFFF;
-  height: 240px;
+  height: 150px;
   text-align: center;
   
 }
@@ -153,6 +156,7 @@ textarea:focus {
 
 .footwrap{
   display: flex;
+  flex-direction: row;
   justify-content: space-around;
 }
 .footsec1{
@@ -162,10 +166,10 @@ textarea:focus {
 }
 .footsec2{
   color: #E0FFFF;
-  padding: 20px;
+  padding: 50px 20px 20px 20px;
   display: flex;
   justify-content: space-around;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 /* Available buses page styling */
@@ -305,6 +309,8 @@ textarea:focus {
     height: 70px;
   }
   
+
+
   .form_elements{
     text-align: center;
     display: flex;
