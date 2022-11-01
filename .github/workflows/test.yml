@@ -1,9 +1,8 @@
-name: run unit tests and build and push image to docker hub
-run-name: ${{ github.actor }}\'s run is being tested and pushed to docker hub
-on: [push]
-
+name: run unit tests and build and push image to docker hub then deploy to AWS Lightsail
+run-name: ${{ github.actor }}\'s changes are being tested, built and deployed
+on: push
 jobs:
-  test-and-build:
+  test:
     runs-on: ubuntu-latest
     env:
       DB_HOST: ${{ secrets.DB_HOST }}
@@ -25,15 +24,56 @@ jobs:
           python -m pytest
   build-image:
     runs-on: ubuntu-latest
-    needs: test-and-build
+    needs: test
     steps:
       - uses: actions/checkout@v3
       - name: Build image
         run: |
-          docker build -t usebus-knee:latest .
+          docker build -t usebus-knee-test:latest .
       - name: Push image
         run: |
-          docker tag usebus-knee ${{ secrets.DOCKER_USERNAME }}/usebus-knee:$GITHUB_RUN_NUMBER
-          docker tag usebus-knee ${{ secrets.DOCKER_USERNAME }}/usebus-knee:latest
+          docker tag usebus-knee-test  ${{ secrets.DOCKER_USERNAME }}/usebus-knee-test:$GITHUB_RUN_NUMBER
+          docker tag usebus-knee-test ${{ secrets.DOCKER_USERNAME }}/usebus-knee-test:latest
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/usebus-knee
+          docker push --all-tags ${{ secrets.DOCKER_USERNAME }}/usebus-knee-test
+
+  deploy-latest-docker-image-to-lightsail:
+    runs-on: ubuntu-latest
+    needs: build-image
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: 'ap-south-1'
+    steps:
+      - uses: actions/checkout@v3
+      - name: set up lightsailctl
+        run: |
+          curl https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl -o /usr/local/bin/lightsailctl
+          chmod +x /usr/local/bin/lightsailctl
+      - name: package aws cloudformation template
+        run: |
+          aws cloudformation package --template ./aws/cloudformation.yml --s3-bucket deployments-knee --output-template-file ./aws/cloudformation_output.yml
+      - name: create resource if not already created
+        run: |
+          aws cloudformation deploy --template-file ./aws/cloudformation_output.yml --s3-bucket deployments-knee --stack-name usebus-test --capabilities CAPABILITY_NAMED_IAM --parameter-overrides MongoUrl="${{secrets.DB_HOST}}" MongoDb="${{secrets.DB_NAME_TEST}}" MongoUser="${{secrets.DB_UNAME}}" MongoPassword="${{secrets.DB_PASSWD}}" DockerImageUrl="${{secrets.DOCKER_USERNAME}}/usebus-knee-test:latest" LightsailServiceName="usebus-service-test"
+      - name: create deployment
+        run: |
+          aws lightsail create-container-service-deployment --service-name usebus-service-test \
+          --containers "{
+            \"usebus-service-test\": {
+              \"image\": \"kishantnedar/usebus-knee-test:latest\",
+              \"environment\": {
+                \"DB_HOST\": \"${{ secrets.DB_HOST }}\",
+                \"DB_NAME\": \"${{ secrets.DB_NAME_TEST }}\",
+                \"DB_UNAME\": \"${{ secrets.DB_UNAME }}\",
+                \"DB_PASSWD\": \"${{ secrets.DB_PASSWD }}\"
+              },
+              \"ports\": {
+                \"5007\": \"HTTP\"
+              }
+            }
+          }" \
+          --public-endpoint "{
+            \"containerName\": \"usebus-service-test\",
+            \"containerPort\": 5007
+          }"
