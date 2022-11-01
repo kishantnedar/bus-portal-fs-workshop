@@ -2,7 +2,7 @@ name: run unit tests and build and push image to docker hub then deploy to AWS L
 run-name: ${{ github.actor }}\'s changes are being tested, built and deployed
 on: push
 jobs:
-  test-and:
+  test:
     runs-on: ubuntu-latest
     env:
       DB_HOST: ${{ secrets.DB_HOST }}
@@ -24,7 +24,7 @@ jobs:
           python -m pytest
   build-image:
     runs-on: ubuntu-latest
-    needs: test-and-build
+    needs: test
     steps:
       - uses: actions/checkout@v3
       - name: Build image
@@ -39,6 +39,7 @@ jobs:
 
   deploy-latest-docker-image-to-lightsail:
     runs-on: ubuntu-latest
+    needs: build-image
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
