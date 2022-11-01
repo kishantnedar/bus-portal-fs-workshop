@@ -144,7 +144,7 @@ textarea:focus {
   margin: 20px 0 0 0;
   background: rgb(0, 42, 124);
   color: #E0FFFF;
-  height: 150px;
+  height: 100px;
   text-align: center;
   
 }
@@ -162,11 +162,11 @@ textarea:focus {
 .footsec1{
 
   color: #E0FFFF;
-  padding: 50px 20px 20px 20px;
+  padding: 10px 20px 20px 20px;
 }
 .footsec2{
   color: #E0FFFF;
-  padding: 50px 20px 20px 20px;
+  padding: 30px 20px 20px 20px;
   display: flex;
   justify-content: space-around;
   flex-direction: row;
