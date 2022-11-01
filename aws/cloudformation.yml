@@ -19,6 +19,9 @@ Parameters:
   DockerImageUrl:
     Type: String
     Description: The URL of the Docker image
+  LightsailServiceName:
+    Type: String
+    Description: The name of the Lightsail service
 
 Resources:
   #lightsail container
@@ -27,7 +30,7 @@ Resources:
     Properties:
       Power: micro
       Scale: 1
-      ServiceName: usebus-service
+      ServiceName: !Ref LightsailServiceName
       ContainerServiceDeployment:
         Containers:
           - Image: !Ref DockerImageUrl

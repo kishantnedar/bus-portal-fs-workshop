@@ -47,12 +47,34 @@ jobs:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
     steps:
       - uses: actions/checkout@v3
+      - name: set up lightsailctl
+        run: |
+          curl https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl -o /usr/local/bin/lightsailctl
+          chmod +x /usr/local/bin/lightsailctl
       - name: package aws cloudformation template
         run: |
-          aws cloudformation package --template ./aws/cloudformation.yml --s3-bucket ${{ secrets.AWS_CF_BUCKET }} --output-template-file ./aws/cloudformation_output.yml
+          aws cloudformation package --template ./aws/cloudformation.yml --s3-bucket deployments-knee --output-template-file ./aws/cloudformation_output.yml
       - name: create resource if not already created
         run: |
-          aws cloudformation deploy --template-file ./aws/cloudformation_output.yml --s3-bucket deployments-knee --stack-name usebus --capabilities CAPABILITY_NAMED_IAM --parameter-overrides MongoDBHost=${{ secrets.DB_HOST }} MongoDBName=${{ secrets.DB_NAME }} MongoDBUsername=${{ secrets.DB_UNAME }} MongoDBPassword=${{ secrets.DB_PASSWD }} DockerImageUrl=${{ secrets.DOCKER_USERNAME }}/usebus-knee:latest --no-fail-on-empty-changeset
-      - name: deploy aws cloudformation template
+          aws cloudformation deploy --template-file ./aws/cloudformation_output.yml --s3-bucket deployments-knee --stack-name usebus --capabilities CAPABILITY_NAMED_IAM --parameter-overrides LightsailServiceName=usebus-service MongoDBHost=${{ secrets.DB_HOST }} MongoDBName=${{ secrets.DB_NAME }} MongoDBUsername=${{ secrets.DB_UNAME }} MongoDBPassword=${{ secrets.DB_PASSWD }} DockerImageUrl=${{ secrets.DOCKER_USERNAME }}/usebus-knee:latest --no-fail-on-empty-changeset
+      - name: create deployment
         run: |
-          aws cloudformation update-stack --stack-name usebus --use-previous-template --parameters ParameterKey=DockerImageUrl,UsePreviousParameter=True ParameterKey=MongoUser,UsePreviousValue=true ParameterKey=MongoUrl,UsePreviousValue=True ParameterKey=MongoDb,UsePreviousValue=True ParameterKey=MongoPassword,UsePreviousValue=True
+          aws lightsail create-container-service-deployment --service-name usebus-service \
+          --containers "{
+            \"usebus-service\": {
+              \"image\": \"kishantnedar/usebus-knee:latest\",
+              \"environment\": {
+                \"DB_HOST\": \"${{ secrets.DB_HOST }}\",
+                \"DB_NAME\": \"${{ secrets.DB_NAME }}\",
+                \"DB_UNAME\": \"${{ secrets.DB_UNAME }}\",
+                \"DB_PASSWD\": \"${{ secrets.DB_PASSWD }}\"
+              },
+              \"ports\": {
+                \"5007\": \"HTTP\"
+              }
+            }
+          }" \
+          --public-endpoint "{
+            \"containerName\": \"usebus-service\",
+            \"containerPort\": 5007
+          }"
