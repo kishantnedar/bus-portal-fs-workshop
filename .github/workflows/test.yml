@@ -55,7 +55,7 @@ jobs:
           aws cloudformation package --template ./aws/cloudformation.yml --s3-bucket deployments-knee --output-template-file ./aws/cloudformation_output.yml
       - name: create resource if not already created
         run: |
-          aws cloudformation deploy --template-file ./aws/cloudformation_output.yml --s3-bucket deployments-knee --stack-name usebus-test --capabilities CAPABILITY_NAMED_IAM --parameter-overrides  MongoDBHost=${{ secrets.DB_HOST }} MongoDBName=${{ secrets.DB_NAME }} MongoDBUsername=${{ secrets.DB_UNAME }} MongoDBPassword=${{ secrets.DB_PASSWD }} DockerImageUrl=${{ secrets.DOCKER_USERNAME }}/usebus-knee:latest LightsailServiceName='usebus-service-test'
+          aws cloudformation deploy --template-file ./aws/cloudformation_output.yml --s3-bucket deployments-knee --stack-name usebus-test --capabilities CAPABILITY_NAMED_IAM --parameter-overrides MongoDBHost=${{ secrets.DB_HOST }} MongoDBName=${{ secrets.DB_NAME }} MongoDBUsername=${{ secrets.DB_UNAME }} MongoDBPassword=${{ secrets.DB_PASSWD }} DockerImageUrl=${{ secrets.DOCKER_USERNAME }}/usebus-knee:latest LightsailServiceName='usebus-service-test'
       - name: create deployment
         run: |
           aws lightsail create-container-service-deployment --service-name usebus-service-test \
