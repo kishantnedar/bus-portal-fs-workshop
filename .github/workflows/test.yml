@@ -1,8 +1,6 @@
 name: run unit tests and build and push image to docker hub then deploy to AWS Lightsail
 run-name: ${{ github.actor }}\'s changes are being tested, built and deployed
-on:
-  push:
-    branches: [main]
+on: push
 jobs:
   test-and:
     runs-on: ubuntu-latest
